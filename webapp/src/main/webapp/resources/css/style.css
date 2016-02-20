@@ -1,0 +1,30 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2016-jan-15, 12:45:39
+    Author     : kim
+*/
+html
+{
+    font-family: "Times New Roman", Times, serif;
+}
+.title
+{
+    text-align: center;
+    font-weight: bold;
+}
+.footer
+{
+    text-align: center;
+}
+.Fine
+{
+    color: green;
+}
+.Major
+{
+    color: red;
+}

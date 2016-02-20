@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    
+    <h:head>        
+        <h:outputStylesheet library="css" name="style.css"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />		 
+        <title>Recruit</title> 
+    </h:head> 
+    <h:body>
+        <ui:insert name="header">
+            <ui:include src="/templates/default/header.xhtml" />
+        </ui:insert>
+        <b:container>              
+            <b:row>
+                <b:column span="4">
+                </b:column>
+                <b:column span="4">      
+                    <!-- Place-holder for page-specific content -->
+                    <ui:insert name="content" />
+                </b:column>
+                <b:column span="4">
+                </b:column>
+            </b:row>
+            <b:row>
+                <b:column span="4">
+                </b:column>
+                <b:column span="4">
+                    <ui:insert name="footer">
+                        <ui:include src="/templates/default/footer.xhtml" />
+                    </ui:insert>
+                </b:column>
+                <b:column span="4">
+                </b:column>
+            </b:row>
+        </b:container>        
+    </h:body>
+</html>
+
