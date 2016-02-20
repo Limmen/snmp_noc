@@ -24,7 +24,7 @@ import kth.se.exjobb.model.snmp.SNMPManager;
 @ViewScoped
 public class AlarmBean implements Serializable {
     @EJB
-            Controller contr;
+    Controller contr;
     private SNMPManager manager;
     private List<Alarm> alarms;
     public AlarmBean() {
@@ -34,9 +34,6 @@ public class AlarmBean implements Serializable {
         alarms = (List) contr.getAllAlarms();
         if(alarms == null)
             alarms = new ArrayList();
-        Alarm a = new Alarm();
-        a.setDescr("TEST");
-        alarms.add(a);
     }
     public void fetchAlarms(){
         alarms = (List) contr.getAllAlarms();

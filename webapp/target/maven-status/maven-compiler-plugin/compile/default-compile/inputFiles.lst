@@ -1,6 +1,7 @@
 /hdd/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/model/AlarmEJB.java
 /hdd/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/entities/Alarm.java
 /hdd/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/model/snmp/TrapReceiver.java
+/hdd/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/view/view/RequestBean.java
 /hdd/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/view/view/AlarmBean.java
 /hdd/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/controller/Controller.java
 /hdd/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/model/snmp/SNMPManager.java

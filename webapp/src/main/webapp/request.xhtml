@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:f="http://java.sun.com/jsf/core"  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui"> 
+    <ui:composition template="/templates/default/main.xhtml">
+        <ui:define name="content">
+            <ul class="nav nav-tabs">
+                <li>
+                    <h:link value="Alarms" outcome="index" />
+                </li>
+                <li class="active">
+                    <h:link value="Send request" outcome="request" />
+                </li>                
+            </ul>
+            <h:form>                    
+                <h3 class="resultTitle">Target agent:</h3>
+                <b:selectOneMenu value="#{requestBean.target}" id="select_target">
+                   <f:selectItems value="#{requestBean.targets}" var="t" itemValue="#{t}" itemLabel="#{t}"/>
+                </b:selectOneMenu>
+                <h:message for="select_target"/>                    
+                <b:commandButton value="Send" action="#{requestBean.sendRequest()}">
+                    Send
+                </b:commandButton>
+            </h:form>
+            <ui:fragment class="requestResult" rendered="#{requestBean.result}">
+                <h3 class="resultTitle">Result:</h3>
+                <h:panelGrid columns="1" style="width:100%" columnClasses="logo,detail">
+                    <b:panel>
+                        <p:outputPanel>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Name:  " />
+                                <h:outputText value="#{requestBean.alarm.name}" style="font-weight: bold"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Description:  " />
+                                <h:outputText value="#{requestBean.alarm.descr}" style="font-weight: bold"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Contact:  " />
+                                <h:outputText value="#{requestBean.alarm.contact}" style="font-weight: bold"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Location:  " />
+                                <h:outputText value="#{requestBean.alarm.location}" style="font-weight: bold"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Severity:  " />
+                                <h:outputText value="#{requestBean.alarm.severity}" style="font-weight: bold" styleClass="#{requestBean.alarm.severity}"/>
+                            </h:panelGrid>
+                        </p:outputPanel>
+                    </b:panel>
+                </h:panelGrid>       
+            </ui:fragment>
+        </ui:define>
+    </ui:composition>  
+</html>
+

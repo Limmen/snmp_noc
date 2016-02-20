@@ -9,40 +9,48 @@
     
     <ui:composition template="/templates/default/main.xhtml">
         <ui:define name="content">
-<h:form id="dataForm"> 
-    <p:dataScroller id="alarmData" value="#{alarmBean.alarms}" var="alarm" chunkSize="10" mode="inline" scrollHeight="500">
-        <f:facet name="header">
-            Alarms
-        </f:facet> 
-        <h:panelGrid columns="1" style="width:100%" columnClasses="logo,detail">
-            <b:panel>
-            <p:outputPanel>
-                <h:panelGrid columns="2" cellpadding="5">
-                    <h:outputText value="Name:  " />
-                    <h:outputText value="#{alarm.name}" style="font-weight: bold"/>
-                </h:panelGrid>
-                <h:panelGrid columns="2" cellpadding="5">
-                    <h:outputText value="Description:  " />
-                    <h:outputText value="#{alarm.descr}" style="font-weight: bold"/>
-                </h:panelGrid>
-                <h:panelGrid columns="2" cellpadding="5">
-                    <h:outputText value="Contact:  " />
-                    <h:outputText value="#{alarm.contact}" style="font-weight: bold"/>
-                </h:panelGrid>
-                <h:panelGrid columns="2" cellpadding="5">
-                    <h:outputText value="Location:  " />
-                    <h:outputText value="#{alarm.location}" style="font-weight: bold"/>
-                </h:panelGrid>
-                <h:panelGrid columns="2" cellpadding="5">
-                    <h:outputText value="Severity:  " />
-                    <h:outputText value="#{alarm.severity}" style="font-weight: bold" styleClass="#{alarm.severity}"/>
-                </h:panelGrid>
-            </p:outputPanel>
-            </b:panel>
-        </h:panelGrid>       
-    </p:dataScroller>
-     <p:poll interval="3" listener="#{alarmBean.fetchAlarms}" update="alarmData" />
-</h:form>
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <h:link value="Alarms" outcome="index" />
+                </li>
+                <li>
+                    <h:link value="Send requests" outcome="request" />
+                </li>
+            </ul>
+            <h:form id="dataForm"> 
+                <p:dataScroller id="alarmData" value="#{alarmBean.alarms}" var="alarm" chunkSize="10">
+                    <f:facet name="header">
+                        Alarms
+                    </f:facet> 
+                    <h:panelGrid columns="1" style="width:100%" columnClasses="logo,detail">
+                        <b:panel>
+                            <p:outputPanel>
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputText value="Name:  " />
+                                    <h:outputText value="#{alarm.name}" style="font-weight: bold"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputText value="Description:  " />
+                                    <h:outputText value="#{alarm.descr}" style="font-weight: bold"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputText value="Contact:  " />
+                                    <h:outputText value="#{alarm.contact}" style="font-weight: bold"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputText value="Location:  " />
+                                    <h:outputText value="#{alarm.location}" style="font-weight: bold"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputText value="Severity:  " />
+                                    <h:outputText value="#{alarm.severity}" style="font-weight: bold" styleClass="#{alarm.severity}"/>
+                                </h:panelGrid>
+                            </p:outputPanel>
+                        </b:panel>
+                    </h:panelGrid>       
+                </p:dataScroller>
+                <p:poll interval="5" listener="#{alarmBean.fetchAlarms}" update="alarmData" />
+            </h:form>
         </ui:define>
     </ui:composition>  
 </html>

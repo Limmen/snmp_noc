@@ -28,3 +28,12 @@ html
 {
     color: red;
 }
+.requestResult
+{
+    margin-top: 15px;
+}
+.resultTitle
+{
+    font-weight:bold;
+    margin-bottom: 10px;
+}

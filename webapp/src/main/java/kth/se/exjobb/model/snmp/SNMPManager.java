@@ -50,12 +50,12 @@ public class SNMPManager {
         manager = new Snmp(transport);
         manager.addCommandResponder(new TrapReceiver(this));
         manager.listen();
-        sendDefaultRequest();
+        updateView(sendDefaultRequest(target_address));
     }
     public void stop() throws IOException{
         manager.close(); //Closes the session and frees all resources
     }
-    public void sendDefaultRequest() throws IOException{
+    public Alarm sendDefaultRequest(UdpAddress target_address) throws IOException{
         ArrayList <OID> oids = new ArrayList();
         oids.add(new OID(".1.3.6.1.2.1.1.5.0"));//sysName
         oids.add(new OID(".1.3.6.1.2.1.1.1.0"));//sysDescr
@@ -63,10 +63,9 @@ public class SNMPManager {
         oids.add(new OID(".1.3.6.1.2.1.1.6.0"));//sysLocation
         Target target = getTarget(target_address);
         System.out.println("MANAGER SENDING GET-REQUEST to SNMPD localhost");
-        sendGetRequest(oids,target);
-        System.out.println();
+        return sendGetRequest(oids,target);       
     }
-    public void sendGetRequest(ArrayList<OID> oids, Target target) throws IOException{
+    public Alarm sendGetRequest(ArrayList<OID> oids, Target target) throws IOException{
         PDU pdu = new PDU();
         for(OID oid : oids){
             pdu.add(new VariableBinding(oid)); // sysDescr
@@ -77,6 +76,9 @@ public class SNMPManager {
         if (response.getResponse() == null) {
             //Throw timeout exception
             System.out.println("Time out!");
+            Alarm timeout = new Alarm();
+            timeout.setName("Request timeout");
+            return timeout;
         }
         else {
             System.out.println("Received response from: "+
@@ -103,7 +105,7 @@ public class SNMPManager {
                         break;
                 }                      
             }            
-            contr.persistAlarm(alarm);
+            return alarm;
         }
     }
     public Target getTarget(UdpAddress address){

@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 package kth.se.exjobb.controller;
 
 import java.io.IOException;
@@ -18,6 +18,7 @@ import kth.se.exjobb.entities.Alarm;
 import kth.se.exjobb.model.AlarmEJB;
 import kth.se.exjobb.model.snmp.SNMPManager;
 import kth.se.exjobb.view.view.AlarmBean;
+import org.snmp4j.smi.UdpAddress;
 
 /**
  *
@@ -40,7 +41,7 @@ public class Controller {
             Logger.getLogger(AlarmBean.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
             Logger.getLogger(AlarmBean.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        }
     }
     @PreDestroy
     public void cleanUp(){
@@ -52,12 +53,16 @@ public class Controller {
     }
     
     public void persistAlarm(Alarm a){
-         alarmManager.persistAlarm(a);
-     }
-     
+        alarmManager.persistAlarm(a);
+    }
+    
     public Collection <Alarm> getAllAlarms(){
         return alarmManager.getAllAlarms();
-     }
-     
-     
+    }
+    
+    public Alarm sendAlarm(String target) throws IOException{
+        return manager.sendDefaultRequest(new UdpAddress(target));
+    }
+    
+    
 }
