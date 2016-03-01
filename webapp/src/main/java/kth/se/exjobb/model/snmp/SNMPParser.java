@@ -1,7 +1,10 @@
-package parser;
+package kth.se.exjobb.model.snmp;
 
 import java.util.ArrayList;
 import java.util.List;
+import kth.se.exjobb.model.util.RelativeByteBuffer;
+
+
 
 /**
  * Parses the binary data of an SNMP UDP message.

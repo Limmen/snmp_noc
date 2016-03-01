@@ -13,8 +13,8 @@ import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import kth.se.exjobb.controller.Controller;
-import kth.se.exjobb.entities.Alarm;
 import kth.se.exjobb.model.snmp.SNMPManager;
+import kth.se.exjobb.model.snmp.SNMPMessage;
 
 /**
  *
@@ -26,7 +26,7 @@ public class AlarmBean implements Serializable {
     @EJB
     Controller contr;
     private SNMPManager manager;
-    private List<Alarm> alarms;
+    private List<SNMPMessage> alarms;
     public AlarmBean() {
     }
     @PostConstruct
@@ -36,14 +36,15 @@ public class AlarmBean implements Serializable {
             alarms = new ArrayList();
     }
     public void fetchAlarms(){
+        System.out.println("Fetching alarms");
         alarms = (List) contr.getAllAlarms();
         if(alarms == null)
             alarms = new ArrayList();
     }
-    public List<Alarm> getAlarms() {
+    public List<SNMPMessage> getAlarms() {
         return alarms;
     }
-    public void setAlarms(List<Alarm> alarms) {
+    public void setAlarms(List<SNMPMessage> alarms) {
         this.alarms = alarms;
     }
 }

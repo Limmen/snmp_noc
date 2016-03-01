@@ -27,23 +27,23 @@
                             <p:outputPanel>
                                 <h:panelGrid columns="2" cellpadding="5">
                                     <h:outputText value="Name:  " />
-                                    <h:outputText value="#{alarm.name}" style="font-weight: bold"/>
+                                    <h:outputText value="#{alarm.versionNumber}" style="font-weight: bold"/>
                                 </h:panelGrid>
                                 <h:panelGrid columns="2" cellpadding="5">
                                     <h:outputText value="Description:  " />
-                                    <h:outputText value="#{alarm.descr}" style="font-weight: bold"/>
+                                    <h:outputText value="#{alarm.community}" style="font-weight: bold"/>
                                 </h:panelGrid>
                                 <h:panelGrid columns="2" cellpadding="5">
                                     <h:outputText value="Contact:  " />
-                                    <h:outputText value="#{alarm.contact}" style="font-weight: bold"/>
+                                    <h:outputText value="#{alarm.requestID}" style="font-weight: bold"/>
                                 </h:panelGrid>
                                 <h:panelGrid columns="2" cellpadding="5">
                                     <h:outputText value="Location:  " />
-                                    <h:outputText value="#{alarm.location}" style="font-weight: bold"/>
+                                    <h:outputText value="#{alarm.error}" style="font-weight: bold"/>
                                 </h:panelGrid>
                                 <h:panelGrid columns="2" cellpadding="5">
                                     <h:outputText value="Severity:  " />
-                                    <h:outputText value="#{alarm.severity}" style="font-weight: bold" styleClass="#{alarm.severity}"/>
+                                    <h:outputText value="#{alarm.errorIndex}" style="font-weight: bold" styleClass="#{alarm.severity}"/>
                                 </h:panelGrid>
                             </p:outputPanel>
                         </b:panel>

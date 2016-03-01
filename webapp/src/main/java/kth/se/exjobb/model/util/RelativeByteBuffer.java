@@ -1,4 +1,4 @@
-package parser;
+package kth.se.exjobb.model.util;
 
 /**
  * A wrapper class with a byte array and an index that increases with each

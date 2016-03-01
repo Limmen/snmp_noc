@@ -1,4 +1,4 @@
-package parser;
+package kth.se.exjobb.model.snmp;
 
 /**
  * Represents a variable binding within an SNMP-message.

@@ -1,6 +1,7 @@
-package parser;
+package kth.se.exjobb.model.snmp;
 
 import java.util.List;
+
 
 /**
  * A class representing an SNMP message.
@@ -26,13 +27,6 @@ public class SNMPMessage
         this.variableBindings = variableBindings;
     }
     
-    
-
-    public int getMessageSequenceLength() 
-    {
-        return messageSequenceLength;
-    }
-
     public int getVersionNumber() 
     {
         return versionNumber;
