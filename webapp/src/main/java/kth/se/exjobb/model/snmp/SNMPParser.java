@@ -1,7 +1,7 @@
 package parser;
 
-import java.nio.ByteBuffer;
-import java.nio.MappedByteBuffer;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Parses the binary data of an SNMP UDP message.
@@ -9,238 +9,233 @@ import java.nio.MappedByteBuffer;
  */
 public class SNMPParser 
 {
-    public static void parse(byte[] message)
+
+    /**
+     * Parses the binary data of an SNMP UDP message
+     * @param message byte[] a received SNMP message.
+     * @return SNMPMessage. 
+     */
+    public static SNMPMessage parse(byte[] message)
     {
-        //This function sequentially parses each individual byte
-        //of the message. the index is therefore to be incremented
-        //with each acces of an individual byte from the message.
-        int i = 0;
-        int[] returnValueAndUpdatedIndex;
+        RelativeByteBuffer data = new RelativeByteBuffer(message);
         
         //todo(Marcus): contain these in a SNMP message class.
         int messageSequenceLength = 0;
         int versionNumber = 0;
-        String community;
-        int requestID;
-        int error;
-        int errorIndex;
+        String community = null;
+        int requestID = 0;
+        int error = 0;
+        int errorIndex = 0;
         
         int numberOfVarBindings;
         
-        if(message[i++] == 0x30) //Sequence
+        List<SNMPVariableBinding> variableBindings = new ArrayList<>();
+        
+        if(data.getNext() == 0x30) //Sequence
         {
             
-            returnValueAndUpdatedIndex = ASN1ObjectLength(message,i);
-            messageSequenceLength = returnValueAndUpdatedIndex[0];
-            i = returnValueAndUpdatedIndex[1];
+            messageSequenceLength = ASN1ObjectLength(data);
         }
         else
         {
-            return;
+            return null; //todo(Marcus): Exception handling.
         }
         
         //Read the version number.
-        if(message[i++] == 0x02)
+        if(data.getNext() == 0x02)
         {
-            returnValueAndUpdatedIndex = readASN1Integer(message,i);
-            versionNumber = returnValueAndUpdatedIndex[0];
-            i = returnValueAndUpdatedIndex[1];
+            versionNumber = readASN1Integer(data);
         }
         
         //Read the community string
-        if(message[i++] == 0x04)
+        if(data.getNext() == 0x04)
         {
-            returnValueAndUpdatedIndex = ASN1ObjectLength(message,i);
-            int length = returnValueAndUpdatedIndex[0];
-            i = returnValueAndUpdatedIndex[1];
-            
-            char[] chars = new char[length];
-            
-            //Every upcoming byte is an ASCII-character
-            for(int j = 0; j < length; j++)
-            {
-                chars[j] = (char) message[i++];
-            }
-            
-            community = new String(chars);
+            community = readASN1String(data);
+        }
+        
+        if((data.getNext() & 0xFF )== 0xa7)
+        {
+            ASN1ObjectLength(data); //todo(Marcus): do we need this?
         }
         
         //PDU
         
         //Read the request id.
-        if(message[i++] == 0x02)
+        if(data.getNext() == 0x02)
         {
-            returnValueAndUpdatedIndex = readASN1Integer(message,i);
-            requestID = returnValueAndUpdatedIndex[0];
-            i = returnValueAndUpdatedIndex[1];
+            requestID = readASN1Integer(data);
         }
         
         //Read error
-        if(message[i++] == 0x02)
+        if(data.getNext() == 0x02)
         {
-            returnValueAndUpdatedIndex = readASN1Integer(message,i);
-            error = returnValueAndUpdatedIndex[0];
-            i = returnValueAndUpdatedIndex[1];
+            error = readASN1Integer(data);
         }
         
         //Read error index
-        if(message[i++] == 0x02)
+        if(data.getNext() == 0x02)
         {
-            returnValueAndUpdatedIndex = readASN1Integer(message,i);
-            errorIndex = returnValueAndUpdatedIndex[0];
-            i = returnValueAndUpdatedIndex[1];
+            errorIndex = readASN1Integer(data);
         }
         
         //Read the variable bindings list.
-        if(message[i++] == 0x30) //Sequence
+        if(data.getNext() == 0x30) //Sequence
         {
             
-            returnValueAndUpdatedIndex = ASN1ObjectLength(message,i);
-            numberOfVarBindings = returnValueAndUpdatedIndex[0];
-            i = returnValueAndUpdatedIndex[1];
+            numberOfVarBindings = ASN1ObjectLength(data);
             
             //Each variable binding will contain:
             //sequence
             //oid
             //value
-            for(int j = 0; j < numberOfVarBindings;j++)
+            for(;;) //Loop until the class code is 0x00. This means we're at the end of the message.
             {
-                if(message[i++] == 0x30) //Sequence
+                if(data.getNext() == 0x30) //Sequence
                 {
-                    returnValueAndUpdatedIndex = ASN1ObjectLength(message,i);
-                    int sequenceLength = returnValueAndUpdatedIndex[0];
-                    i = returnValueAndUpdatedIndex[1];
+                    int sequenceLength = ASN1ObjectLength(data);
                     
-                    //Read the oid
-                    returnValueAndUpdatedIndex = ASN1ObjectLength(message,i);
-                    int oidLength = returnValueAndUpdatedIndex[0];
-                    i = returnValueAndUpdatedIndex[1];
-                    
-                    byte[] oid = new byte[oidLength+1];
-                    
-                    //The first byte contains the first two numbers of the OID.
-                    byte firstByte = message[i++];
-                    oid[0] = (byte) (firstByte / 40);
-                    oid[1] = (byte) (firstByte % 40);
-                    
-                    //Loop through the rest
-                    for(j = 2; j < oidLength + 1;j++)
+                    if(data.getNext() == 0x06) //oid
                     {
-                        byte currentOctet = message[i++];
+                        //Read the oid
+                        byte[] oid = readOID(data);
+
+                        //Read the value
+                        Object value = null;
                         
-                        //If the first bit of the byte is '0' we read
-                        //the full byte as one part of the oid.
-                        if(((currentOctet >> 8) & 1) == 0)
+                        byte objectClass = data.getNext();
+
+                        if(objectClass == 0x02) //Integer
                         {
-                            oid[j] = currentOctet;
+                            value = readASN1Integer(data);
                         }
-                        //todo(Marcus): Handle oid numbers larger than 128
+                        else if(objectClass == 0x04) //Octet string
+                        {
+                            value = readASN1String(data);
+                        }
+                        else if((objectClass & 0b01000000) == 0x40) //Application
+                        {
+                            value = readASN1Integer(data);
+                        }
+                        else if(objectClass == 0x06) //oid
+                        {
+                            value = readOID(data);
+                        }
+
+                        SNMPVariableBinding variableBinding = new SNMPVariableBinding(oid,value);
+                        variableBindings.add(variableBinding);
                     }
                     
-                    //Read the value
-                    byte objectClass = message[i++];
-                    
-                    if(objectClass == 0x02) //Integer
-                    {
-                        returnValueAndUpdatedIndex = readASN1Integer(message,i);
-                        i = returnValueAndUpdatedIndex[1];
-                    }
-                    else if(objectClass == 0x04) //Octet string
-                    {
-                        readASN1String(message,i);
-                    }
-                    
-                    //todo(Marcus): store the values and oid
-                    
+                }
+                else
+                {
+                    break;
                 }
             }
         }
+    
+    SNMPMessage result = new SNMPMessage(versionNumber, community, requestID,  error,  errorIndex, variableBindings);
+    return result;
+        
     }
     
-    private static int[] readASN1Integer(byte[] data,int index)
+    //todo(Marcus): decide on how to represent oids. Maybe just a string? 
+    private static byte[] readOID(RelativeByteBuffer data)
+    {
+        int oidLength = ASN1ObjectLength(data);
+        byte[] oid = new byte[oidLength+1];
+
+        //The first byte contains the first two numbers of the OID.
+        byte firstByte = data.getNext();
+        oid[0] = (byte) (firstByte / 40);
+        oid[1] = (byte) (firstByte % 40);
+
+        //Loop through the rest
+        for(int j = 2; j < oidLength + 1;j++)
+        {
+            byte currentOctet = data.getNext();
+
+            //If the first bit of the byte is '0' we read
+            //the full byte as one part of the oid.
+            if(((currentOctet >> 8) & 1) == 0)
+            {
+                oid[j] = currentOctet;
+            }
+            //todo(Marcus): Handle oid numbers larger than 128
+        }
+        
+        return oid;
+    }
+    
+    private static int readASN1Integer(RelativeByteBuffer data)
     {
         
-        int[] lengthIndex ,result = new int[2];
+        int result;
         
-        lengthIndex = ASN1ObjectLength(data,index);
-        int intByteLength = lengthIndex[0];
-        index = lengthIndex[1];
+        int intByteLength = ASN1ObjectLength(data);
             
         //Read the integer of specified length.
         if(intByteLength == 1)
         {
-            result[0] = data[index++];
+            result = data.getNext();
         }
         else
         {
-            //todo(Marcus): Compress this to own function? It appears twice in code.
-            for(int j = intByteLength; j > 128;j--)
-            {
-                result[0] = ((data[index++] & (0xFF)) << (8*((j-intByteLength)-1))) | result[0];
-            } 
+            result = intFromBytes(data,(intByteLength));
         }
-        
-        result[1] = index;
         
         return result;
     }
     
-    //todo(Marcus): Might change the index to the Integer wrapper class
-    //just so I can have a pointer to it and have easier return values...
-    private static Object[] readASN1String(byte[] data,int index)
+    private static String readASN1String(RelativeByteBuffer data)
     {
-        Object[] result = new Object[2];
-        int[] returnValueAndUpdatedIndex = ASN1ObjectLength(data,index);
-        int length = returnValueAndUpdatedIndex[0];
-        index = returnValueAndUpdatedIndex[1];
+        String result;
+        int length = ASN1ObjectLength(data);
             
         char[] chars = new char[length];
             
         //Every upcoming byte is an ASCII-character
         for(int j = 0; j < length; j++)
         {
-            chars[j] = (char) data[index++];
+            chars[j] = (char) data.getNext();
         }
             
-        result[0] = new String(chars);
-        result[1] = index;
+        result = new String(chars);
         return result;
     }
     
     /**
      * Finds the length in bytes of an ASN.1 object.
-     * @param data The message from whithin the object resides
-     * @param index The starting index of the objects legnth declaring
-     * octet. This means the first byte after the one delcaring the object type.
-     * @return int[]. int[0] = the length of the data content.
-     * int[1] = the index after the length defining bytes in the message.
+     * @param data The message from within the object resides.
+     * @return int the length of contents in bytes.
      * This will point to the objects contents.
      */
-    private static int[] ASN1ObjectLength(byte[] data,int index)
+    private static int ASN1ObjectLength(RelativeByteBuffer data)
     {
         //todo(Marcus): If needed, move to a sperate ASN-decoding package.
         
-        int[] result = new int[2];
+        int result;
         
         //Find the length of the sequence
-        int lengthOctet = data[index++];
-        if(lengthOctet <= 128)
+        int lengthOctet = 0xFF & data.getNext();
+        if(lengthOctet < 128)
         {
-            result[0] = lengthOctet;
+            result = lengthOctet;
         }
         else //The next (lengthOctet - 128) octets contain the sequence length
         {
-            //We find the length by shifting multiple bytes into their correct
-            //positions in an integer.
-            result[0] = 0;
-            for(int j = lengthOctet; j > 128;j--)
-            {
-                result[0] = ((data[index++] & (0xFF)) << (8*((j-lengthOctet)-1))) | result[0];
-            }
+            result = intFromBytes(data,(lengthOctet - 128));
         }
         
-        result[1] = index;
-        
+        return result;
+    }
+    
+    private static int intFromBytes(RelativeByteBuffer data, int numberOfBytes)
+    {
+        int result = 0;
+        for(int j = numberOfBytes; j > 0;j--)
+        {
+            result = ((data.getNext() & (0xFF)) << (8*(j-1))) | result;
+        }
         return result;
     }
 }
