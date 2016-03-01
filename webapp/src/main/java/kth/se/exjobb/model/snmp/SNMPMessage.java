@@ -7,16 +7,16 @@ import java.util.List;
  * A class representing an SNMP message.
  * @author Marcus Blom
  */
-public class SNMPMessage 
+public class SNMPMessage
 {
-    int versionNumber;
-    String community;
-    int requestID;
-    int error;
-    int errorIndex;
+    private int versionNumber;
+    private String community;
+    private int requestID;
+    private int error;
+    private int errorIndex;
+    private String severity = "Fine";    
+    private List<SNMPVariableBinding> variableBindings;
     
-    List<SNMPVariableBinding> variableBindings;
-
     public SNMPMessage(int versionNumber, String community, int requestID, int error, int errorIndex, List<SNMPVariableBinding> variableBindings)
     {
         this.versionNumber = versionNumber;
@@ -27,29 +27,37 @@ public class SNMPMessage
         this.variableBindings = variableBindings;
     }
     
-    public int getVersionNumber() 
+    public int getVersionNumber()
     {
         return versionNumber;
     }
-
-    public String getCommunity() 
+    
+    public String getCommunity()
     {
         return community;
     }
-
-    public int getRequestID() 
+    
+    public int getRequestID()
     {
         return requestID;
     }
-
-    public int getError() 
+    
+    public int getError()
     {
         return error;
     }
-
-    public int getErrorIndex() 
+    
+    public int getErrorIndex()
     {
         return errorIndex;
     }
-      
+    
+    public String getSeverity() {
+        return severity;
+    }
+
+    public List<SNMPVariableBinding> getVariableBindings() {
+        return variableBindings;
+    }
+    
 }

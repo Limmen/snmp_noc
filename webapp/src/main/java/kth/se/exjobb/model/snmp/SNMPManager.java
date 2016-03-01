@@ -18,7 +18,8 @@ import kth.se.exjobb.controller.Controller;
  * @author kim
  */
 public class SNMPManager implements Runnable {
-    Controller contr;
+    private Controller contr;
+    private boolean running = true;
     public SNMPManager(Controller contr){
         this.contr = contr;
     }
@@ -31,7 +32,7 @@ public class SNMPManager implements Runnable {
         } catch (SocketException ex) {
             Logger.getLogger(SNMPManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        while(true){
+        while(running){
             byte[]buf = new byte[484];
             DatagramPacket packet = new DatagramPacket(buf,buf.length);
             try {
@@ -40,13 +41,11 @@ public class SNMPManager implements Runnable {
                 Logger.getLogger(SNMPManager.class.getName()).log(Level.SEVERE, null, ex);
             }
             SNMPMessage msg = SNMPParser.parse(buf);
-            contr.persistAlarm(msg);
-            System.out.println("Received trap");
-            System.out.println(msg.getCommunity());                        
+            contr.newAlarm(msg);                       
         }
     }
-    public void listen(){
-        
+    public void terminate(){
+        running = false;
     }
     
     

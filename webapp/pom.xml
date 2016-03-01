@@ -60,6 +60,12 @@
             <artifactId>snmp4j-agent</artifactId>
             <version>1.3.1</version>
         </dependency>
+        <dependency>
+	<groupId>javax.enterprise.concurrent</groupId>
+	<artifactId>javax.enterprise.concurrent-api</artifactId>
+	<version>1.0-b05</version>
+</dependency>
+
     </dependencies>
 
     <build>

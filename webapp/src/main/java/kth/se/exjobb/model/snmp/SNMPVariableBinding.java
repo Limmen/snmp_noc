@@ -16,14 +16,15 @@ public class SNMPVariableBinding
         this.value = value;
     }
 
-    public byte[] getOid()
+    public String getOid()
     {
-        return oid;
+        return oid.toString();
     }
 
-    public Object getValue()
+    public String getValue()
     {
-        return value;
+        
+        return value.toString();
     }
     
 }

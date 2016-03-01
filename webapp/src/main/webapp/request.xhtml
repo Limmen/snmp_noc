@@ -33,23 +33,23 @@
                         <p:outputPanel>
                             <h:panelGrid columns="2" cellpadding="5">
                                 <h:outputText value="Name:  " />
-                                <h:outputText value="#{requestBean.alarm.name}" style="font-weight: bold"/>
+                                <h:outputText value="#{requestBean.alarm.versionNumber}" style="font-weight: bold"/>
                             </h:panelGrid>
                             <h:panelGrid columns="2" cellpadding="5">
                                 <h:outputText value="Description:  " />
-                                <h:outputText value="#{requestBean.alarm.descr}" style="font-weight: bold"/>
+                                <h:outputText value="#{requestBean.alarm.community}" style="font-weight: bold"/>
                             </h:panelGrid>
                             <h:panelGrid columns="2" cellpadding="5">
                                 <h:outputText value="Contact:  " />
-                                <h:outputText value="#{requestBean.alarm.contact}" style="font-weight: bold"/>
+                                <h:outputText value="#{requestBean.alarm.requestId}" style="font-weight: bold"/>
                             </h:panelGrid>
                             <h:panelGrid columns="2" cellpadding="5">
                                 <h:outputText value="Location:  " />
-                                <h:outputText value="#{requestBean.alarm.location}" style="font-weight: bold"/>
+                                <h:outputText value="#{requestBean.alarm.error}" style="font-weight: bold"/>
                             </h:panelGrid>
                             <h:panelGrid columns="2" cellpadding="5">
                                 <h:outputText value="Severity:  " />
-                                <h:outputText value="#{requestBean.alarm.severity}" style="font-weight: bold" styleClass="#{requestBean.alarm.severity}"/>
+                                <h:outputText value="#{requestBean.alarm.errorIndex}" style="font-weight: bold" styleClass="#{requestBean.alarm.severity}"/>
                             </h:panelGrid>
                         </p:outputPanel>
                     </b:panel>

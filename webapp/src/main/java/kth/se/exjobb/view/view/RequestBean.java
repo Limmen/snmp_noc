@@ -14,7 +14,7 @@ import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import kth.se.exjobb.controller.Controller;
-import kth.se.exjobb.entities.Alarm;
+import kth.se.exjobb.model.snmp.SNMPMessage;
 
 /**
  *
@@ -29,7 +29,7 @@ public class RequestBean implements Serializable {
     private List<String> targets;
     private String target;
     private boolean result = false;
-    private Alarm alarm;
+    private SNMPMessage alarm;
     public RequestBean() {
     }
     
@@ -44,11 +44,11 @@ public class RequestBean implements Serializable {
     public void sendRequest() throws IOException{        
         switch(target){
             case "Simulated SNMP Agent":
-                alarm = contr.sendAlarm("127.0.0.1/9999");
+                //alarm = contr.sendAlarm("127.0.0.1/9999");
                 result = true;
                 break;
             case "Localhost snmp service":
-                alarm = contr.sendAlarm("127.0.0.1/161");
+                //alarm = contr.sendAlarm("127.0.0.1/161");
                 result = true;
         }
     }
@@ -77,11 +77,11 @@ public class RequestBean implements Serializable {
         this.result = result;
     }
 
-    public Alarm getAlarm() {
+    public SNMPMessage getAlarm() {
         return alarm;
     }
 
-    public void setAlarm(Alarm alarm) {
+    public void setAlarm(SNMPMessage alarm) {
         this.alarm = alarm;
     }
     

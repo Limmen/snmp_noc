@@ -5,12 +5,11 @@
  */
 package kth.se.exjobb.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import kth.se.exjobb.entities.Alarm;
+import kth.se.exjobb.model.snmp.SNMPMessage;
 
 /**
  *
@@ -18,17 +17,20 @@ import kth.se.exjobb.entities.Alarm;
  */
 @Stateless
 public class AlarmEJB {
-
-    @PersistenceContext(unitName = "exjobbPU")
-    private EntityManager em;
+    ArrayList<SNMPMessage> alarms;
     
-    
-    public Collection<Alarm> getAllAlarms(){
-        Query query = em.createQuery("SELECT e FROM Alarm e");
-        return (Collection<Alarm>) query.getResultList();
+    @PostConstruct
+    public void init(){
+        alarms = new ArrayList();    
     }
     
-    public void persistAlarm(Alarm a){
-        em.persist(a);
+    public void newAlarm(SNMPMessage alarm){
+        if(alarms.size() >= 30)
+            alarms.remove(0);
+        alarms.add(alarm);
     }
+    public Collection <SNMPMessage> getAllAlarms(){
+        return alarms;
+    } 
+   
 }

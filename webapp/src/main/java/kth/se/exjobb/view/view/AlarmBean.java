@@ -35,8 +35,7 @@ public class AlarmBean implements Serializable {
         if(alarms == null)
             alarms = new ArrayList();
     }
-    public void fetchAlarms(){
-        System.out.println("Fetching alarms");
+    public void fetchAlarms(){        
         alarms = (List) contr.getAllAlarms();
         if(alarms == null)
             alarms = new ArrayList();
