@@ -7,10 +7,10 @@ package kth.se.exjobb.model.snmp;
  */
 public class SNMPVariableBinding
 {
-    byte[] oid;  //todo(Marcus): How to represent oids?
+    String oid;
     Object value; //todo(Marcus): How to handle values of possibly different data types?
 
-    public SNMPVariableBinding(byte[] oid, Object value)
+    public SNMPVariableBinding(String oid, Object value)
     {
         this.oid = oid;
         this.value = value;
@@ -18,7 +18,7 @@ public class SNMPVariableBinding
 
     public String getOid()
     {
-        return oid.toString();
+        return oid;
     }
 
     public String getValue()
