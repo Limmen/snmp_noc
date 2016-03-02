@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    
+    <display-name>NOC prototype</display-name>    
+    
+    <!-- Change to Production when deploying -->
+    <!-- Development stage will prioritize error-messages over performance -->
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
@@ -9,16 +14,25 @@
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <!-- Allows for mapping multiple servlets to different paths -->
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>/faces/*</url-pattern>
+        <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <!-- File that is shown on URL "/" -->
     <welcome-file-list>
-        <welcome-file>faces/index.xhtml</welcome-file>
-    </welcome-file-list>
+        <welcome-file>index.xhtml</welcome-file>
+    </welcome-file-list> 
+    
+    <!-- Error-page shown when unexpected server-exceptions are thrown -->
+    <!-- HTTP-code 500 means "Internal Error" -->
+    <error-page>
+        <error-code>500</error-code>
+        <location>/servererror.xhtml</location>
+    </error-page>
 </web-app>
