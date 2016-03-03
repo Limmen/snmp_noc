@@ -21,7 +21,7 @@ public class SNMPManager implements Runnable {
     }
     
     @Override
-    public void run() {        
+    public void run() {   
         DatagramSocket socket = null;
         try {
             socket = new DatagramSocket(9888);
@@ -40,8 +40,11 @@ public class SNMPManager implements Runnable {
             //contr.persistAlarm(msg);
             System.out.println("Received trap");
             System.out.println(msg.getCommunity());
-            
-            
+            for(SNMPVariableBinding bind : msg.variableBindings){
+                System.out.println("OID: " + bind.getOid());
+                System.out.println("Value: "  + bind.getValue());
+            }
+
         }
     }
     public void listen(){

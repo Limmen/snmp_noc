@@ -101,7 +101,7 @@ public class SNMPParser
                     {
                         //Read the oid
                         char[] oid = readOID(data);
-
+                        
                         //Read the value
                         Object value = null;
                         
@@ -150,9 +150,9 @@ public class SNMPParser
 
         //The first byte contains the first two numbers of the OID.
         byte firstByte = data.getNext();
-        oid[0] = (char) (firstByte / 40);
+        oid[0] = Integer.toString((firstByte / 40)).charAt(0);       
         oid[1] = '.';
-        oid[2] = (char) (firstByte % 40);
+        oid[2] = Integer.toString((firstByte % 40)).charAt(0);
         oid[3] = '.';
 
         //Loop through the rest
@@ -165,7 +165,7 @@ public class SNMPParser
             //the full byte as one part of the oid.
             if(((currentOctet >> 8) & 1) == 0)
             {
-                oid[j++] = (char) currentOctet;
+                oid[j++] = Integer.toString(currentOctet).charAt(0);
                 if(j != (oidLength-1)) //If we're not on the last element.
                 {
                     oid[j++] = '.';

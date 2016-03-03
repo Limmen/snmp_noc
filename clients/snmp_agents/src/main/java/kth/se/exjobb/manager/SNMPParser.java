@@ -3,6 +3,8 @@ package kth.se.exjobb.manager;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 /**
  * Parses the binary data of an SNMP UDP message.
  * @author Marcus Blom
@@ -97,8 +99,8 @@ public class SNMPParser
                     if(data.getNext() == 0x06) //oid
                     {
                         //Read the oid
-                        byte[] oid = readOID(data);
-
+                        char[] oid = readOID(data);
+                        
                         //Read the value
                         Object value = null;
                         
@@ -121,7 +123,7 @@ public class SNMPParser
                             value = readOID(data);
                         }
 
-                        SNMPVariableBinding variableBinding = new SNMPVariableBinding(oid,value);
+                        SNMPVariableBinding variableBinding = new SNMPVariableBinding(new String(oid),value);
                         variableBindings.add(variableBinding);
                     }
                     
@@ -138,19 +140,23 @@ public class SNMPParser
         
     }
     
-    //todo(Marcus): decide on how to represent oids. Maybe just a string? 
-    private static byte[] readOID(RelativeByteBuffer data)
+    private static char[] readOID(RelativeByteBuffer data)
     {
-        int oidLength = ASN1ObjectLength(data);
-        byte[] oid = new byte[oidLength+1];
+        int oidByteLength = ASN1ObjectLength(data);
+        int oidLength = (((oidByteLength+1)*2) - 1);
+        //All characters except for the last one will be followed by a dot
+        char[] oid = new char[((oidLength+1)*2) - 1];
 
         //The first byte contains the first two numbers of the OID.
         byte firstByte = data.getNext();
-        oid[0] = (byte) (firstByte / 40);
-        oid[1] = (byte) (firstByte % 40);
+        oid[0] = Integer.toString((firstByte / 40)).charAt(0);       
+        oid[1] = '.';
+        oid[2] = Integer.toString((firstByte % 40)).charAt(0);
+        oid[3] = '.';
 
         //Loop through the rest
-        for(int j = 2; j < oidLength + 1;j++)
+        int j = 4;
+        while(j < oidLength)
         {
             byte currentOctet = data.getNext();
 
@@ -158,7 +164,11 @@ public class SNMPParser
             //the full byte as one part of the oid.
             if(((currentOctet >> 8) & 1) == 0)
             {
-                oid[j] = currentOctet;
+                oid[j++] = Integer.toString(currentOctet).charAt(0);
+                if(j != (oidLength-1)) //If we're not on the last element.
+                {
+                    oid[j++] = '.';
+                }
             }
             //todo(Marcus): Handle oid numbers larger than 128
         }
