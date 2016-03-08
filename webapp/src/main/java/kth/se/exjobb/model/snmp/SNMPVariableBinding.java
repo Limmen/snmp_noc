@@ -11,17 +11,16 @@ public class SNMPVariableBinding
 {
     private final String oid;
     private final Object value; //todo(Marcus): How to handle values of possibly different data types?
-    private final HashMap<String,String> oids;
-    public SNMPVariableBinding(String oid, Object value, HashMap<String,String> oids)
+
+    public SNMPVariableBinding(String oid, Object value)
     {
         this.oid = oid;
-        this.value = value;
-        this.oids = oids;         
+        this.value = value;        
     }
 
     public String getOid()
     {
-        return oids.get(oid.trim());
+        return SNMPParser.translateOID(oid);
     }
 
     public String getValue()
