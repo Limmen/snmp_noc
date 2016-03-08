@@ -11,12 +11,11 @@
         <ui:define name="content"> 
             <h3 class="resultTitle">Statistics</h3>
             <h:form>
-            <p:chart id="alarmsDistribution" type="bar" model="#{statisticsBean.barModel}" style="height:500px"/>
-            <p:chart id="alarmsPerDay" type="line" model="#{statisticsBean.lineModel}" style="height:500px;"/>
-            <p:poll interval="5" listener="#{statisticsBean.updateModels()}" update="alarmsDistribution alarmsPerDay" />
+                <p:chart styleClass="alarmsPerDay" id="alarmsPerDay" type="line" model="#{statisticsBean.lineModel}" style="height:500px;"/> 
+                <p:chart rendered="#{statisticsBean.getNoAlarms() > 0}" id="alarmsDistribution" type="bar" model="#{statisticsBean.barModel}" style="height:500px"/>                                           
+                <p:poll interval="5" listener="#{statisticsBean.updateModels()}" update="alarmsDistribution alarmsPerDay" />
             </h:form>
         </ui:define>
-    </ui:composition>         
-    
+    </ui:composition>             
 </html>
 

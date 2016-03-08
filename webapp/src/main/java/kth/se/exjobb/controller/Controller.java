@@ -37,5 +37,9 @@ public class Controller {
     
     public Collection <SNMPMessage> getAllAlarms(){
         return alarmManager.getAllAlarms();
-    }        
+    }
+    
+    public void removeSelectedAlarm(SNMPMessage alarm){
+        alarmManager.removeSelectedAlarm(alarm);
+    }
 }

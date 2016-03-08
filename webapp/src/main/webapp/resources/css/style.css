@@ -49,3 +49,17 @@ html
     width: 100%;
     
 }
+.alarmsPerDay
+{
+    margin-bottom: 100px;
+}
+.settingsLabel
+{
+    font-weight:bold;
+    font-size: 110%;
+}
+.settingsValue
+{
+    margin-left: 30px;
+    font-weight: normal;
+}

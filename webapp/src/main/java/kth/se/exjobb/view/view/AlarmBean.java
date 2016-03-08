@@ -47,6 +47,9 @@ public class AlarmBean implements Serializable {
             alarms = new ArrayList();
         updated = new Date();
     }
+    public void removeSelectedAlarm(){
+        contr.removeSelectedAlarm(selectedAlarm);
+    }
     public List<SNMPMessage> getAlarms() {
         return alarms;
     }

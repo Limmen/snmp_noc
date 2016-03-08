@@ -71,6 +71,9 @@
                                     <h:outputText value="#{binding.oid}, #{binding.value}" />
                                 </p:dataList>
                             </h:panelGrid>
+                            <h:panelGrid columns="1" cellpadding="5">
+                                <p:commandButton value="Remove" actionListener="#{alarmBean.removeSelectedAlarm()}" styleClass="ui-priority-primary" />
+                            </h:panelGrid>
                         </p:outputPanel>
                     </p:dialog>
                 <p:poll interval="5" listener="#{alarmBean.fetchAlarms}" update="alarmData updated" />

@@ -32,5 +32,7 @@ public class AlarmEJB {
     public Collection <SNMPMessage> getAllAlarms(){
         return alarms;
     } 
-   
+    public void removeSelectedAlarm(SNMPMessage alarm){
+        alarms.remove(alarm);
+    }
 }

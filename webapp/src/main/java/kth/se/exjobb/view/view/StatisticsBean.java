@@ -8,6 +8,7 @@ package kth.se.exjobb.view.view;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -19,6 +20,7 @@ import kth.se.exjobb.model.snmp.SNMPVariableBinding;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.BarChartModel;
+import org.primefaces.model.chart.CategoryAxis;
 import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartModel;
 
@@ -34,8 +36,8 @@ public class StatisticsBean implements Serializable {
     Controller contr;
     private List<SNMPMessage> alarms;
     private ArrayList<String> dates = new ArrayList();
-    private BarChartModel barModel;
-    private LineChartModel lineModel;
+    private BarChartModel barModel = new BarChartModel();
+    private LineChartModel lineModel = new LineChartModel();
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     
     @PostConstruct
@@ -43,13 +45,25 @@ public class StatisticsBean implements Serializable {
         updateModels();
     }
     public void updateModels(){
+        updateAlarms();
+        updateDates();
         updateBarModel();
         updateLineModel();
     }
-    public void updateBarModel() {
+    private void updateDates(){
+        dates = new ArrayList();
+        for(int i = 6; i >= 0; i--){
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.DATE, -i);
+            dates.add(dateFormat.format(cal.getTime()));
+        }
+    }
+    private void updateAlarms(){
         alarms = (List) contr.getAllAlarms();
         if(alarms == null)
             alarms = new ArrayList();
+    }
+    public void updateBarModel() {
         barModel = initBarModel();
         
         barModel.setTitle("Distribution of alarms");
@@ -66,12 +80,6 @@ public class StatisticsBean implements Serializable {
     
     private BarChartModel initBarModel() {
         ArrayList<String> names = new ArrayList();
-        ArrayList<String> dateList = new ArrayList();
-        dateList.add("06/03/2016");
-        dateList.add("07/03/2016");
-        dateList.add("08/03/2016");
-        dateList.add("09/03/2016");
-        dateList.add("10/03/2016");
         for(SNMPMessage message : alarms){
             for(SNMPVariableBinding binding : message.getVariableBindings()){
                 if(binding.getOid().equals("sysName.0")){
@@ -79,17 +87,12 @@ public class StatisticsBean implements Serializable {
                         names.add(binding.getValue());
                 }
             }
-            if(!dateList.contains(dateFormat.format(message.getDate())))
-                dateList.add(dateFormat.format(message.getDate()));
         }
-        System.out.println("Names size: " + names.size());
-        System.out.println("Dates size: " + dateList.size());
         BarChartModel model = new BarChartModel();
-        mockData(model);
         for(String name : names){
             ChartSeries serie = new ChartSeries();
             serie.setLabel(name);
-            for(String date : dateList){
+            for(String date : dates){
                 int count = 0;
                 for(SNMPMessage message : alarms){
                     boolean match = false;
@@ -105,70 +108,34 @@ public class StatisticsBean implements Serializable {
             }
             model.addSeries(serie);
         }
-        dates = dateList;
         return model;
     }
-    private void mockData(BarChartModel model){
-        ChartSeries mock1 = new ChartSeries();
-        mock1.setLabel("MockData1");
-        mock1.set("08/03/2016", 9);
-        mock1.set("09/03/2016", 2);
-        mock1.set("10/03/2016", 2);
-        mock1.set("07/03/2016", 5);
-        mock1.set("06/03/2016", 0);
-        
-        ChartSeries mock2 = new ChartSeries();
-        mock2.setLabel("MockData2");
-        mock2.set("08/03/2016", 1);
-        mock2.set("09/03/2016", 7);
-        mock2.set("10/03/2016", 0);
-        mock2.set("07/03/2016", 2);
-        mock2.set("06/03/2016", 4);
-        
-        model.addSeries(mock1);
-        model.addSeries(mock2);
-        
-    }
     private void updateLineModel() {
-        lineModel = initLinearModel();
+        lineModel = initCategoryModel();
         lineModel.setTitle("Alarms per day");
         lineModel.setLegendPosition("e");
+        lineModel.setShowPointLabels(true);
+        lineModel.getAxes().put(AxisType.X, new CategoryAxis("Day"));
         Axis yAxis = lineModel.getAxis(AxisType.Y);
+        yAxis.setLabel("Alarms");
         yAxis.setMin(0);
-        yAxis.setMax(50);               
+        yAxis.setMax(80);             
     }
     
-    private LineChartModel initLinearModel() {
+    private LineChartModel initCategoryModel() {
         LineChartModel model = new LineChartModel();
-        
-        ChartSeries series = new ChartSeries();
-        series.setLabel("Alarms per day");
-        System.out.println("Dates  size: " + dates.size());
+ 
+        ChartSeries alarmSeries = new ChartSeries();
+        alarmSeries.setLabel("Alarms per day");
         for(String date : dates){
             int count = 0;
             for(SNMPMessage message : alarms){
                 if(dateFormat.format(message.getDate()).equals(date))
                     count++;
             }
-            if(date.equals("08/03/2016")){
-                count = count + 10;
-            }
-            if(date.equals("09/03/2016")){
-                count = count + 9;
-            }
-            if(date.equals("10/03/2016")){
-                count = count + 2;
-            }
-            if(date.equals("07/03/2016")){
-                count = count + 7;
-            }
-            if(date.equals("06/03/2016")){
-                count = count + 4;
-            }
-            series.set(date, count);
-            System.out.println("Date: " + date + " Count: " + count);
+            alarmSeries.set(date, count);
         }
-        model.addSeries(series);        
+        model.addSeries(alarmSeries);         
         return model;
     }
     public BarChartModel getBarModel() {
@@ -177,5 +144,7 @@ public class StatisticsBean implements Serializable {
     public LineChartModel getLineModel() {
         return lineModel;
     }
-    
+    public int getNoAlarms(){
+        return alarms.size();
+    }
 }
