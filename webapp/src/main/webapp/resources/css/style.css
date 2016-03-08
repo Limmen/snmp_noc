@@ -19,6 +19,7 @@ html
 .footer
 {
     text-align: center;
+    margin-top: 75px;
 }
 .Fine
 {
@@ -37,7 +38,14 @@ html
     font-weight:bold;
     margin-bottom: 10px;
 }
-.link_deco {
+.link_deco 
+{
     color: inherit;
     text-decoration: none;
+}
+.getForm
+{
+    display: block;
+    width: 100%;
+    
 }
