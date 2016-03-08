@@ -1,5 +1,6 @@
 package kth.se.exjobb.model.snmp;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -16,6 +17,7 @@ public class SNMPMessage
     private int errorIndex;
     private String severity = "Fine";    
     private List<SNMPVariableBinding> variableBindings;
+    private Date date = new Date();
     
     public SNMPMessage(int versionNumber, String community, int requestID, int error, int errorIndex, List<SNMPVariableBinding> variableBindings)
     {
@@ -59,5 +61,10 @@ public class SNMPMessage
     public List<SNMPVariableBinding> getVariableBindings() {
         return variableBindings;
     }
+
+    public Date getDate() {
+        return date;
+    }
+    
     
 }

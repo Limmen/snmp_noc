@@ -9,3 +9,4 @@
 /home/kim/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/view/view/RequestBean.java
 /home/kim/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/model/snmp/SNMPMessage.java
 /home/kim/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/model/snmp/SNMPParser.java
+/home/kim/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/view/view/StatisticsBean.java

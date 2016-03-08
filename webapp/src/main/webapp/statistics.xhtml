@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:f="http://java.sun.com/jsf/core"  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui"> 
+       
+    <ui:composition template="/templates/default/main.xhtml">
+        <ui:define name="content"> 
+            <h3 class="resultTitle">Statistics</h3>
+            <h:form>
+            <p:chart id="alarmsDistribution" type="bar" model="#{statisticsBean.barModel}" style="height:500px"/>
+            <p:chart id="alarmsPerDay" type="line" model="#{statisticsBean.lineModel}" style="height:500px;"/>
+            <p:poll interval="5" listener="#{statisticsBean.updateModels()}" update="alarmsDistribution alarmsPerDay" />
+            </h:form>
+        </ui:define>
+    </ui:composition>         
+    
+</html>
+
