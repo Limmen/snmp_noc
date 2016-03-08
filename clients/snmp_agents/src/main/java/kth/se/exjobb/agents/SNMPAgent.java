@@ -214,7 +214,6 @@ public class SNMPAgent extends BaseAgent {
             pdu.add(new VariableBinding(SnmpConstants.sysContact, new OctetString("Kim Hammar, Marcus Blom")));
             pdu.add(new VariableBinding(SnmpConstants.sysLocation, new OctetString("Royal Institute of Technology")));            
             // variable binding for Enterprise Specific objects, Severity (should be defined in MIB file)
-            pdu.add(new VariableBinding(new OID(trapOid), new OctetString("Major")));
             pdu.setType(PDU.NOTIFICATION);
             
             // Send the PDU
