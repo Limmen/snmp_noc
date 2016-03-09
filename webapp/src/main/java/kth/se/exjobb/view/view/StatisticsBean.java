@@ -1,7 +1,6 @@
 /*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
+* Royal Institute of Technology
+* 2016 (c) Kim Hammar Marcus Blom
 */
 package kth.se.exjobb.view.view;
 
@@ -25,7 +24,9 @@ import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartModel;
 
 /**
- *
+ * Managed bean representing the interface between the statistics page and the server.
+ * ViewScope means that the bean will be active as long as the user is interacting with the same
+ * JSF view.
  * @author kim
  */
 @Named(value = "statisticsBean")
@@ -33,23 +34,34 @@ import org.primefaces.model.chart.LineChartModel;
 public class StatisticsBean implements Serializable {
     
     @EJB
-    Controller contr;
+            Controller contr;
     private List<SNMPMessage> alarms;
     private ArrayList<String> dates = new ArrayList();
     private BarChartModel barModel = new BarChartModel();
     private LineChartModel lineModel = new LineChartModel();
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     
+    /**
+     * This method is called after all dependency injections and initialization are done
+     * but before the class is put to service.
+     *
+     * Updates the models that the graphs represent.
+     */
     @PostConstruct
     public void init() {
         updateModels();
     }
+    
+    /**
+     * Method called on time-intervals to update the graph-models.
+     */
     public void updateModels(){
         updateAlarms();
         updateDates();
         updateBarModel();
         updateLineModel();
     }
+    
     private void updateDates(){
         dates = new ArrayList();
         for(int i = 6; i >= 0; i--){
@@ -58,12 +70,14 @@ public class StatisticsBean implements Serializable {
             dates.add(dateFormat.format(cal.getTime()));
         }
     }
+    
     private void updateAlarms(){
         alarms = (List) contr.getAllAlarms();
         if(alarms == null)
             alarms = new ArrayList();
     }
-    public void updateBarModel() {
+    
+    private void updateBarModel() {
         barModel = initBarModel();
         
         barModel.setTitle("Distribution of alarms");
@@ -119,12 +133,12 @@ public class StatisticsBean implements Serializable {
         Axis yAxis = lineModel.getAxis(AxisType.Y);
         yAxis.setLabel("Alarms");
         yAxis.setMin(0);
-        yAxis.setMax(80);             
+        yAxis.setMax(80);
     }
     
     private LineChartModel initCategoryModel() {
         LineChartModel model = new LineChartModel();
- 
+        
         ChartSeries alarmSeries = new ChartSeries();
         alarmSeries.setLabel("Alarms per day");
         for(String date : dates){
@@ -135,15 +149,30 @@ public class StatisticsBean implements Serializable {
             }
             alarmSeries.set(date, count);
         }
-        model.addSeries(alarmSeries);         
+        model.addSeries(alarmSeries);
         return model;
     }
+    
+    /**
+     * getBarModel
+     * @return model for the bar chart
+     */
     public BarChartModel getBarModel() {
         return barModel;
     }
+    
+    /**
+     * getLineModel
+     * @return model for the line chart
+     */
     public LineChartModel getLineModel() {
         return lineModel;
     }
+    
+    /**
+     * getNoAlarms
+     * @return number of alarms
+     */
     public int getNoAlarms(){
         return alarms.size();
     }

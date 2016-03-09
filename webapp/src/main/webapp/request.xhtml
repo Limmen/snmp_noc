@@ -21,7 +21,10 @@
                 <p:tab title="GET Request">
                     <h:panelGrid columns="1">
                         <h:form styleClass="getForm">
-                            <div class="form-group">
+                            <p:selectManyCheckbox id="grid" value="#{requestBean.selectedParameters}" layout="grid" columns="1" styleClass="checkMany">
+                                <f:selectItems value="#{requestBean.parameters}"/>
+                            </p:selectManyCheckbox>
+                            <div class="form-group" style="margin-top: 20px">
                                 <label for="ipAddress">IP Address: </label>
                                 <h:inputText class="form-control" id="ipAddress" 
                                              value="#{requestBean.ip}"

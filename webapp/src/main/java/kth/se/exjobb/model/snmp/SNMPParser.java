@@ -1,3 +1,7 @@
+/*
+* Royal Institute of Technology
+* 2016 (c) Kim Hammar Marcus Blom
+*/
 package kth.se.exjobb.model.snmp;
 
 import java.util.ArrayList;
@@ -11,7 +15,7 @@ import kth.se.exjobb.model.util.RelativeByteBuffer;
  * Parses the binary data of an SNMP UDP message.
  * @author Marcus Blom
  */
-public class SNMPParser 
+public class SNMPParser
 {
     
     //todo(Marcus): Decide on how to store this..
@@ -25,13 +29,13 @@ public class SNMPParser
         oids.put("1.3.6.1.2.1.1.5.0.", "sysName.0");
         oids.put("1.3.6.1.2.1.1.1.0.", "sysDescr.0");
         oids.put("1.3.6.1.2.1.1.4.0.", "sysContact.0");
-        oids.put("1.3.6.1.2.1.1.6.0.", "sysLocation.0"); 
+        oids.put("1.3.6.1.2.1.1.6.0.", "sysLocation.0");
     }
     
     /**
      * Parses the binary data of an SNMP UDP message
      * @param message byte[] a received SNMP message.
-     * @return SNMPMessage. 
+     * @return SNMPMessage.
      */
     public static SNMPMessage parse(byte[] message)
     {
@@ -47,7 +51,7 @@ public class SNMPParser
         
         int numberOfVarBindings;
         
-        List<SNMPVariableBinding> variableBindings = new ArrayList<>(); 
+        List<SNMPVariableBinding> variableBindings = new ArrayList<>();
         
         if(data.getNext() == 0x30) //Sequence
         {
@@ -121,7 +125,7 @@ public class SNMPParser
                         Object value = null;
                         
                         byte objectClass = data.getNext();
-
+                        
                         if(objectClass == 0x02) //Integer
                         {
                             value = readASN1Integer(data);
@@ -138,7 +142,7 @@ public class SNMPParser
                         {
                             value = readOID(data);
                         }
-
+                        
                         SNMPVariableBinding variableBinding = new SNMPVariableBinding(new String(oid),value);
                         variableBindings.add(variableBinding);
                     }
@@ -150,12 +154,17 @@ public class SNMPParser
                 }
             }
         }
-    
-    SNMPMessage result = new SNMPMessage(versionNumber, community, requestID,  error,  errorIndex, variableBindings);
-    return result;
+        
+        SNMPMessage result = new SNMPMessage(versionNumber, community, requestID,  error,  errorIndex, variableBindings);
+        return result;
         
     }
     
+    /**
+     *
+     * @param oid
+     * @return
+     */
     public static String translateOID(String oid)
     {
         return oids.get(oid.trim());
@@ -167,20 +176,20 @@ public class SNMPParser
         int oidLength = (((oidByteLength+1)*2) - 1);
         //All characters except for the last one will be followed by a dot
         char[] oid = new char[((oidLength+1)*2) - 1];
-
+        
         //The first byte contains the first two numbers of the OID.
         byte firstByte = data.getNext();
-        oid[0] = Integer.toString((firstByte / 40)).charAt(0);       
+        oid[0] = Integer.toString((firstByte / 40)).charAt(0);
         oid[1] = '.';
         oid[2] = Integer.toString((firstByte % 40)).charAt(0);
         oid[3] = '.';
-
+        
         //Loop through the rest
         int j = 4;
         while(j < oidLength)
         {
             byte currentOctet = data.getNext();
-
+            
             //If the first bit of the byte is '0' we read
             //the full byte as one part of the oid.
             if(((currentOctet >> 8) & 1) == 0)
@@ -203,7 +212,7 @@ public class SNMPParser
         int result;
         
         int intByteLength = ASN1ObjectLength(data);
-            
+        
         //Read the integer of specified length.
         if(intByteLength == 1)
         {
@@ -221,15 +230,15 @@ public class SNMPParser
     {
         String result;
         int length = ASN1ObjectLength(data);
-            
+        
         char[] chars = new char[length];
-            
+        
         //Every upcoming byte is an ASCII-character
         for(int j = 0; j < length; j++)
         {
             chars[j] = (char) data.getNext();
         }
-            
+        
         result = new String(chars);
         return result;
     }

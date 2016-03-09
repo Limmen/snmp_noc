@@ -1,6 +1,8 @@
+/*
+* Royal Institute of Technology
+* 2016 (c) Kim Hammar Marcus Blom
+*/
 package kth.se.exjobb.model.snmp;
-
-import java.util.HashMap;
 
 /**
  * Represents a variable binding within an SNMP-message.
@@ -11,18 +13,32 @@ public class SNMPVariableBinding
 {
     private final String oid;
     private final Object value; //todo(Marcus): How to handle values of possibly different data types?
-
+    
+    /**
+     * Class constructor
+     *
+     * @param oid Object identifier
+     * @param value Object value
+     */
     public SNMPVariableBinding(String oid, Object value)
     {
         this.oid = oid;
-        this.value = value;        
+        this.value = value;
     }
-
+    
+    /**
+     * getOid
+     * @return object identifier
+     */
     public String getOid()
     {
         return SNMPParser.translateOID(oid);
     }
-
+    
+    /**
+     * getValue
+     * @return object value
+     */
     public String getValue()
     {
         
