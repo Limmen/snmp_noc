@@ -4,8 +4,10 @@
 */
 package kth.se.exjobb.model.snmp;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import kth.se.exjobb.model.util.Severity;
 
 
 /**
@@ -19,10 +21,11 @@ public class SNMPMessage
     private final int requestID;
     private final int error;
     private final int errorIndex;
-    private final String severity;
+    private final Severity severity;
+    private final String sysName;
     private final List<SNMPVariableBinding> variableBindings;
     private final Date date = new Date();
-    
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     /**
      * Class constructor
      * @param versionNumber SNMP version
@@ -40,7 +43,8 @@ public class SNMPMessage
         this.error = error;
         this.errorIndex = errorIndex;
         this.variableBindings = variableBindings;
-        severity = findSeverity();
+        severity = new Severity(findSeverity());
+        sysName = findSysName();
     }
     
     /**
@@ -92,7 +96,7 @@ public class SNMPMessage
      * getSeverity
      * @return severity of the SNMP alarm
      */
-    public String getSeverity() {
+    public Severity getSeverity() {
         return severity;
     }
     
@@ -108,8 +112,16 @@ public class SNMPMessage
      * getDate
      * @return date when the snmp message was received
      */
-    public Date getDate() {
-        return date;
+    public String getDate() {
+        return dateFormat.format(date);
+    }
+
+    /**
+     * getSysName
+     * @return system name
+     */
+    public String getSysName() {
+        return sysName;
     }
     
     private String findSeverity(){
@@ -120,6 +132,16 @@ public class SNMPMessage
             }     
         }
         return "Cleared";
+    }
+    
+    private String findSysName(){
+        for(SNMPVariableBinding binding : variableBindings){
+            if(binding.getOid() != null){
+                if(binding.getOid().equals("sysName.0"))
+                    return binding.getValue();
+            }
+        }
+        return "Not found";
     }
     
 }

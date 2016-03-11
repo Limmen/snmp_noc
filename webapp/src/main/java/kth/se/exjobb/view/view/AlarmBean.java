@@ -9,6 +9,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -34,7 +35,7 @@ public class AlarmBean implements Serializable {
     private final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private Date updated = new Date();
     private SNMPMessage selectedAlarm;
-    
+        
     /**
      * This method is called after all dependency injections and initialization are done
      * but before the class is put to service.
@@ -64,7 +65,7 @@ public class AlarmBean implements Serializable {
     public void removeSelectedAlarm(){
         contr.removeSelectedAlarm(selectedAlarm);
     }
-    
+
     /**
      * getAlarms
      * @return List of alarms

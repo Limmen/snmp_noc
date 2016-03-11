@@ -24,12 +24,16 @@
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="5,10,15"
                                  id="alarmData">
-                        <p:column headerText="RequestID">
-                            <h:outputText value="#{alarm.requestID}" style="font-weight: bold" />
+                        <p:column headerText="System name" sortBy="#{alarm.sysName}">
+                            <h:outputText value="#{alarm.sysName}" style="font-weight: bold"/>
                         </p:column>
                         
-                        <p:column headerText="Severity">
+                        <p:column headerText="Severity" sortBy="#{alarm.severity}">
                             <h:outputText value="#{alarm.severity}" style="font-weight: bold" styleClass="#{alarm.severity}"/> 
+                        </p:column>
+                        
+                        <p:column headerText="Date" sortBy="#{alarm.date}">
+                            <h:outputText value="#{alarm.date}" style="font-weight: bold"/> 
                         </p:column>
                         
                         <p:column headerText="Detailed Information">
@@ -64,6 +68,10 @@
                             <h:panelGrid columns="2" cellpadding="5">
                                 <h:outputText value="Severity:  " />
                                 <h:outputText value="#{alarmBean.selectedAlarm.severity}" style="font-weight: bold" styleClass="#{alarm.severity}"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Date:  " />
+                                <h:outputText value="#{alarmBean.selectedAlarm.date}" style="font-weight: bold"/>
                             </h:panelGrid>
                             <h:panelGrid columns="1" cellpadding="5">
                                 <h:outputText value="VariableBindings:  " />
