@@ -117,6 +117,13 @@ public class SNMPMessage
     }
 
     /**
+     * getDate
+     * @return date when the snmp message was received
+     */
+    public Date getRawDate() {
+        return date;
+    }
+    /**
      * getSysName
      * @return system name
      */

@@ -40,7 +40,7 @@ public class StatisticsBean implements Serializable {
     private BarChartModel barModel = new BarChartModel();
     private BarChartModel barModel2 = new BarChartModel();
     private LineChartModel lineModel = new LineChartModel();
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     
     /**
      * This method is called after all dependency injections and initialization are done
@@ -117,7 +117,7 @@ public class StatisticsBean implements Serializable {
                             match = binding.getValue().equals(name);
                         }
                     }
-                    if(dateFormat.format(message.getDate()).equals(date) && match)
+                    if(dateFormat.format(message.getRawDate()).equals(date) && match)
                         count++;
                 }
                 serie.set(date, count);
@@ -164,7 +164,7 @@ public class StatisticsBean implements Serializable {
                             match = binding.getValue().equals(name);
                         }
                     }
-                    if(dateFormat.format(message.getDate()).equals(date) && match)
+                    if(dateFormat.format(message.getRawDate()).equals(date) && match)
                         count++;
                 }
                 serie.set(date, count);
@@ -193,7 +193,7 @@ public class StatisticsBean implements Serializable {
         for(String date : dates){
             int count = 0;
             for(SNMPMessage message : alarms){
-                if(dateFormat.format(message.getDate()).equals(date))
+                if(dateFormat.format(message.getRawDate()).equals(date))
                     count++;
             }
             alarmSeries.set(date, count);
