@@ -30,6 +30,7 @@ public class SNMPParser
         oids.put("1.3.6.1.2.1.1.1.0.", "sysDescr.0");
         oids.put("1.3.6.1.2.1.1.4.0.", "sysContact.0");
         oids.put("1.3.6.1.2.1.1.6.0.", "sysLocation.0");
+        oids.put("3.6.1.4.1.9.1.1.1.2.2.1.1.7.", "calSeverity");
     }
     
     /**

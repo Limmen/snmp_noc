@@ -34,10 +34,11 @@ import org.primefaces.model.chart.LineChartModel;
 public class StatisticsBean implements Serializable {
     
     @EJB
-            Controller contr;
+    Controller contr;
     private List<SNMPMessage> alarms;
     private ArrayList<String> dates = new ArrayList();
     private BarChartModel barModel = new BarChartModel();
+    private BarChartModel barModel2 = new BarChartModel();
     private LineChartModel lineModel = new LineChartModel();
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     
@@ -59,6 +60,7 @@ public class StatisticsBean implements Serializable {
         updateAlarms();
         updateDates();
         updateBarModel();
+        updateBarModel2();
         updateLineModel();
     }
     
@@ -124,6 +126,53 @@ public class StatisticsBean implements Serializable {
         }
         return model;
     }
+    private void updateBarModel2() {
+        barModel2 = initBarModel2();
+        
+        barModel2.setTitle("Severity of alarms");
+        barModel2.setLegendPosition("ne");
+        
+        Axis xAxis = barModel2.getAxis(AxisType.X);
+        xAxis.setLabel("Day");
+        
+        Axis yAxis = barModel2.getAxis(AxisType.Y);
+        yAxis.setLabel("Number of alarms");
+        yAxis.setMin(0);
+        yAxis.setMax(20);
+    }
+    
+    private BarChartModel initBarModel2() {
+        ArrayList<String> names = new ArrayList();
+        for(SNMPMessage message : alarms){
+            for(SNMPVariableBinding binding : message.getVariableBindings()){
+                if(binding.getOid().equals("calSeverity")){
+                    if(!names.contains(binding.getValue()))
+                        names.add(binding.getValue());
+                }
+            }
+        }
+        BarChartModel model = new BarChartModel();
+        for(String name : names){
+            ChartSeries serie = new ChartSeries();
+            serie.setLabel(name);
+            for(String date : dates){
+                int count = 0;
+                for(SNMPMessage message : alarms){
+                    boolean match = false;
+                    for(SNMPVariableBinding binding : message.getVariableBindings()){
+                        if(binding.getOid().equals("calSeverity")){
+                            match = binding.getValue().equals(name);
+                        }
+                    }
+                    if(dateFormat.format(message.getDate()).equals(date) && match)
+                        count++;
+                }
+                serie.set(date, count);
+            }
+            model.addSeries(serie);
+        }
+        return model;
+    }
     private void updateLineModel() {
         lineModel = initCategoryModel();
         lineModel.setTitle("Alarms per day");
@@ -159,6 +208,14 @@ public class StatisticsBean implements Serializable {
      */
     public BarChartModel getBarModel() {
         return barModel;
+    }
+    
+    /**
+     * getBarModel
+     * @return model for the second bar chart
+     */
+    public BarChartModel getBarModel2() {
+        return barModel2;
     }
     
     /**

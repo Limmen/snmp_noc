@@ -19,7 +19,7 @@ public class SNMPMessage
     private final int requestID;
     private final int error;
     private final int errorIndex;
-    private final String severity = "Fine";
+    private final String severity;
     private final List<SNMPVariableBinding> variableBindings;
     private final Date date = new Date();
     
@@ -40,6 +40,7 @@ public class SNMPMessage
         this.error = error;
         this.errorIndex = errorIndex;
         this.variableBindings = variableBindings;
+        severity = findSeverity();
     }
     
     /**
@@ -111,5 +112,14 @@ public class SNMPMessage
         return date;
     }
     
+    private String findSeverity(){
+        for(SNMPVariableBinding binding : variableBindings){
+            if(binding.getOid() != null){
+                if(binding.getOid().equals("calSeverity"))
+                    return binding.getValue();
+            }     
+        }
+        return "Cleared";
+    }
     
 }
