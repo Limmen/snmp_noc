@@ -22,9 +22,9 @@ import kth.se.exjobb.model.snmp.SNMPMessage;
 public class Controller {
     
     @EJB
-            AlarmEJB alarmManager;
+    AlarmEJB alarmManager;
     @EJB
-            SNMPManagerBean managerBean;
+    SNMPManagerBean managerBean;
     
     /**
      * This method is called after all dependency injections and initialization are done

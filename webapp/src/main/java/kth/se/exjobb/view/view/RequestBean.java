@@ -14,12 +14,13 @@ import javax.inject.Named;
 import kth.se.exjobb.view.DTO.SetRequestDTO;
 import kth.se.exjobb.controller.Controller;
 import kth.se.exjobb.model.snmp.SNMPMessage;
+import kth.se.exjobb.util.GenericLogger;
 
 /**
  * Managed bean representing the interface between the request page and the server.
  * ViewScope means that the bean will be active as long as the user is interacting with the same
  * JSF view.
- * @author kim
+ * @author Kim Hammar
  */
 @Named(value = "requestBean")
 @ViewScoped
@@ -27,7 +28,7 @@ public class RequestBean implements Serializable {
     
     @EJB
     private Controller contr;
-    private boolean result = false;
+    private boolean availableResult = false;
     private SNMPMessage resultAlarm;
     private SetRequestDTO setDTO = new SetRequestDTO();
     private String ip;
@@ -48,44 +49,44 @@ public class RequestBean implements Serializable {
         parameters.add("System description");
         parameters.add("System contact");
         parameters.add("System location");
-        System.out.println("Parameters initialized");
     }
     
     /**
      * Method called when the user presses the Send-button.
-     * Will result in a call to the controller to send a SNMP-request to a
+     * Will availableResult in a call to the controller to send a SNMP-request to a
      * specified IP-address.
      */
+    @GenericLogger
     public void sendRequest(){
         
     }
     
     /**
-     * Returns true or false depending on if there is a result to show the user or not.
+     * Returns true or false depending on if there is a availableResult to show the user or not.
      * @return
      */
     public boolean isResult() {
-        return result;
+        return availableResult;
     }
     
     /**
-     * Updates the boolean that decides wether there is a result to show or not.
-     * @param result
+     * Updates the boolean that decides wether there is a availableResult to show or not.
+     * @param availableResult
      */
-    public void setResult(boolean result) {
-        this.result = result;
+    public void setAvailableResult(boolean availableResult) {
+        this.availableResult = availableResult;
     }
     
     /**
      * getResultAlarm
-     * @return The result of the latest request
+     * @return The availableResult of the latest request
      */
     public SNMPMessage getResultAlarm() {
         return resultAlarm;
     }
     
     /**
-     * Updates the result of the latest request
+     * Updates the availableResult of the latest request
      * @param alarm
      */
     public void setResultAlarm(SNMPMessage alarm) {

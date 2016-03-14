@@ -6,7 +6,7 @@ package kth.se.exjobb.view.DTO;
 
 /**
  * DataTransferObject of set-request parameters that the user have specified.
- * @author kim
+ * @author Kim Hammar
  */
 public class SetRequestDTO {
     private String sysName;

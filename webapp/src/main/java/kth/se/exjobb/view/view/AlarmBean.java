@@ -15,21 +15,20 @@ import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import kth.se.exjobb.controller.Controller;
-import kth.se.exjobb.model.snmp.SNMPManager;
 import kth.se.exjobb.model.snmp.SNMPMessage;
+import kth.se.exjobb.util.GenericLogger;
 
 /**
  * Managed bean representing the interface between the index page and the server.
  * ViewScope means that the bean will be active as long as the user is interacting with the same
  * JSF view.
- * @author kim
+ * @author Kim Hammar
  */
 @Named(value = "alarmBean")
 @ViewScoped
 public class AlarmBean implements Serializable {
     @EJB
     Controller contr;
-    private SNMPManager manager;
     private List<SNMPMessage> alarms;
     private final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private Date updated = new Date();
@@ -61,6 +60,7 @@ public class AlarmBean implements Serializable {
     /**
      * Removes a selectedAlarm from the list of alarms
      */
+    @GenericLogger
     public void removeSelectedAlarm(){
         contr.removeSelectedAlarm(selectedAlarm);
     }

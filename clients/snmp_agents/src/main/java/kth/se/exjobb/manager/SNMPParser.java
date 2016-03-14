@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 /**
  * Parses the binary data of an SNMP UDP message.
  * @author Marcus Blom

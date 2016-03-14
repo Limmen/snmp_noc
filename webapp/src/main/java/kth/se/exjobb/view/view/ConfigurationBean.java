@@ -10,19 +10,19 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
+import kth.se.exjobb.util.GenericLogger;
 
 /**
  * Managed bean representing the interface between the configuration page and the server.
  * ViewScope means that the bean will be active as long as the user is interacting with the same
  * JSF view.
- * @author kim
+ * @author Kim Hammar
  */
 @Named(value = "configurationBean")
 @ViewScoped
 public class ConfigurationBean implements Serializable {
-    
-    
-    private List<String> savings;
+        
+    private List<String> savingPolicies;
     private String save;
     
     /**
@@ -33,15 +33,15 @@ public class ConfigurationBean implements Serializable {
      */
     @PostConstruct
     public void init(){
-        savings = new ArrayList();
-        savings.add("dont save");
-        savings.add("1 day");
-        savings.add("3 days");
-        savings.add("1 week");
-        savings.add("2 weeks");
-        savings.add("1 month");
-        savings.add("6 months");
-        savings.add("forever");
+        savingPolicies = new ArrayList();
+        savingPolicies.add("dont save");
+        savingPolicies.add("1 day");
+        savingPolicies.add("3 days");
+        savingPolicies.add("1 week");
+        savingPolicies.add("2 weeks");
+        savingPolicies.add("1 month");
+        savingPolicies.add("6 months");
+        savingPolicies.add("forever");
         save = "dont save";
     }
     
@@ -49,8 +49,8 @@ public class ConfigurationBean implements Serializable {
      * getSavings
      * @return list of saving-policies
      */
-    public List<String> getSavings() {
-        return savings;
+    public List<String> getSavingPolicies() {
+        return savingPolicies;
     }
     
     /**
@@ -65,6 +65,7 @@ public class ConfigurationBean implements Serializable {
      * updated the saving policy
      * @param save saving policy
      */
+    @GenericLogger
     public void setSave(String save) {
         this.save = save;
     }

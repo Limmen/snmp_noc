@@ -27,7 +27,7 @@ import org.primefaces.model.chart.LineChartModel;
  * Managed bean representing the interface between the statistics page and the server.
  * ViewScope means that the bean will be active as long as the user is interacting with the same
  * JSF view.
- * @author kim
+ * @author Kim Hammar
  */
 @Named(value = "statisticsBean")
 @ViewScoped
@@ -37,9 +37,9 @@ public class StatisticsBean implements Serializable {
     Controller contr;
     private List<SNMPMessage> alarms;
     private ArrayList<String> dates = new ArrayList();
-    private BarChartModel barModel = new BarChartModel();
-    private BarChartModel barModel2 = new BarChartModel();
-    private LineChartModel lineModel = new LineChartModel();
+    private BarChartModel alarmsByLocationModel = new BarChartModel();
+    private BarChartModel alarmsBySeverityModel = new BarChartModel();
+    private LineChartModel alarmsByDay = new LineChartModel();
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     
     /**
@@ -59,9 +59,9 @@ public class StatisticsBean implements Serializable {
     public void updateModels(){
         updateAlarms();
         updateDates();
-        updateBarModel();
-        updateBarModel2();
-        updateLineModel();
+        updateAlarmsByLocationModel();
+        updateAlarmsBySeverityModel();
+        alarmsByDayModel();
     }
     
     private void updateDates(){
@@ -79,22 +79,20 @@ public class StatisticsBean implements Serializable {
             alarms = new ArrayList();
     }
     
-    private void updateBarModel() {
-        barModel = initBarModel();
+    private void updateAlarmsByLocationModel() {
+        alarmsByLocationModel = initAlarmsByLocationModel();        
+        alarmsByLocationModel.setTitle("Distribution of alarms");
+        alarmsByLocationModel.setLegendPosition("ne");
         
-        barModel.setTitle("Distribution of alarms");
-        barModel.setLegendPosition("ne");
-        
-        Axis xAxis = barModel.getAxis(AxisType.X);
-        xAxis.setLabel("Day");
-        
-        Axis yAxis = barModel.getAxis(AxisType.Y);
+        Axis xAxis = alarmsByLocationModel.getAxis(AxisType.X);
+        xAxis.setLabel("Day");        
+        Axis yAxis = alarmsByLocationModel.getAxis(AxisType.Y);
         yAxis.setLabel("Number of alarms");
         yAxis.setMin(0);
         yAxis.setMax(20);
     }
     
-    private BarChartModel initBarModel() {
+    private BarChartModel initAlarmsByLocationModel() {
         ArrayList<String> names = new ArrayList();
         for(SNMPMessage message : alarms){
             for(SNMPVariableBinding binding : message.getVariableBindings()){
@@ -126,22 +124,22 @@ public class StatisticsBean implements Serializable {
         }
         return model;
     }
-    private void updateBarModel2() {
-        barModel2 = initBarModel2();
+    private void updateAlarmsBySeverityModel() {
+        alarmsBySeverityModel = initAlarmsBySeverityModel();
         
-        barModel2.setTitle("Severity of alarms");
-        barModel2.setLegendPosition("ne");
+        alarmsBySeverityModel.setTitle("Severity of alarms");
+        alarmsBySeverityModel.setLegendPosition("ne");
         
-        Axis xAxis = barModel2.getAxis(AxisType.X);
+        Axis xAxis = alarmsBySeverityModel.getAxis(AxisType.X);
         xAxis.setLabel("Day");
         
-        Axis yAxis = barModel2.getAxis(AxisType.Y);
+        Axis yAxis = alarmsBySeverityModel.getAxis(AxisType.Y);
         yAxis.setLabel("Number of alarms");
         yAxis.setMin(0);
         yAxis.setMax(20);
     }
     
-    private BarChartModel initBarModel2() {
+    private BarChartModel initAlarmsBySeverityModel() {
         ArrayList<String> names = new ArrayList();
         for(SNMPMessage message : alarms){
             for(SNMPVariableBinding binding : message.getVariableBindings()){
@@ -173,19 +171,19 @@ public class StatisticsBean implements Serializable {
         }
         return model;
     }
-    private void updateLineModel() {
-        lineModel = initCategoryModel();
-        lineModel.setTitle("Alarms per day");
-        lineModel.setLegendPosition("e");
-        lineModel.setShowPointLabels(true);
-        lineModel.getAxes().put(AxisType.X, new CategoryAxis("Day"));
-        Axis yAxis = lineModel.getAxis(AxisType.Y);
+    private void alarmsByDayModel() {
+        alarmsByDay = initAlarmsByDayModel();
+        alarmsByDay.setTitle("Alarms per day");
+        alarmsByDay.setLegendPosition("e");
+        alarmsByDay.setShowPointLabels(true);
+        alarmsByDay.getAxes().put(AxisType.X, new CategoryAxis("Day"));
+        Axis yAxis = alarmsByDay.getAxis(AxisType.Y);
         yAxis.setLabel("Alarms");
         yAxis.setMin(0);
         yAxis.setMax(80);
     }
     
-    private LineChartModel initCategoryModel() {
+    private LineChartModel initAlarmsByDayModel() {
         LineChartModel model = new LineChartModel();
         
         ChartSeries alarmSeries = new ChartSeries();
@@ -203,27 +201,27 @@ public class StatisticsBean implements Serializable {
     }
     
     /**
-     * getBarModel
-     * @return model for the bar chart
+     * getAlarmsByLocationModel
+     * @return model that visualize alarms by location
      */
-    public BarChartModel getBarModel() {
-        return barModel;
+    public BarChartModel getAlarmsByLocationModel() {
+        return alarmsByLocationModel;
     }
     
     /**
-     * getBarModel
-     * @return model for the second bar chart
+     * getAlarmsBySeverityModel
+     * @return model that visualize alarms by severity
      */
-    public BarChartModel getBarModel2() {
-        return barModel2;
+    public BarChartModel getAlarmsBySeverityModel() {
+        return alarmsBySeverityModel;
     }
     
     /**
-     * getLineModel
+     * getAlarmsByDayModel
      * @return model for the line chart
      */
-    public LineChartModel getLineModel() {
-        return lineModel;
+    public LineChartModel getAlarmsByDayModel() {
+        return alarmsByDay;
     }
     
     /**

@@ -8,6 +8,7 @@ package kth.se.exjobb.agents;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
@@ -29,11 +30,9 @@ public class Startup {
             agent4.start();
             agent5.start();
             agent6.start();
-            int turn = 1;
+            int turn;
             while(true) {
-                
-                if(turn > 6)
-                    turn = 1;
+                turn = ThreadLocalRandom.current().nextInt(1, 7);
                 switch(turn){
                     case 1:
                         agent1.sendSnmpV2Trap();
