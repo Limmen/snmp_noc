@@ -15,6 +15,7 @@ import kth.se.exjobb.view.DTO.SetRequestDTO;
 import kth.se.exjobb.controller.Controller;
 import kth.se.exjobb.model.snmp.SNMPMessage;
 import kth.se.exjobb.util.GenericLogger;
+import kth.se.exjobb.util.ValidIP;
 
 /**
  * Managed bean representing the interface between the request page and the server.
@@ -31,6 +32,7 @@ public class RequestBean implements Serializable {
     private boolean availableResult = false;
     private SNMPMessage resultAlarm;
     private SetRequestDTO setDTO = new SetRequestDTO();
+    @ValidIP
     private String ip;
     private String[] selectedParameters;
     private List<String> parameters;

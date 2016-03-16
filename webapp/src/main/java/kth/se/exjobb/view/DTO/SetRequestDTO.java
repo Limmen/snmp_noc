@@ -8,7 +8,7 @@ package kth.se.exjobb.view.DTO;
  * DataTransferObject of set-request parameters that the user have specified.
  * @author Kim Hammar
  */
-public class SetRequestDTO {
+public class SetRequestDTO {    
     private String sysName;
     private String sysDescr;
     private String sysContact;

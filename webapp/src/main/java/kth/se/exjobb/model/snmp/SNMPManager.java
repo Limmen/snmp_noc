@@ -11,6 +11,7 @@ import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import kth.se.exjobb.controller.Controller;
+import kth.se.exjobb.util.LogManager;
 
 /**
  * SNMP-Manager that listens on port 9888 for incoming UDP-messages (SNMP-messages).
@@ -40,7 +41,7 @@ public class SNMPManager implements Runnable {
             socket = new DatagramSocket(9888);
             listen(socket);
         } catch (SocketException ex) {
-            Logger.getLogger(SNMPManager.class.getName()).log(Level.SEVERE, null, ex);
+            LogManager.log("SocketException, error when listening on UDP port 9888 \n" + ex.toString(), Level.WARNING);
         }
     }
     
@@ -51,7 +52,7 @@ public class SNMPManager implements Runnable {
             try {
                 socket.receive(packet);
             } catch (IOException ex) {
-                Logger.getLogger(SNMPManager.class.getName()).log(Level.SEVERE, null, ex);
+                LogManager.log("IO Exception when receiving UDP packet \n" + ex.toString(), Level.WARNING);
             }
             SNMPMessage msg = SNMPParser.parse(buf);
             contr.newAlarm(msg);

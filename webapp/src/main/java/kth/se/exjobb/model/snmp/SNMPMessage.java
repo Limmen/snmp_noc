@@ -7,7 +7,6 @@ package kth.se.exjobb.model.snmp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import kth.se.exjobb.model.util.Severity;
 
 
 /**
