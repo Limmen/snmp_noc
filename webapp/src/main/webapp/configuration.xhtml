@@ -19,7 +19,7 @@
                     <h:outputLabel for="savingPolicy" value="Save unhandled alarms for:" />
                     <b:selectOneMenu id="savingPolicy" value="#{configurationBean.save}" style="width:500px">                        
                         <f:selectItem itemLabel="Select time" itemValue="" noSelectionOption="true" />
-                        <f:selectItems value="#{configurationBean.savings}" />
+                        <f:selectItems value="#{configurationBean.savingPolicies}" />
                     </b:selectOneMenu>        
                 </div>
             </h:form>    
