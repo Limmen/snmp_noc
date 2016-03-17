@@ -14,7 +14,7 @@ import java.util.logging.Level;
 public class LogManager {
     
     private static final java.util.logging.Logger
-            LOGGER = java.util.logging.Logger.getLogger("grupp14.IV1201");
+            LOGGER = java.util.logging.Logger.getLogger("kth.se.exjobb");
        
     /**
      * Class constructor
