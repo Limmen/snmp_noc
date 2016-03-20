@@ -7,6 +7,8 @@ package kth.se.exjobb.model.snmp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import kth.se.exjobb.model.util.OIDTranslation;
 import kth.se.exjobb.model.util.RelativeByteBuffer;
 
 
@@ -17,22 +19,7 @@ import kth.se.exjobb.model.util.RelativeByteBuffer;
  */
 public class SNMPParser
 {
-    
-    //todo(Marcus): Decide on how to store this..
-    //todo(Marcus): Public?
-    private static final HashMap<String,String> oids = new HashMap();
-    static
-    {
-        oids.put("1.3.6.1.2.1.1.3.0.", "sysUpTimeInstance");
-        oids.put("1.3.6.1.6.3.1.1.4.1.0.", "snmpTrapOID.0");
-        oids.put("1.3.6.1.6.3.1.1.3.0.", "snmpMIBObjects.3.0");
-        oids.put("1.3.6.1.2.1.1.5.0.", "sysName.0");
-        oids.put("1.3.6.1.2.1.1.1.0.", "sysDescr.0");
-        oids.put("1.3.6.1.2.1.1.4.0.", "sysContact.0");
-        oids.put("1.3.6.1.2.1.1.6.0.", "sysLocation.0");
-        oids.put("3.6.1.4.1.9.1.1.1.2.2.1.1.7.", "calSeverity");
-    }
-    
+
     /**
      * Parses the binary data of an SNMP UDP message
      * @param message byte[] a received SNMP message.
@@ -168,7 +155,7 @@ public class SNMPParser
      */
     public static String translateOID(String oid)
     {
-        return oids.get(oid.trim());
+        return OIDTranslation.oids.get(oid.trim());
     }
     
     private static char[] readOID(RelativeByteBuffer data)
