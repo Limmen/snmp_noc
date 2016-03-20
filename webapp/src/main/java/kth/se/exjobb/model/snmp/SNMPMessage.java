@@ -17,6 +17,7 @@ public class SNMPMessage
 {
     private final int versionNumber;
     private final String community;
+    private final int PDUType;
     private final int requestID;
     private final int error;
     private final int errorIndex;
@@ -34,7 +35,7 @@ public class SNMPMessage
      * @param errorIndex SNMP error index
      * @param variableBindings SNMP VariableBindings
      */
-    public SNMPMessage(int versionNumber, String community, int requestID, int error, int errorIndex, List<SNMPVariableBinding> variableBindings)
+    public SNMPMessage(int versionNumber, String community, int requestID, int error, int errorIndex,int PDUType, List<SNMPVariableBinding> variableBindings)
     {
         this.versionNumber = versionNumber;
         this.community = community;
@@ -44,6 +45,7 @@ public class SNMPMessage
         this.variableBindings = variableBindings;
         severity = new Severity(findSeverity());
         sysName = findSysName();
+        this.PDUType = PDUType;
     }
     
     /**
@@ -119,16 +121,25 @@ public class SNMPMessage
      * getDate
      * @return date when the snmp message was received
      */
-    public Date getRawDate() {
+    public Date getRawDate() 
+    {
         return date;
     }
     /**
      * getSysName
      * @return system name
      */
-    public String getSysName() {
+    public String getSysName() 
+    {
         return sysName;
     }
+
+    public int getPDUType()
+    {
+        return PDUType;
+    }
+    
+    
     
     private String findSeverity(){
         for(SNMPVariableBinding binding : variableBindings){

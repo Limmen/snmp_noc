@@ -7,7 +7,6 @@ package kth.se.exjobb.model.snmp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import kth.se.exjobb.model.util.OIDTranslation;
 import kth.se.exjobb.model.util.RelativeByteBuffer;
 
@@ -19,7 +18,7 @@ import kth.se.exjobb.model.util.RelativeByteBuffer;
  */
 public class SNMPParser
 {
-
+        
     /**
      * Parses the binary data of an SNMP UDP message
      * @param message byte[] a received SNMP message.
@@ -36,7 +35,7 @@ public class SNMPParser
         int requestID = 0;
         int error = 0;
         int errorIndex = 0;
-        
+        int PDUType = -1;
         int numberOfVarBindings;
         
         List<SNMPVariableBinding> variableBindings = new ArrayList<>();
@@ -63,12 +62,12 @@ public class SNMPParser
             community = readASN1String(data);
         }
         
-        if((data.getNext() & 0xFF )== 0xa7)
-        {
-            ASN1ObjectLength(data); //todo(Marcus): do we need this?
-        }
+        PDUType = data.getNext();
+        ASN1ObjectLength(data); //The length, in bytes, of the PDU.
+
         
         //PDU
+        //todo(Marcus): Handle SNMPv1 type traps.
         
         //Read the request id.
         if(data.getNext() == 0x02)
@@ -143,7 +142,7 @@ public class SNMPParser
             }
         }
         
-        SNMPMessage result = new SNMPMessage(versionNumber, community, requestID,  error,  errorIndex, variableBindings);
+        SNMPMessage result = new SNMPMessage(versionNumber, community, requestID,  error,  errorIndex,PDUType, variableBindings);
         return result;
         
     }

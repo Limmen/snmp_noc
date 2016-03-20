@@ -1,7 +1,3 @@
-/*
- * Royal Institute of Technology
- * 2016 (c) Kim Hammar Marcus Blom
- */
 package kth.se.exjobb.model.util;
 
 /**
@@ -44,6 +40,11 @@ public class RelativeByteBuffer
        return result;
    }
    
+   public byte[] getByteArray()
+   {
+       return data;
+   }
+   
    /**
     * Sets the current byte and increments the pointer.
     * @param b A byte of data to insert into the buffer.
@@ -53,4 +54,48 @@ public class RelativeByteBuffer
        data[index] = b;
        index++;
    }
+   
+   public void setNext(int i)
+   {
+       setNext((byte) i);
+   }
+   
+   /**
+    * Adds an array of bytes to the buffer, incrementing the pointer with
+    * each set.
+    * @param byteArray 
+    */
+   public void setNext(byte[] byteArray)
+   {
+       for(int i = 0; i < byteArray.length;i++)
+       {
+           data[index] = byteArray[i];
+           index++;
+       }
+   }
+   
+   /**
+    * Adds a specified number of bytes sequentially from an array of bytes.
+    * @param byteArray
+    * @param numberOfBytes 
+    */
+   public void setNext(byte[] byteArray,int numberOfBytes)
+   {
+       for(int i = 0; i < numberOfBytes;i++)
+       {
+           data[index] = byteArray[i];
+           index++;
+       }
+   }
+   
+   public int size()
+   {
+       return index+1;
+   }
+   
+   public int getCurrentIndex()
+   {
+       return index;
+   }
+   
 }
