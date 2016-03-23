@@ -73,6 +73,10 @@
                                 <h:outputText value="Date:  " />
                                 <h:outputText value="#{alarmBean.selectedAlarm.date}" style="font-weight: bold"/>
                             </h:panelGrid>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="PDU type:  " />
+                                <h:outputText value="#{alarmBean.selectedAlarm.PDUType}" style="font-weight: bold"/>
+                            </h:panelGrid>
                             <h:panelGrid columns="1" cellpadding="5">
                                 <h:outputText value="VariableBindings:  " />
                                 <p:dataList value="#{alarmBean.selectedAlarm.variableBindings}" var="binding">

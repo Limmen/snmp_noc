@@ -139,7 +139,7 @@ public class SNMPMessage
         return PDUType;
     }
     
-    
+
     
     private String findSeverity(){
         for(SNMPVariableBinding binding : variableBindings){

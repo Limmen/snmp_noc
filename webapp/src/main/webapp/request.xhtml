@@ -27,16 +27,16 @@
                                 <f:selectItems value="#{requestBean.parameters}"/>
                             </p:selectManyCheckbox>
                             <div class="form-group" style="margin-top: 20px">
-                                <label for="ipAddress">IP Address: </label>
-                                <h:inputText class="form-control" id="ipAddress" 
+                                <label for="ipAddress_get">IP Address: </label>
+                                <h:inputText class="form-control" id="ipAddress_get"
                                              value="#{requestBean.ip}"
                                              required ="true"
                                              requiredMessage="Please enter a IP-address"
                                              size="200">
                                 </h:inputText>
-                                <h:message for="ipAddress" style="color:red"/>
+                                <h:message for="ipAddress_get" style="color:red"/>
                             </div>
-                            <b:commandButton value="Send" action="#{requestBean.sendRequest()}">
+                            <b:commandButton value="Send" action="#{requestBean.sendGetRequest()}">
                                 Send
                             </b:commandButton>
                         </h:form>   
@@ -95,7 +95,7 @@
                                 </h:inputText>
                                 <h:message for="ipAddress" style="color:red"/>
                             </div>
-                            <b:commandButton value="Send" action="#{requestBean.sendRequest()}">
+                            <b:commandButton value="Send" action="#{requestBean.sendSetRequest()}">
                                 Send
                             </b:commandButton>
                         </h:form>                           

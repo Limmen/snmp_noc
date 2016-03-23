@@ -1,8 +1,9 @@
 package kth.se.exjobb.model.snmp;
 
+import kth.se.exjobb.model.util.RelativeByteBuffer;
+
 import java.util.ArrayList;
 import java.util.List;
-import kth.se.exjobb.model.util.RelativeByteBuffer;
 
 /**
  * Encodes an SNMP message for UDP tranmission.

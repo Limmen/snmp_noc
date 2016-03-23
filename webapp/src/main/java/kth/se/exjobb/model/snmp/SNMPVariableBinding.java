@@ -41,8 +41,7 @@ public class SNMPVariableBinding
      */
     public String getValue()
     {
-        
         return value.toString();
     }
-    
+
 }
