@@ -1,5 +1,6 @@
 package kth.se.exjobb.model.snmp;
 
+import kth.se.exjobb.integration.entities.SNMPMessage;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;

@@ -4,12 +4,12 @@
 */
 package kth.se.exjobb.model.snmp;
 
+import kth.se.exjobb.integration.entities.SNMPMessage;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import kth.se.exjobb.controller.Controller;
 import kth.se.exjobb.util.LogManager;
 
@@ -54,7 +54,7 @@ public class SNMPManager implements Runnable {
             } catch (IOException ex) {
                 LogManager.log("IO Exception when receiving UDP packet \n" + ex.toString(), Level.WARNING);
             }
-            SNMPMessage msg = SNMPParser.parse(buf);
+            SNMPMessage msg = SNMPParser.parse(buf);            
             contr.newAlarm(msg);
         }
     }

@@ -4,17 +4,17 @@
  */
 package kth.se.exjobb.model.snmp;
 
-import java.util.HashMap;
+import java.io.Serializable;
 import kth.se.exjobb.model.util.SeverityOrdering;
 
 /**
  * Class that represent severities of alarms. 
  * @author Kim Hammar
  */
-public class Severity implements Comparable {
+public class Severity implements Serializable, Comparable {
+    private String severity;
 
-    private final String severity;
-
+    public Severity(){}
     /**
      * Class constructor.
      * 

@@ -4,6 +4,7 @@
 */
 package kth.se.exjobb.model.snmp;
 
+import kth.se.exjobb.integration.entities.SNMPMessage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

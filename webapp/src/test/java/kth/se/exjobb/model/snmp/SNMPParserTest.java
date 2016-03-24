@@ -4,6 +4,7 @@
 */
 package kth.se.exjobb.model.snmp;
 
+import kth.se.exjobb.integration.entities.SNMPMessage;
 import junit.framework.Assert;
 import org.junit.Test;
 

@@ -5,7 +5,7 @@
 package kth.se.exjobb.view.view;
 
 import kth.se.exjobb.controller.Controller;
-import kth.se.exjobb.model.snmp.SNMPMessage;
+import kth.se.exjobb.integration.entities.SNMPMessage;
 import kth.se.exjobb.util.GenericLogger;
 import kth.se.exjobb.util.ValidIP;
 import kth.se.exjobb.view.DTO.SetRequestDTO;

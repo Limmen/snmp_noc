@@ -1,11 +1,13 @@
 package kth.se.exjobb.manager;
 
+import java.io.Serializable;
+
 /**
  * Represents a variable binding within an SNMP-message.
  * Contains an oid and a corresponding value.
  * @author Marcus Blom
  */
-public class SNMPVariableBinding
+public class SNMPVariableBinding implements Serializable
 {
     String oid;
     Object value; //todo(Marcus): How to handle values of possibly different data types?

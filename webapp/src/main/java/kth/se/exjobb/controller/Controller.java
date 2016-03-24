@@ -6,13 +6,15 @@ package kth.se.exjobb.controller;
 
 import kth.se.exjobb.model.AlarmEJB;
 import kth.se.exjobb.model.SNMPManagerBean;
-import kth.se.exjobb.model.snmp.SNMPMessage;
+import kth.se.exjobb.integration.entities.SNMPMessage;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Startup;
-import javax.ejb.Stateless;
 import java.util.Collection;
+import java.util.List;
+import javax.ejb.Stateless;
+import kth.se.exjobb.integration.DAO.DataAccessObject;
 
 /**
  * Application controller. Encapsulates system functionality into an API.
@@ -27,7 +29,8 @@ public class Controller {
     AlarmEJB alarmManager;
     @EJB
     SNMPManagerBean managerBean;
-
+    @EJB
+    DataAccessObject dao;
     /**
      * This method is called after all dependency injections and initialization are done
      * but before the class is put to service.
@@ -38,13 +41,12 @@ public class Controller {
     public void init() {
         managerBean.listen();
     }
-
     /**
      * Method to add a new alarm
      *
      * @param msg snmp message
      */
-    public void newAlarm(SNMPMessage msg) {
+    public void newAlarm(SNMPMessage msg) {       
         alarmManager.newAlarm(msg);
     }
 
@@ -68,5 +70,12 @@ public class Controller {
 
     public void sendGetRequest(String[] oids, String ip) {
     }
-
+    
+    public SNMPMessage getRecentCritical() {
+        return alarmManager.getRecentCritical();
+    }
+    
+    public Collection<SNMPMessage> getCriticalAlarms(){
+        return alarmManager.getCriticalAlarms();
+    }
 }

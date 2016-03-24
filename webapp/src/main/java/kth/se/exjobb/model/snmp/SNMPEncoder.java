@@ -1,5 +1,6 @@
 package kth.se.exjobb.model.snmp;
 
+import kth.se.exjobb.integration.entities.SNMPMessage;
 import kth.se.exjobb.model.util.RelativeByteBuffer;
 
 import java.util.ArrayList;

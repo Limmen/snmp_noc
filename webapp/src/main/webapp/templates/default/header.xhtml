@@ -2,21 +2,35 @@
       xmlns:h="http://java.sun.com/jsf/html"  
       xmlns:f="http://java.sun.com/jsf/core"  
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:b="http://bootsfaces.net/ui">  
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui">  
     <!-- HEADER -->
     <ui:composition>
-        <b:navBar brand="MIC Nordic" brandHref="index.xhtml" inverse="true">
-            <b:navbarLinks>
-                <b:navLink value="Home" href="index.xhtml"></b:navLink>
-                <b:navLink value="Statistics" href="statistics.xhtml"></b:navLink>
-                <b:navLink value="Configuration" href="configuration.xhtml"></b:navLink>
-            </b:navbarLinks>
-        </b:navBar>
-        <b:jumbotron class="jumbo">
-            <p></p>            
-            <h3 class="title"><h:graphicImage styleClass="logo" value="/resources/images/mic_logo.png" width="100px" height="100px"/> <h:link styleClass="link_deco" value="Network Operation Center" outcome="/index"/></h3>
-            <p>
-            </p>
-        </b:jumbotron>
+        <h:form>
+            <b:navBar brand="MIC Nordic" brandHref="index.xhtml" inverse="true">
+                <b:navbarLinks>
+                    <b:navLink value="Home" href="index.xhtml"></b:navLink>
+                    <b:navLink value="Statistics" href="statistics.xhtml"></b:navLink>
+                    <b:navLink value="Configuration" href="configuration.xhtml"></b:navLink>
+                    <p:effect type="pulsate" event="onChange">
+                        <b:navLink id="numAlarms" value="#{notificationBean.alarmsLabel}" href="#" onclick="PF('bar').show()"></b:navLink></p:effect>
+                </b:navbarLinks>
+            </b:navBar>
+            <b:jumbotron class="jumbo">                
+                <p:notificationBar position="top" effect="slide" styleClass="topBar" widgetVar="bar">                           
+                    <div class="notificationBar">
+                        <h3><small>Currently there are <h:outputText id="numAlarms2" value="#{notificationBean.numberOfCriticalAlarms}" style="font-weight: bold"/> unhandled critical alarms. View and handle all alarms <h:link value="here" outcome="index" />
+                            </small></h3>                                
+                        <p:commandLink value="Hide" onclick="PF('bar').hide()" styleClass="hideLink"/>     
+                    </div>
+                </p:notificationBar>
+                <p:growl id="growl" showDetail="true" sticky="false" life="8000"/>
+                <p></p>            
+                <h3 class="title"><h:graphicImage styleClass="logo" value="/resources/images/mic_logo.png" width="100px" height="100px"/> <h:link styleClass="link_deco" value="Network Operation Center" outcome="/index"/></h3>
+                <p>
+                </p>
+                <p:poll interval="5" listener="#{notificationBean.checkForUpdates()}" update="growl numAlarms numAlarms2" />                
+            </b:jumbotron>
+        </h:form> 
     </ui:composition>
 </html>

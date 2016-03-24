@@ -14,7 +14,7 @@ import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import kth.se.exjobb.controller.Controller;
-import kth.se.exjobb.model.snmp.SNMPMessage;
+import kth.se.exjobb.integration.entities.SNMPMessage;
 import kth.se.exjobb.model.snmp.SNMPVariableBinding;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;

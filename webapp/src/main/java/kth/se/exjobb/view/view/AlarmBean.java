@@ -15,7 +15,7 @@ import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import kth.se.exjobb.controller.Controller;
-import kth.se.exjobb.model.snmp.SNMPMessage;
+import kth.se.exjobb.integration.entities.SNMPMessage;
 import kth.se.exjobb.util.GenericLogger;
 
 /**
@@ -32,7 +32,7 @@ public class AlarmBean implements Serializable {
     private List<SNMPMessage> alarms;
     private final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private Date updated = new Date();
-    private SNMPMessage selectedAlarm;
+    private SNMPMessage selectedAlarm;  
         
     /**
      * This method is called after all dependency injections and initialization are done
