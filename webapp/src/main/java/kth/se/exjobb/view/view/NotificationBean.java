@@ -42,7 +42,9 @@ public class NotificationBean implements Serializable {
         criticalAlarms = (List) contr.getAllAlarms();
         if(criticalAlarms == null)
             criticalAlarms = new ArrayList();
-        numberOfCriticalAlarms = criticalAlarms.size();   
+        numberOfCriticalAlarms = criticalAlarms.size();
+        alarmsLabel = "Critical Alarms (" + numberOfCriticalAlarms + ")";
+        critical = null;
     }
     
     public void checkForUpdates(){

@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:f="http://java.sun.com/jsf/core"  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+    
+    <!-- Home-page -->
+    <ui:composition template="/templates/default/main.xhtml">
+        <ui:define name="content">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <h:link value="Alarms" outcome="index" />
+                </li>
+                <li>
+                    <h:link value="Send requests" outcome="request" />
+                </li>
+                <li>
+                    <h:link value="Status Overivew" outcome="status" />
+                </li>
+                <li>
+                    <h:link value="History" outcome="history" />
+                </li>
+            </ul>
+            <h:form id="form">
+                <h3 class="resultTitle">Received traps <small>updated: <h:outputText id="updated" value="#{alarmBean.updated}" style="font-weight: bold"/></small></h3>            
+                    <p:dataTable var="alarm" value="#{alarmBean.alarms}" rows="10"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15"
+                                 id="alarmData">
+                        <p:column headerText="System name" sortBy="#{alarm.sysName}">
+                            <h:outputText value="#{alarm.sysName}" style="font-weight: bold"/>
+                        </p:column>
+                        
+                        <p:column headerText="Severity" sortBy="#{alarm.severity}" styleClass="#{alarm.severity} column">
+                            <h:outputText value="#{alarm.severity}" styleClass="bold"/>
+                        </p:column>
+                        
+                        <p:column headerText="Date" sortBy="#{alarm.recievedDate}">
+                            <h:outputText value="#{alarm.recievedDate}" style="font-weight: bold"/> 
+                        </p:column>
+                        
+                        <p:column headerText="Detailed Information">
+                            <p:commandLink update=":form:alarmDetail" oncomplete="PF('alarmDialog').show()" title="View Detail">
+                                <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
+                                <f:setPropertyActionListener value="#{alarm}" target="#{alarmBean.selectedAlarm}" />
+                            </p:commandLink>
+                        </p:column>
+                    </p:dataTable>
+                    <p:dialog header="Alarm Info" widgetVar="alarmDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <p:outputPanel id="alarmDetail" style="text-align:center;">
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Version-number:  " />
+                                <h:outputText value="#{alarmBean.selectedAlarm.versionNumber}" style="font-weight: bold"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Community string:  " />
+                                <h:outputText value="#{alarmBean.selectedAlarm.community}" style="font-weight: bold"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Request ID:  " />
+                                <h:outputText value="#{alarmBean.selectedAlarm.requestID}" style="font-weight: bold"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Error:  " />
+                                <h:outputText value="#{alarmBean.selectedAlarm.error}" style="font-weight: bold"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Error index:  " />
+                                <h:outputText value="#{alarmBean.selectedAlarm.errorIndex}" style="font-weight: bold"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Severity:  " />
+                                <h:outputText value="#{alarmBean.selectedAlarm.severity}" style="font-weight: bold" styleClass="#{alarm.severity}"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Date:  " />
+                                <h:outputText value="#{alarmBean.selectedAlarm.recievedDate}" style="font-weight: bold"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="PDU type:  " />
+                                <h:outputText value="#{alarmBean.selectedAlarm.PDUType}" style="font-weight: bold"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="1" cellpadding="5">
+                                <h:outputText value="VariableBindings:  " />
+                                <p:dataList value="#{alarmBean.selectedAlarm.variableBindings}" var="binding">
+                                    <h:outputText value="#{binding.oid}, #{binding.value}" />
+                                </p:dataList>
+                            </h:panelGrid>
+                            <h:panelGrid columns="1" cellpadding="5">
+                                <p:commandButton value="Remove" actionListener="#{alarmBean.removeSelectedAlarm()}" styleClass="ui-priority-primary" />
+                            </h:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
+                <p:poll interval="5" listener="#{alarmBean.fetchAlarms}" update="alarmData updated" />
+            </h:form>                      
+        </ui:define>
+    </ui:composition>  
+</html>
+

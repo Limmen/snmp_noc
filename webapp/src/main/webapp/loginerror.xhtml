@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    
+    <!-- Login page. -->
+    <h:head>        
+        <h:outputStylesheet library="css" name="style.css"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />		 
+        <title>NOC Prototype</title> 
+    </h:head> 
+    <h:body>
+        <b:container>
+            <b:row>
+                <b:column span="2">
+                </b:column>
+                <b:column span="8">                          
+                    <b:alert severity="danger"><strong>Login failed!</strong> 
+                        Your credentials could not be verified.</b:alert>
+                    <p><h:link outcome="/login" value="Back to login page"/></p>
+                </b:column>
+                <b:column span="2">
+                </b:column>
+            </b:row>            
+        </b:container>        
+    </h:body>
+</html>

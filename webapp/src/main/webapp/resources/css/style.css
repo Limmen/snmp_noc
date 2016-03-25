@@ -5,7 +5,7 @@
 
 /* 
     Created on : 2016-jan-15, 12:45:39
-    Author     : kim
+    Author     : Kim Hammar
 */
 html
 {
@@ -27,29 +27,37 @@ html
     text-align: center;
     margin-top: 75px;
 }
+.column
+{
+    text-align: center
+}
+.bold
+{
+    font-weight: 900;
+}
 .Critical
 {
-    color: red;
+    background-color: red;
 }
 .Major
 {
-    color: pink;
+    background-color: pink;
 }
 .Minor
 {
-    color: orange;
+    background-color: orange;
 }
 .Warning
 {
-    color: yellow;
+    background-color: yellow;
 }
 .Indeterminate
 {
-    color: greenyellow;
+    background-color: greenyellow;
 }
 .Cleared
 {
-    color: green;
+    background-color: green;
 }
 .requestResult
 {
@@ -76,6 +84,18 @@ html
     margin-bottom: 100px;
 }
 .alarmsDistribution
+{
+    margin-bottom: 100px;
+}
+.alarmsDistributionPie
+{
+    margin-bottom: 100px;
+}
+.severityDistribution
+{
+    margin-bottom: 100px;
+}
+.alarmsFrequency
 {
     margin-bottom: 100px;
 }

@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui">
+
+<!-- Status-page -->
+<ui:composition template="/templates/default/main.xhtml">
+    <ui:define name="content">
+        <ul class="nav nav-tabs">
+            <li>
+                <h:link value="Alarms" outcome="index" />
+            </li>
+            <li>
+                <h:link value="Send request" outcome="request" />
+            </li>
+            <li class="active">
+                <h:link value="Status Overivew" outcome="status" />
+            </li>
+            <li>
+                <h:link value="History" outcome="history" />
+            </li>
+        </ul>
+        <h3 class="resultTitle">Status Overview</h3>
+        <h:panelGrid columns="1" style="width:100%" columnClasses="logo,detail">
+            <p:outputPanel>
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputText value="Unhandled critical alarms:"/>
+                    <h:outputText value="Test" />
+                </h:panelGrid>
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputText value="Frequency of alarms:"/>
+                    <h:outputText value="Test" />
+                </h:panelGrid>
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputText value="Most critical system:"/>
+                    <h:outputText value="Test" />
+                </h:panelGrid>
+            </p:outputPanel>
+        </h:panelGrid>
+    </ui:define>
+</ui:composition>
+</html>
+

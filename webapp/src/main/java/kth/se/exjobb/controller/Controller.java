@@ -4,17 +4,22 @@
 */
 package kth.se.exjobb.controller;
 
-import kth.se.exjobb.model.AlarmEJB;
-import kth.se.exjobb.model.SNMPManagerBean;
+import kth.se.exjobb.integration.DAO.DataAccessObject;
 import kth.se.exjobb.integration.entities.SNMPMessage;
+import kth.se.exjobb.model.AlarmEJB;
+import kth.se.exjobb.model.HttpSessionEJB;
+import kth.se.exjobb.model.LoginEJB;
+import kth.se.exjobb.model.SNMPManagerBean;
+import kth.se.exjobb.util.LogManager;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Startup;
-import java.util.Collection;
-import java.util.List;
 import javax.ejb.Stateless;
-import kth.se.exjobb.integration.DAO.DataAccessObject;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Collection;
 
 /**
  * Application controller. Encapsulates system functionality into an API.
@@ -31,6 +36,11 @@ public class Controller {
     SNMPManagerBean managerBean;
     @EJB
     DataAccessObject dao;
+    @EJB
+    LoginEJB login;
+    @EJB
+    HttpSessionEJB session;
+
     /**
      * This method is called after all dependency injections and initialization are done
      * but before the class is put to service.
@@ -39,14 +49,20 @@ public class Controller {
      */
     @PostConstruct
     public void init() {
+        try {
+            LogManager.setup();
+        } catch (IOException e) {
+            //Log file not found
+        }
         managerBean.listen();
     }
+
     /**
      * Method to add a new alarm
      *
      * @param msg snmp message
      */
-    public void newAlarm(SNMPMessage msg) {       
+    public void newAlarm(SNMPMessage msg) {
         alarmManager.newAlarm(msg);
     }
 
@@ -70,12 +86,25 @@ public class Controller {
 
     public void sendGetRequest(String[] oids, String ip) {
     }
-    
+
     public SNMPMessage getRecentCritical() {
         return alarmManager.getRecentCritical();
     }
-    
-    public Collection<SNMPMessage> getCriticalAlarms(){
+
+    public Collection<SNMPMessage> getCriticalAlarms() {
         return alarmManager.getCriticalAlarms();
+    }
+
+    public boolean validateLogin(String username, String password) throws NoSuchAlgorithmException {
+        return login.validateLogin(username, password);
+    }
+
+    /**
+     * Returns the HTTP-session
+     * @return http-session
+     */
+    public HttpSession getSession()
+    {
+        return session.getSession();
     }
 }

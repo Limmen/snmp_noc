@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:f="http://java.sun.com/jsf/core"  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <!-- Request-page -->
+    <ui:composition template="/templates/default/main.xhtml">
+        <ui:define name="content">
+            <ul class="nav nav-tabs">
+                <li>
+                    <h:link value="Alarms" outcome="index" />
+                </li>
+                <li class="active">
+                    <h:link value="Send request" outcome="request" />
+                </li>
+                <li>
+                    <h:link value="Status Overivew" outcome="status" />
+                </li>
+                <li>
+                    <h:link value="History" outcome="history" />
+                </li>
+            </ul>
+            <h3 class="resultTitle">Send request</h3>
+            <p:accordionPanel>
+                <p:tab title="GET Request">
+                    <h:panelGrid columns="1">
+                        <h:form styleClass="getForm">
+                            <p:selectManyCheckbox id="grid" value="#{requestBean.selectedParameters}" layout="grid" columns="1" styleClass="checkMany">
+                                <f:selectItems value="#{requestBean.parameters}"/>
+                            </p:selectManyCheckbox>
+                            <div class="form-group" style="margin-top: 20px">
+                                <label for="ipAddress_get">IP Address: </label>
+                                <h:inputText class="form-control" id="ipAddress_get"
+                                             value="#{requestBean.ip}"
+                                             required ="true"
+                                             requiredMessage="Please enter a IP-address"
+                                             size="200">
+                                </h:inputText>
+                                <h:message for="ipAddress_get" style="color:red"/>
+                            </div>
+                            <b:commandButton value="" action="#{requestBean.sendGetRequest()}">
+                                Send
+                            </b:commandButton>
+                        </h:form>   
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="SET Request">
+                    <h:panelGrid columns="1" cellpadding="10">
+                        <h:form>    
+                            <div class="form-group">
+                                <label for="sysName">System name</label>
+                                <h:inputText class="form-control" id="sysName" 
+                                             value="#{requestBean.setDTO.sysName}" 
+                                             required="true" 
+                                             requiredMessage="Enter a system name"
+                                             size="200">
+                                </h:inputText>
+                                <h:message for="sysName" style="color:red"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="sysDescr">System description</label>
+                                <h:inputText class="form-control" id="sysDescr" 
+                                             value="#{requestBean.setDTO.sysDescr}" 
+                                             required="true" 
+                                             requiredMessage="Enter a system description"
+                                             size="200">
+                                </h:inputText>
+                                <h:message for="sysDescr" style="color:red"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="sysContact">System contact</label>
+                                <h:inputText class="form-control" id="sysContact" 
+                                             value="#{requestBean.setDTO.sysContact}" 
+                                             required="true" 
+                                             requiredMessage="Enter a system contact"
+                                             size="200">
+                                </h:inputText>
+                                <h:message for="sysContact" style="color:red"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="sysLocation">System location</label>
+                                <h:inputText class="form-control" id="sysLocation" 
+                                             value="#{requestBean.setDTO.sysLocation}" 
+                                             required="true" 
+                                             requiredMessage="Enter a system location"
+                                             size="200">
+                                </h:inputText>
+                                <h:message for="sysLocation" style="color:red"/>
+                            </div>    
+                            <div class="form-group">
+                                <label for="ipAddress">IP Address: </label>
+                                <h:inputText class="form-control" id="ipAddress" 
+                                             value="#{requestBean.ip}"
+                                             required ="true"
+                                             requiredMessage="Please enter a IP-address"
+                                             size="200">
+                                </h:inputText>
+                                <h:message for="ipAddress" style="color:red"/>
+                            </div>
+                            <b:commandButton value="" action="#{requestBean.sendSetRequest()}">
+                                Send
+                            </b:commandButton>
+                        </h:form>                           
+                    </h:panelGrid>
+                </p:tab>       
+            </p:accordionPanel>            
+            <ui:fragment class="requestResult" rendered="#{requestBean.result}">
+                <h3 class="resultTitle">Result:</h3>
+                <h:panelGrid columns="1" style="width:100%" columnClasses="logo,detail">
+                    <b:panel>
+                        <p:outputPanel id="alarmDetail" style="text-align:center;">
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Version-number:  " />
+                                <h:outputText value="#{requestBean.resultAlarm.versionNumber}" style="font-weight: bold"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Community string:  " />
+                                <h:outputText value="#{requestBean.resultAlarm.community}" style="font-weight: bold"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Request ID:  " />
+                                <h:outputText value="#{requestBean.resultAlarm.requestID}" style="font-weight: bold"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Error:  " />
+                                <h:outputText value="#{requestBean.resultAlarm.error}" style="font-weight: bold"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Error index:  " />
+                                <h:outputText value="#{requestBean.resultAlarm.errorIndex}" style="font-weight: bold"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Severity:  " />
+                                <h:outputText value="#{requestBean.resultAlarm.severity}" style="font-weight: bold" styleClass="#{requestBean.resultAlarm.severity}"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="1" cellpadding="5">
+                                <h:outputText value="VariableBindings:  " />
+                                <p:dataList value="#{requestBean.resultAlarm.variableBindings}" var="binding">
+                                    <h:outputText value="#{binding.oid}, #{binding.value}" />
+                                </p:dataList>
+                            </h:panelGrid>
+                        </p:outputPanel>
+                    </b:panel>
+                </h:panelGrid>       
+            </ui:fragment>
+        </ui:define>
+    </ui:composition>  
+</html>
+

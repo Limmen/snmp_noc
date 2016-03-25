@@ -4,19 +4,15 @@
 */
 package kth.se.exjobb.integration.entities;
 
+import kth.se.exjobb.model.snmp.SNMPVariableBinding;
 import kth.se.exjobb.model.snmp.Severity;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import kth.se.exjobb.model.snmp.SNMPVariableBinding;
 
 
 /**
@@ -189,6 +185,10 @@ public class SNMPMessage implements Serializable, Comparable
         }
         else
             return receivedDate.compareTo(compare.getRawDate());
+    }
+    @Override
+    public String toString(){
+        return "RequestId: " + requestID + "\t " + "SysName: " + sysName + "\t Severity: " + severity;
     }
     
 }

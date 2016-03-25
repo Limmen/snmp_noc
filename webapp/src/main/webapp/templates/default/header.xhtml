@@ -26,10 +26,9 @@
                 </p:notificationBar>
                 <p:growl id="growl" showDetail="true" sticky="false" life="8000"/>
                 <p></p>            
-                <h3 class="title"><h:graphicImage styleClass="logo" value="/resources/images/mic_logo.png" width="100px" height="100px"/> <h:link styleClass="link_deco" value="Network Operation Center" outcome="/index"/></h3>
-                <p>
-                </p>
-                <p:poll interval="5" listener="#{notificationBean.checkForUpdates()}" update="growl numAlarms numAlarms2" />                
+                <h3 class="title"><h:graphicImage styleClass="logo" value="/resources/images/mic_logo.png" width="100px" height="100px"/> <h:link styleClass="link_deco" value="Network Operation Center" outcome="index"/></h3>
+                <p></p>
+                <p:poll interval="5" listener="#{notificationBean.checkForUpdates()}" update="numAlarms numAlarms2 growl" />                
             </b:jumbotron>
         </h:form> 
     </ui:composition>
