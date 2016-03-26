@@ -10,16 +10,15 @@ import kth.se.exjobb.model.AlarmEJB;
 import kth.se.exjobb.model.HttpSessionEJB;
 import kth.se.exjobb.model.LoginEJB;
 import kth.se.exjobb.model.SNMPManagerBean;
-import kth.se.exjobb.util.LogManager;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Startup;
 import javax.ejb.Stateless;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
+import kth.se.exjobb.integration.entities.History;
 
 /**
  * Application controller. Encapsulates system functionality into an API.
@@ -49,11 +48,6 @@ public class Controller {
      */
     @PostConstruct
     public void init() {
-        try {
-            LogManager.setup();
-        } catch (IOException e) {
-            //Log file not found
-        }
         managerBean.listen();
     }
 
@@ -75,6 +69,14 @@ public class Controller {
         return alarmManager.getAllAlarms();
     }
 
+   /**
+     * getAllHistories
+     *
+     * @return list of history
+     */
+    public Collection<History> getAllHistories() {
+        return dao.getAllHistories();
+    }
     /**
      * Method to remove a certain alarm from the list
      *
@@ -84,17 +86,41 @@ public class Controller {
         alarmManager.removeSelectedAlarm(alarm);
     }
 
+    /**
+     * Method to send a SNMP request to a specified ip adress.
+     *
+     * @param oids oids to be in the request.
+     * @param ip ip adress of the target for the request
+     */
     public void sendGetRequest(String[] oids, String ip) {
     }
 
+    /**
+     * Method that gets the most recent critical alarm. (Used for notifications)
+     *
+     * @return most recent critical alarm.
+     */
     public SNMPMessage getRecentCritical() {
         return alarmManager.getRecentCritical();
     }
 
+    /**
+     * Method to get all critical alarms.
+     *
+     * @return list of critical alarms
+     */
     public Collection<SNMPMessage> getCriticalAlarms() {
         return alarmManager.getCriticalAlarms();
     }
 
+    /**
+     * Method to validate user credentials for login.
+     *
+     * @param username username to validate
+     * @param password password to validate
+     * @return true if the validation was successful otherwise false.
+     * @throws NoSuchAlgorithmException if the encryption step fails.
+     */
     public boolean validateLogin(String username, String password) throws NoSuchAlgorithmException {
         return login.validateLogin(username, password);
     }

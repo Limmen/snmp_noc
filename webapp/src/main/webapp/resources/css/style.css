@@ -121,3 +121,9 @@ html
     font-weight:bold;
     font-style:italic;
 }
+.key
+{
+    font-weight: bold;
+    font-size: 120%;  
+    padding-right: 10px;
+}

@@ -4,6 +4,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
+ * Class to hash passwords with the SHA-512 algorithm.
+ *
+ * TODO: Add salting.
+ *
  * @author Kim Hammar on 2016-03-25.
  */
 public class SHA512 {

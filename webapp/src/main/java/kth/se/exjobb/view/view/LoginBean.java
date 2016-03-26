@@ -7,6 +7,7 @@ import kth.se.exjobb.util.LogManager;
 import javax.ejb.EJB;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Size;
@@ -14,11 +15,12 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
-import javax.faces.view.ViewScoped;
 
 /**
- * @author Kim Hammar on 2016-03-2import javax.faces.view.ViewScoped;
-5.
+ * Managed bean representing the interface between the login page and the server.
+ * ViewScope means that the bean will be active as long as the user is interacting with the same
+ * JSF view.
+ * @author Kim Hammar on 2016-03-22
  */
 @GenericLogger
 @Named(value = "loginBean")
@@ -35,7 +37,7 @@ public class LoginBean implements Serializable {
 
     /**
      * This method is called when the user clicks the "login" button.
-     * <p>
+     *
      * The method will validate the user's credentials and redirect to the
      * suitable page.
      *
@@ -61,7 +63,6 @@ public class LoginBean implements Serializable {
      *
      * @throws java.io.IOException thrown when the specified URL cannot be found for the redirection
      */
-
     public void logout() throws IOException {
         HttpSession session = contr.getSession();
         session.invalidate();

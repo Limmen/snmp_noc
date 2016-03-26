@@ -16,7 +16,8 @@ import java.util.List;
 
 
 /**
- * A class representing an SNMP message.
+ * A entity class representing an SNMP message.
+ *
  * @author Marcus Blom
  */
 @Entity
@@ -148,11 +149,21 @@ public class SNMPMessage implements Serializable, Comparable
         return sysName;
     }
 
+    /**
+     * getPDUType
+     *
+     * @return PDUType (integer)
+     */
     public int getPDUType()
     {
         return PDUType;
     }
 
+    /**
+     * getMessageId
+     *
+     * @return id of the entity.
+     */
     public BigInteger getMessageId() {
         return messageId;
     }
@@ -177,6 +188,13 @@ public class SNMPMessage implements Serializable, Comparable
         return "Not found";
     }
 
+    /**
+     * Used for sorting SNMPMessages. Sorts on severity and then date.
+     *
+     * @param t object to compare against.
+     * @return 0 if the objects have equal order, 1 if this object has higher order, -1 if this
+     * object has lower order.
+     */
     @Override
     public int compareTo(Object t) {
         SNMPMessage compare = (SNMPMessage) t;
@@ -186,6 +204,12 @@ public class SNMPMessage implements Serializable, Comparable
         else
             return receivedDate.compareTo(compare.getRawDate());
     }
+
+    /**
+     * Method to convert the entity to a string representation
+     *
+     * @return string representation of the entity.
+     */
     @Override
     public String toString(){
         return "RequestId: " + requestID + "\t " + "SysName: " + sysName + "\t Severity: " + severity;

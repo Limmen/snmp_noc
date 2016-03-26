@@ -5,16 +5,17 @@
 package kth.se.exjobb.model.snmp;
 
 import kth.se.exjobb.integration.entities.SNMPMessage;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import kth.se.exjobb.model.util.OIDTranslation;
 import kth.se.exjobb.model.util.RelativeByteBuffer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 
 /**
  * Parses the binary data of an SNMP UDP message.
+ *
  * @author Marcus Blom
  */
 public class SNMPParser

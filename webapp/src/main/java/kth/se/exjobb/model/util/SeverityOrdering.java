@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 /**
  *  Singleton Read-Only class that represents the ordering of different severities.
+ *
  * @author Kim Hammar
  */
 public class SeverityOrdering {

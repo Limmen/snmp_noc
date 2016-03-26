@@ -14,6 +14,7 @@ import javax.enterprise.concurrent.ManagedThreadFactory;
 
 /**
  * This class acts as a supervisor for the SNMPSender-thread.
+ *
  * @author kim
  */
 @Stateless

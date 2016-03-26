@@ -5,6 +5,7 @@
 /hdd/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/view/view/LoginFilter.java
 /hdd/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/model/util/SeverityOrdering.java
 /hdd/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/util/ValidIP.java
+/hdd/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/integration/entities/History.java
 /hdd/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/model/snmp/SNMPManager.java
 /hdd/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/model/snmp/SNMPEncoder.java
 /hdd/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/model/AlarmEJB.java
@@ -26,6 +27,7 @@
 /hdd/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/util/LogManager.java
 /hdd/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/model/SNMPManagerBean.java
 /hdd/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/view/view/ConfigurationBean.java
+/hdd/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/view/view/HistoryBean.java
 /hdd/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/model/snmp/SNMPParser.java
 /hdd/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/model/snmp/Severity.java
 /hdd/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/model/SNMPSenderBean.java

@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.math.BigInteger;
 
 /**
+ * Entity class representing a user account.
+ *
  * @author Kim Hammar on 2016-03-25.
  */
 @Entity
@@ -29,14 +31,29 @@ public class Account implements Serializable {
         this.password = password;
     }
 
+    /**
+     * getId
+     *
+     * @return id of the entity.
+     */
     public BigInteger getId() {
         return id;
     }
 
+    /**
+     * getUsername
+     *
+     * @return username of the account
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * getPassword
+     *
+     * @return password of the account
+     */
     public String getPassword() {
         return password;
     }

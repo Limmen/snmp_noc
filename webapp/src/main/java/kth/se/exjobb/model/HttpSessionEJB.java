@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
+ * Class that handles HTTPSessions.
+ *
  * @author Kim Hammar on 2016-03-25.
  */
 @Stateless

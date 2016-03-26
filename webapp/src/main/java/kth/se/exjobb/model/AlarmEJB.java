@@ -7,7 +7,6 @@ package kth.se.exjobb.model;
 import kth.se.exjobb.integration.DAO.DataAccessObject;
 import kth.se.exjobb.integration.entities.SNMPMessage;
 import kth.se.exjobb.model.util.SeverityOrdering;
-import kth.se.exjobb.util.LogManager;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -15,9 +14,11 @@ import javax.ejb.Stateless;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import kth.se.exjobb.integration.entities.History;
 
 /**
  * This class handles incoming SNMP alarms.
+ *
  * @author kim
  */
 @Stateless
@@ -77,8 +78,13 @@ public class AlarmEJB {
      * @param alarm SNMPMessage to remove
      */
     public void removeSelectedAlarm(SNMPMessage alarm){
-        getAllAlarms().remove(alarm);
-        LogManager.logToFile("Removed Alarm: " + alarm.toString());
+        if(alarms.contains(alarm))
+            alarms.remove(alarm);
+        else{
+            History history = new History(alarm.getRequestID(), alarm.getSysName(), alarm.getSeverity());
+            dao.removeAlarm(alarm);
+            dao.saveHistory(history);
+        }        
     }
 
     public SNMPMessage getRecentCritical() {

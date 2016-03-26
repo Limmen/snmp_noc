@@ -10,6 +10,8 @@ import javax.validation.constraints.Size;
 import java.security.NoSuchAlgorithmException;
 
 /**
+ * Class that handles login business logic and validation.
+ *
  * @author Kim Hammar on 2016-03-25.
  */
 @Stateless
@@ -18,6 +20,14 @@ public class LoginEJB {
     @EJB
     DataAccessObject dao;
 
+    /**
+     * Method to validate user credentials against the database.
+     *
+     * @param username username to validate
+     * @param password password to validate
+     * @return true if the login was successful otherwise false
+     * @throws NoSuchAlgorithmException thrown when encryption fails
+     */
     public boolean validateLogin(@Size(min=3, max=16) String username, @Size(min=6, max=30) String password)
             throws NoSuchAlgorithmException
     {

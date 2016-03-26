@@ -9,6 +9,7 @@ import java.io.Serializable;
 /**
  * Represents a variable binding within an SNMP-message.
  * Contains an oid and a corresponding value.
+ *
  * @author Marcus Blom
  */
 public class SNMPVariableBinding implements Serializable

@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * LoginFilter that the servlet will issue before handling requests to /authorized/*
+ *
  * @author Kim Hammar on 2016-03-25.
  */
 
@@ -16,7 +18,7 @@ public class LoginFilter implements Filter {
 
     /**
      * This method is called by the container each time a request is issued to
-     * /* resources.
+     * /authorized/* resources.
      * <p>
      * The method will check the http-session-parameters and then redirect the user
      * depending on it's permissions.

@@ -1,6 +1,7 @@
 package kth.se.exjobb.model.snmp;
 
 /**
+ * SNMPConstants
  *
  * @author Marcus Blom
  */

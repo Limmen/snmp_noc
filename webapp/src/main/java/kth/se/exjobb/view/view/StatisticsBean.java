@@ -45,7 +45,7 @@ public class StatisticsBean implements Serializable {
     /**
      * This method is called after all dependency injections and initialization are done
      * but before the class is put to service.
-     * <p>
+     *
      * Updates the models that the graphs represent.
      */
     @PostConstruct
@@ -243,7 +243,7 @@ public class StatisticsBean implements Serializable {
             add(100);
         }};
         alarmsFrequencyModel = new MeterGaugeChartModel(getFrequencyHour(), intervals);
-        alarmsFrequencyModel.setTitle("Frequencey of alarms");
+        alarmsFrequencyModel.setTitle("Frequency of alarms in the latest hour");
         alarmsFrequencyModel.setGaugeLabel("Alarms/h");
         return alarmsFrequencyModel;
     }
@@ -289,10 +289,20 @@ public class StatisticsBean implements Serializable {
         return alarmsByDay;
     }
 
+    /**
+     * getAlarmsByLocationPieModel
+     *
+     * @return model for the pie chart of source for the alarms.
+     */
     public PieChartModel getAlarmsByLocationPieModel() {
         return alarmsByLocationPieModel;
     }
 
+    /**
+     * getAlarmsFrequencyModel
+     *
+     * @return model for the frequency gauge-meter
+     */
     public MeterGaugeChartModel getAlarmsFrequencyModel() {
         return alarmsFrequencyModel;
     }

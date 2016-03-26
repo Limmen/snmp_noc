@@ -4,16 +4,18 @@
 */
 package kth.se.exjobb.model;
 
+import kth.se.exjobb.controller.Controller;
+import kth.se.exjobb.model.snmp.SNMPManager;
+
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.enterprise.concurrent.ManagedThreadFactory;
-import kth.se.exjobb.controller.Controller;
-import kth.se.exjobb.model.snmp.SNMPManager;
 
 /**
  * This class acts as a supervisor for the SNMPManager-thread.
+ *
  * @author kim
  */
 @Stateless
