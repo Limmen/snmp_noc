@@ -20,6 +20,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import kth.se.exjobb.integration.entities.Configuration;
 import kth.se.exjobb.integration.entities.History;
+import kth.se.exjobb.model.ConfigurationEJB;
 
 /**
  * Application controller. Encapsulates system functionality into an API.
@@ -40,6 +41,8 @@ public class Controller {
     LoginEJB login;
     @EJB
     HttpSessionEJB session;
+    @EJB
+    ConfigurationEJB config;
 
     /**
      * This method is called after all dependency injections and initialization are done
@@ -50,6 +53,7 @@ public class Controller {
     @PostConstruct
     public void init() {
         managerBean.listen();
+        
     }
 
     /**
@@ -139,7 +143,9 @@ public class Controller {
         return dao.getConfiguration();
     }
     
-    public Configuration updateConfiguration(String save, String severity){
-        return dao.updateConfiguration(save, severity);
+    public Configuration updateConfiguration(String save, String severity, String history){
+        Configuration configuration = config.updateConfiguration(save, severity, history);
+        config.updateDatabaseWithNewConfig();
+        return configuration;
     }
 }

@@ -1,5 +1,8 @@
 package kth.se.exjobb.model.security;
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -16,7 +19,9 @@ public class SHA512Test {
         @Test
         public void testEncrypt()
         {
-            
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            Date date = new Date(Long.MIN_VALUE);
+            System.out.println(date.getTime());
             boolean exception = false;
             try{
                 Assert.assertEquals("125d6d03b32c84d492747f79cf0bf6e179d287f341384eb5d6d3197525ad6be8e6df0116032935698f99a09e265073d1d6c32c274591bf1d0a20ad67cba921bc",SHA512.encrypt("testtest"));

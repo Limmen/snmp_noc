@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.logging.Level;
 import kth.se.exjobb.integration.entities.Configuration;
 import kth.se.exjobb.integration.entities.History;
+import kth.se.exjobb.model.snmp.Severity;
 
 /**
  * Class that encapsulates database interactions.
@@ -27,6 +28,7 @@ public class DataAccessObject {
      * @param message message to persist.
      */
     public void saveSNMPMessage(SNMPMessage message) {
+        Configuration config = em.find(Configuration.class, 1);
         em.persist(message);
         LogManager.log("SNMPMessage from " + message.getSysName() + " with severity "
                 + message.getSeverity() + " persisted successfully", Level.INFO);
@@ -64,10 +66,19 @@ public class DataAccessObject {
      * 
      * @param message alarm to remove
      */
-    public void removeAlarm(SNMPMessage message){
-        System.out.println("ID::::::::::::::  " + message.getMessageId());
+    public void removeAlarm(SNMPMessage message){        
         em.remove(em.getReference(SNMPMessage.class, message.getMessageId()));        
     }
+    
+    /**
+     * Method to remove a history entry from the database.
+     * 
+     * @param history entry to remove
+     */
+    public void removeHistory(History history){        
+        em.remove(em.getReference(History.class, history.getId()));        
+    }
+    
     /**
      * Method to persist a history instance in the database
      * 
@@ -90,14 +101,19 @@ public class DataAccessObject {
     
     public Configuration getConfiguration(){
         Query query = em.createQuery("SELECT e from Configuration e");
-        return (Configuration) query.getSingleResult();   
+        try{
+            Configuration config = (Configuration) query.getSingleResult();
+            return config;
+       }
+        catch(NoResultException e){
+            Configuration config = 
+                    new Configuration("Forever", new Severity("Indeterminate"), "Forever");
+            newConfiguration(config);
+            return config;
+        }   
     }
-    
-    public Configuration updateConfiguration(String save, String severity){
-        Configuration config = getConfiguration();
-        config.setPolicy(save);
-        config.setSeverity(severity);
-        return config;
+    public void newConfiguration(Configuration config){
+        em.persist(config);
     }
 
 }

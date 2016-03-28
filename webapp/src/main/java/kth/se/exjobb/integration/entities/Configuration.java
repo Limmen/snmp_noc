@@ -3,6 +3,9 @@ package kth.se.exjobb.integration.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.Date;
+import kth.se.exjobb.model.snmp.Severity;
+import kth.se.exjobb.model.util.SavingPolicies;
 
 /**
  * Entity class representing a NOC configuration.
@@ -16,14 +19,20 @@ public class Configuration implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private BigInteger id;
     private String policy;
-    private String severity;
+    private Severity severity;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date configDate;
+    private String history;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date historyDate;
 
     public Configuration() {
     }
 
-    public Configuration(String policy, String severity) {
-        this.policy = policy;
-        this.severity = severity;
+    public Configuration(String policy, Severity severity, String history) {
+        setPolicy(policy);
+        setHistory(history);
+        this.severity = severity;        
     }
 
     /**
@@ -39,16 +48,35 @@ public class Configuration implements Serializable {
         return policy;
     }
 
-    public String getSeverity() {
+    public Severity getSeverity() {
         return severity;
     }
 
     public void setPolicy(String policy) {
         this.policy = policy;
+        this.configDate = SavingPolicies.getInstance().getDate(policy);
     }
 
-    public void setSeverity(String severity) {
+    public void setSeverity(Severity severity) {
         this.severity = severity;
     }
 
+    public Date getConfigDate() {
+        return configDate;
+    }
+    
+    public String getHistory() {
+        return history;
+    }
+
+    public void setHistory(String history) {
+        this.history = history;
+        this.historyDate = SavingPolicies.getInstance().getDate(history);
+    }
+
+    public Date getHistoryDate() {
+        return historyDate;
+    }
+
+    
 }

@@ -44,7 +44,7 @@ public class NotificationBean implements Serializable {
      */
     @PostConstruct
     public void init(){
-        criticalAlarms = (List) contr.getAllAlarms();
+        criticalAlarms = (List) contr.getCriticalAlarms();
         if(criticalAlarms == null)
             criticalAlarms = new ArrayList();
         numberOfCriticalAlarms = criticalAlarms.size();

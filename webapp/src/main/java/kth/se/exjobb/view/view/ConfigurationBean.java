@@ -13,6 +13,8 @@ import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import kth.se.exjobb.controller.Controller;
 import kth.se.exjobb.integration.entities.Configuration;
+import kth.se.exjobb.model.util.SavingPolicies;
+import kth.se.exjobb.model.util.SeverityOrdering;
 
 /**
  * Managed bean representing the interface between the configuration page and the server.
@@ -31,6 +33,7 @@ public class ConfigurationBean implements Serializable {
     private Configuration configuration;
     private String severity;
     private String save;
+    private String history;
     
     /**
      * This method is called after all dependency injections and initialization are done
@@ -42,31 +45,16 @@ public class ConfigurationBean implements Serializable {
     public void init(){
         configuration = contr.getConfiguration();
         save = configuration.getPolicy();
-        severity = configuration.getSeverity();
-        
-        savingPolicies = new ArrayList();
-        savingPolicies.add("Dont save");
-        savingPolicies.add("1 day");
-        savingPolicies.add("3 days");
-        savingPolicies.add("1 week");
-        savingPolicies.add("2 weeks");
-        savingPolicies.add("1 month");
-        savingPolicies.add("6 months");
-        savingPolicies.add("Forever");
-        
-        severityPolicies = new ArrayList();
-        severityPolicies.add("Cleared");
-        severityPolicies.add("Indeterminate");
-        severityPolicies.add("Warning");
-        severityPolicies.add("Minor");
-        severityPolicies.add("Major");
-        severityPolicies.add("Critical");   
+        severity = configuration.getSeverity().getSeverity();   
+        history = configuration.getHistory();
+        savingPolicies = SavingPolicies.getInstance().getSavingPolicies();
+        severityPolicies = new ArrayList<String>(SeverityOrdering.severityOrdering.keySet());
         
     }
     
     
     public void updateConfiguration(){
-        configuration = contr.updateConfiguration(save, severity);
+        configuration = contr.updateConfiguration(save, severity, history);
     }
     
     /**
@@ -101,6 +89,23 @@ public class ConfigurationBean implements Serializable {
         this.save = save;
     }
     
+    public boolean deleteWarning(){
+        if(SeverityOrdering.severityOrdering.get(severity) > 
+                SeverityOrdering.severityOrdering.get(configuration.getSeverity().getSeverity()))
+            return true;
+        if(SavingPolicies.getInstance().getDate(save).compareTo(configuration.getConfigDate()) > 0)
+            return true;
+        
+        return false;
+    }
 
+    public String getHistory() {
+        return history;
+    }
+
+    public void setHistory(String history) {
+        this.history = history;
+    }
+    
     
 }

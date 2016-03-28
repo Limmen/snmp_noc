@@ -6,7 +6,6 @@ package kth.se.exjobb.model;
 
 import kth.se.exjobb.integration.DAO.DataAccessObject;
 import kth.se.exjobb.integration.entities.SNMPMessage;
-import kth.se.exjobb.model.util.SeverityOrdering;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -14,6 +13,7 @@ import javax.ejb.Stateless;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import kth.se.exjobb.integration.entities.Configuration;
 import kth.se.exjobb.integration.entities.History;
 
 /**
@@ -46,7 +46,7 @@ public class AlarmEJB {
      * @param alarm snmp message received
      */
     public void newAlarm(SNMPMessage alarm){        
-        if(SeverityOrdering.severityOrdering.get(alarm.getSeverity().getSeverity()) > 1){
+        if(shouldSave(dao.getConfiguration(), alarm)){
             dao.saveSNMPMessage(alarm);
             recentCritical = alarm;
         }
@@ -83,13 +83,28 @@ public class AlarmEJB {
         else{
             History history = new History(alarm.getRequestID(), alarm.getSysName(), alarm.getSeverity());
             dao.removeAlarm(alarm);
-            dao.saveHistory(history);
-        }        
+            if(shouldSave(dao.getConfiguration(), history))
+                dao.saveHistory(history);
+        }
     }
 
     public SNMPMessage getRecentCritical() {
         return recentCritical;
     }
 
+    private boolean shouldSave(Configuration config, SNMPMessage alarm){
+        if(config.getSeverity().compareTo(alarm.getSeverity()) > 0)
+            return false;
+        if(config.getConfigDate().compareTo(alarm.getRawDate()) > 0)
+            return false;
+        else
+            return true;        
+    }
+    private boolean shouldSave(Configuration config, History history){
+        if(config.getConfigDate().compareTo(history.getRemovedDate()) > 0)
+            return false;
+        else
+            return true; 
+    }
     
 }
