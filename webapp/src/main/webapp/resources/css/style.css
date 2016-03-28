@@ -127,3 +127,12 @@ html
     font-size: 120%;  
     padding-right: 10px;
 }
+.logout
+{
+    margin-top: 10px;
+    text-align: center;
+}
+.logoutLink
+{
+    text-align: center;
+}

@@ -18,6 +18,7 @@ import javax.ejb.Stateless;
 import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
+import kth.se.exjobb.integration.entities.Configuration;
 import kth.se.exjobb.integration.entities.History;
 
 /**
@@ -132,5 +133,13 @@ public class Controller {
     public HttpSession getSession()
     {
         return session.getSession();
+    }
+    
+    public Configuration getConfiguration(){
+        return dao.getConfiguration();
+    }
+    
+    public Configuration updateConfiguration(String save, String severity){
+        return dao.updateConfiguration(save, severity);
     }
 }

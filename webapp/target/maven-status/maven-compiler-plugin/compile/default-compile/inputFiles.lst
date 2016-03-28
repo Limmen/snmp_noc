@@ -9,6 +9,7 @@
 /hdd/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/model/snmp/SNMPManager.java
 /hdd/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/model/snmp/SNMPEncoder.java
 /hdd/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/model/AlarmEJB.java
+/hdd/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/integration/entities/Configuration.java
 /hdd/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/integration/entities/SNMPMessage.java
 /hdd/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/view/view/RequestBean.java
 /hdd/workspace/java/noc_prototype/webapp/src/main/java/kth/se/exjobb/model/security/SHA512.java

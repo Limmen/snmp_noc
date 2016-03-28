@@ -4,24 +4,34 @@
       xmlns:h="http://java.sun.com/jsf/html"  
       xmlns:f="http://java.sun.com/jsf/core"  
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:b="http://bootsfaces.net/ui"> 
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui"> 
     
     <!-- Configuration-page -->
     <ui:composition template="/templates/default/main.xhtml">
         <ui:define name="content">
             <h3 class="resultTitle">Current settings</h3>
-            <b:panel>
-                <p class="settingsLabel">Saving policy: <span class="settingsValue">#{configurationBean.save}</span></p>
+            <b:panel id="current_settings">
+                <p class="settingsLabel">Saving policy: <span class="settingsValue">#{configurationBean.configuration.policy}</span></p>
+                <p class="settingsLabel">Severity policy: <span class="settingsValue">#{configurationBean.configuration.severity}</span></p>
             </b:panel>
             <h3 class="resultTitle">Configuration</h3>
             <h:form>   
                 <div class="form-group">
-                    <h:outputLabel for="savingPolicy" value="Save unhandled alarms for:" />
-                    <b:selectOneMenu id="savingPolicy" value="#{configurationBean.save}" style="width:500px">                        
-                        <f:selectItem itemLabel="Select time" itemValue="" noSelectionOption="true" />
+                    <h:outputLabel for="savingPolicy_1" value="Save unhandled alarms for:" />
+                    <b:selectOneMenu id="savingPolicy_1" value="#{configurationBean.save}" style="width:500px">                        
+                        <f:selectItem itemValue="" noSelectionOption="true" />
                         <f:selectItems value="#{configurationBean.savingPolicies}" />
                     </b:selectOneMenu>        
                 </div>
+                <div class="form-group">
+                    <h:outputLabel for="savingPolicy_2" value="Minimum Severity Level to save:" />
+                    <b:selectOneMenu id="savingPolicy_2" value="#{configurationBean.severity}" style="width:500px">                        
+                        <f:selectItem itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{configurationBean.severityPolicies}" />
+                    </b:selectOneMenu>        
+                </div>
+                <p:commandButton value="Save" id="ajax" update="current_settings" actionListener="#{configurationBean.updateConfiguration()}" styleClass="ui-priority-primary" />
             </h:form>    
         </ui:define>
     </ui:composition>             

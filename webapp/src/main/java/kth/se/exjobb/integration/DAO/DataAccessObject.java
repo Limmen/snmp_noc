@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.persistence.*;
 import java.util.List;
 import java.util.logging.Level;
+import kth.se.exjobb.integration.entities.Configuration;
 import kth.se.exjobb.integration.entities.History;
 
 /**
@@ -85,6 +86,18 @@ public class DataAccessObject {
     public List<History> getAllHistories() {
         Query query = em.createQuery("SELECT e from History e");
         return (List<History>) query.getResultList();
+    }
+    
+    public Configuration getConfiguration(){
+        Query query = em.createQuery("SELECT e from Configuration e");
+        return (Configuration) query.getSingleResult();   
+    }
+    
+    public Configuration updateConfiguration(String save, String severity){
+        Configuration config = getConfiguration();
+        config.setPolicy(save);
+        config.setSeverity(severity);
+        return config;
     }
 
 }
