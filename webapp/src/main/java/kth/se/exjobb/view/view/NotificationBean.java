@@ -121,6 +121,11 @@ public class NotificationBean implements Serializable {
         return (int) (date1.getTime() - date2.getTime()) / MILLI_TO_HOUR;
     }
     
+    /**
+     * getMostCriticalSystem
+     * 
+     * @return the most critical system based on number of caused alarms.
+     */
     public String getMostCriticalSystem(){
         HashMap<String, Integer> systems = new HashMap();
         for(SNMPMessage message : criticalAlarms){

@@ -16,7 +16,7 @@ import javax.enterprise.concurrent.ManagedThreadFactory;
 /**
  * This class acts as a supervisor for the SNMPManager-thread.
  *
- * @author kim
+ * @author Kim Hammar
  */
 @Stateless
 public class SNMPManagerBean {

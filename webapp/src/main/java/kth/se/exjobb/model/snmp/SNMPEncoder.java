@@ -1,3 +1,7 @@
+/*
+* Royal Institute of Technology
+* 2016 (c) Kim Hammar Marcus Blom
+*/
 package kth.se.exjobb.model.snmp;
 
 import kth.se.exjobb.integration.entities.SNMPMessage;
@@ -12,6 +16,12 @@ import java.util.List;
  */
 public class SNMPEncoder
 {
+
+    /**
+     *
+     * @param message
+     * @return
+     */
     public static byte[] encode(SNMPMessage message)
     {
         RelativeByteBuffer data = new RelativeByteBuffer(404);

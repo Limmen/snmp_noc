@@ -1,3 +1,7 @@
+/*
+* Royal Institute of Technology
+* 2016 (c) Kim Hammar Marcus Blom
+*/
 package kth.se.exjobb.model.util;
 
 import java.util.HashMap;
@@ -15,6 +19,9 @@ public class OIDTranslation {
         private static final OIDTranslation instance = new OIDTranslation();
     }
 
+    /**
+     * HashMap between common OID's and their meaning.
+     */
     public static final HashMap<String,String> oids = new HashMap();
     static
     {
@@ -28,6 +35,11 @@ public class OIDTranslation {
         oids.put("3.6.1.4.1.9.1.1.1.2.2.1.1.7.", "calSeverity");
     }
 
+    /**
+     * Returns the sole instance of this singleton class.
+     * 
+     * @return instance
+     */
     public static OIDTranslation getInstance(){
         return instanceHolder.instance;
     }

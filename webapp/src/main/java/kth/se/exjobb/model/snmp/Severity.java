@@ -14,6 +14,9 @@ import kth.se.exjobb.model.util.SeverityOrdering;
 public class Severity implements Serializable, Comparable {
     private String severity;
 
+    /**
+     *
+     */
     public Severity(){}
     /**
      * Class constructor.

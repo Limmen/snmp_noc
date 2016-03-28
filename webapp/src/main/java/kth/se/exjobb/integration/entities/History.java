@@ -1,3 +1,7 @@
+/*
+* Royal Institute of Technology
+* 2016 (c) Kim Hammar Marcus Blom
+*/
 package kth.se.exjobb.integration.entities;
 
 import javax.persistence.*;
@@ -23,9 +27,19 @@ public class History implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date removedDate = new Date();
 
+    /**
+     * Default class constructor
+     */
     public History() {
     }
 
+    /**
+     * Classconstructor
+     * 
+     * @param requestId requestId of the removed alarm
+     * @param systemName systemName of the removed alarm
+     * @param severity severity of the removed alarm
+     */
     public History(int requestId, String systemName, Severity severity) {
         this.requestId = requestId;
         this.systemName = systemName;

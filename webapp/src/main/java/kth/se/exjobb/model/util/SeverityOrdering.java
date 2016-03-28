@@ -7,7 +7,7 @@ package kth.se.exjobb.model.util;
 import java.util.HashMap;
 
 /**
- *  Singleton Read-Only class that represents the ordering of different severities.
+ * Singleton Read-Only class that represents the ordering of different severities.
  *
  * @author Kim Hammar
  */
@@ -19,6 +19,9 @@ public class SeverityOrdering {
         private static final SeverityOrdering instance = new SeverityOrdering();
     }
 
+    /**
+     * HashMap between Severity Levels and their ordering, following the X733 standard.
+     */
     public static final HashMap<String,Integer> severityOrdering = new HashMap();
     static
     {
@@ -30,6 +33,11 @@ public class SeverityOrdering {
         severityOrdering.put("Critical", 5);
     }
 
+    /**
+     * Returns the sole instance of this singleton class.
+     * 
+     * @return instance
+     */
     public static SeverityOrdering getInstance(){
         return instanceHolder.instance;
     }

@@ -1,3 +1,7 @@
+/*
+* Royal Institute of Technology
+* 2016 (c) Kim Hammar Marcus Blom
+*/
 package kth.se.exjobb.integration.entities;
 
 import javax.persistence.*;
@@ -23,9 +27,17 @@ public class Account implements Serializable {
     private String username;
     private String password;
 
+    /**
+     * Default class constructor
+     */
     public Account() {
     }
 
+    /**
+     * Class constructor
+     * @param username username of the account
+     * @param password password of the account
+     */
     public Account(String username, String password) {
         this.username = username;
         this.password = password;

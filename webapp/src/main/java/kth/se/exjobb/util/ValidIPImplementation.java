@@ -12,7 +12,7 @@ import javax.validation.ConstraintValidatorContext;
 
 /**
  * This is a implementation of the ValidIP validation-constraint.
- * @author kim
+ * @author Kim Hammar
  */
 
 class ValidIPImplementation implements ConstraintValidator <ValidIP, String>

@@ -15,7 +15,7 @@ import javax.enterprise.concurrent.ManagedThreadFactory;
 /**
  * This class acts as a supervisor for the SNMPSender-thread.
  *
- * @author kim
+ * @author Kim Hammar
  */
 @Stateless
 public class SNMPSenderBean {
@@ -28,6 +28,8 @@ public class SNMPSenderBean {
     
     /**
      * Initializes and starts the SNMPSender thread.
+     * @param oids
+     * @param ip
      */
     public void listen(String[] oids, String ip){
         //byte[] data = SNMPEncoder

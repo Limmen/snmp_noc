@@ -65,6 +65,9 @@ public class RequestBean implements Serializable {
         contr.sendGetRequest(selectedParameters, ip);
     }
 
+    /**
+     *
+     */
     @GenericLogger
     public void sendSetRequest() {
 

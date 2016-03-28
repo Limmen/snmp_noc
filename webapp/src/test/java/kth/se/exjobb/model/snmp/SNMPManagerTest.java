@@ -13,7 +13,7 @@ import static org.mockito.Mockito.mock;
 
 /**
  * Test suite for SNMPManager class
- * @author kim
+ * @author Kim Hammar
  */
 public class SNMPManagerTest {
     SNMPManager instance;

@@ -25,7 +25,7 @@ import kth.se.exjobb.model.ConfigurationEJB;
 /**
  * Application controller. Encapsulates system functionality into an API.
  *
- * @author kim
+ * @author Kim Hammar
  */
 @Startup
 @Stateless
@@ -132,6 +132,7 @@ public class Controller {
 
     /**
      * Returns the HTTP-session
+     * 
      * @return http-session
      */
     public HttpSession getSession()
@@ -139,10 +140,24 @@ public class Controller {
         return session.getSession();
     }
     
+    /**
+     * getConfiguration
+     * 
+     * @return Configuration entity
+     */
     public Configuration getConfiguration(){
         return dao.getConfiguration();
     }
     
+    /**
+     * Method that updates the current configuration and also updates the database according to
+     * the specified configuration.
+     * 
+     * @param save new savingpolicy for alarms
+     * @param severity new severitypolicy
+     * @param history new savingpolicy for history
+     * @return The newly set configuration
+     */
     public Configuration updateConfiguration(String save, String severity, String history){
         Configuration configuration = config.updateConfiguration(save, severity, history);
         config.updateDatabaseWithNewConfig();

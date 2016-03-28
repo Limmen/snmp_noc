@@ -16,7 +16,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
  * This class contains acceptance-tests for the application.
  * It will run a firefox instance to tests usual use-cases and
  * edge-cases.
- * @author kim
+ * 
+ * @author Kim Hammar
  */
 public class ViewTest 
 {

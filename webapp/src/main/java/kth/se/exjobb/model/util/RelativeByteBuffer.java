@@ -1,3 +1,8 @@
+/*
+* Royal Institute of Technology
+* 2016 (c) Kim Hammar Marcus Blom
+*/
+
 package kth.se.exjobb.model.util;
 
 /**
@@ -41,7 +46,11 @@ public class RelativeByteBuffer
        return result;
    }
    
-   public byte[] getByteArray()
+    /**
+     *
+     * @return
+     */
+    public byte[] getByteArray()
    {
        return data;
    }
@@ -56,7 +65,11 @@ public class RelativeByteBuffer
        index++;
    }
    
-   public void setNext(int i)
+    /**
+     *
+     * @param i
+     */
+    public void setNext(int i)
    {
        setNext((byte) i);
    }
@@ -89,12 +102,20 @@ public class RelativeByteBuffer
        }
    }
    
-   public int size()
+    /**
+     *
+     * @return
+     */
+    public int size()
    {
        return index+1;
    }
    
-   public int getCurrentIndex()
+    /**
+     *
+     * @return
+     */
+    public int getCurrentIndex()
    {
        return index;
    }

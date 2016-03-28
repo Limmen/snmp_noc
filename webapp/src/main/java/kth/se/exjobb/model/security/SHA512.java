@@ -1,3 +1,7 @@
+/*
+* Royal Institute of Technology
+* 2016 (c) Kim Hammar Marcus Blom
+*/
 package kth.se.exjobb.model.security;
 
 import java.security.MessageDigest;

@@ -19,7 +19,7 @@ import kth.se.exjobb.integration.entities.History;
 /**
  * This class handles incoming SNMP alarms.
  *
- * @author kim
+ * @author Kim Hammar
  */
 @Stateless
 public class AlarmEJB {
@@ -69,6 +69,10 @@ public class AlarmEJB {
         return persistedMessages;
     }
     
+    /**
+     *
+     * @return
+     */
     public Collection <SNMPMessage> getCriticalAlarms(){            
         return dao.getAllMessages();
     }
@@ -88,6 +92,11 @@ public class AlarmEJB {
         }
     }
 
+    /**
+     * getRecentCritical
+     * 
+     * @return the most recent critical alarm.
+     */
     public SNMPMessage getRecentCritical() {
         return recentCritical;
     }
@@ -100,6 +109,7 @@ public class AlarmEJB {
         else
             return true;        
     }
+    
     private boolean shouldSave(Configuration config, History history){
         if(config.getConfigDate().compareTo(history.getRemovedDate()) > 0)
             return false;

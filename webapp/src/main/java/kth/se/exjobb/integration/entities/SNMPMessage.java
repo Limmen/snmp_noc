@@ -38,6 +38,9 @@ public class SNMPMessage implements Serializable, Comparable
     @Temporal(TemporalType.TIMESTAMP)
     private final Date receivedDate = new Date();    
 
+    /**
+     *
+     */
     public SNMPMessage() {
     }
     /**
@@ -47,6 +50,7 @@ public class SNMPMessage implements Serializable, Comparable
      * @param requestID SNMP request ID
      * @param error SNMP error bit
      * @param errorIndex SNMP error index
+     * @param PDUType
      * @param variableBindings SNMP VariableBindings
      */
     public SNMPMessage(int versionNumber, String community, int requestID, int error, int errorIndex,int PDUType, List<SNMPVariableBinding> variableBindings)

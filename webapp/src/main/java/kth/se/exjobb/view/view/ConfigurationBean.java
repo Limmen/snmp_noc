@@ -52,9 +52,28 @@ public class ConfigurationBean implements Serializable {
         
     }
     
-    
+    /**
+     * Method called when the user clicks "save". 
+     * Updates the current configuration with the new values.
+     */
     public void updateConfiguration(){
         configuration = contr.updateConfiguration(save, severity, history);
+    }
+    
+    /**
+     * Boolean method that checks whether the change of configuration will cause extra deletions
+     * in the database, if so, a warning sign is shown.
+     * 
+     * @return true if the warning should be visible, otherwise false.
+     */
+    public boolean deleteWarning(){
+        if(SeverityOrdering.severityOrdering.get(severity) > 
+                SeverityOrdering.severityOrdering.get(configuration.getSeverity().getSeverity()))
+            return true;
+        if(SavingPolicies.getInstance().getDate(save).compareTo(configuration.getConfigDate()) > 0)
+            return true;
+        
+        return false;
     }
     
     /**
@@ -65,44 +84,73 @@ public class ConfigurationBean implements Serializable {
         return savingPolicies;
     }
 
+    /**
+     * getConfiguration
+     * 
+     * @return the current configuration
+     */
     public Configuration getConfiguration() {
         return configuration;
     }
 
+    /**
+     * getSeverityPolicies
+     * 
+     * @return list of possible severitypolicies
+     */
     public List<String> getSeverityPolicies() {
         return severityPolicies;
     }
 
+    /**
+     * getSeverity
+     * @return the new policy for severity
+     */
     public String getSeverity() {
         return severity;
     }
 
+    /**
+     * Updates the new policy for severity
+     * 
+     * @param severity new policy
+     */
     public void setSeverity(String severity) {
         this.severity = severity;
     }
 
+    /**
+     * getSave
+     * 
+     * @return the new saving-policy for alarms
+     */
     public String getSave() {
         return save;
     }
 
+    /**
+     * Updates the new saving-policy for alarms
+     * 
+     * @param save the new saving-policy
+     */
     public void setSave(String save) {
         this.save = save;
     }
     
-    public boolean deleteWarning(){
-        if(SeverityOrdering.severityOrdering.get(severity) > 
-                SeverityOrdering.severityOrdering.get(configuration.getSeverity().getSeverity()))
-            return true;
-        if(SavingPolicies.getInstance().getDate(save).compareTo(configuration.getConfigDate()) > 0)
-            return true;
-        
-        return false;
-    }
-
+    /**
+     * getHistory
+     * 
+     * @return new saving-policy for histories.
+     */
     public String getHistory() {
         return history;
     }
 
+    /**
+     * Updates the new saving-policy for histories.
+     * 
+     * @param history new saving-policy
+     */
     public void setHistory(String history) {
         this.history = history;
     }

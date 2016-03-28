@@ -1,3 +1,7 @@
+/*
+* Royal Institute of Technology
+* 2016 (c) Kim Hammar Marcus Blom
+*/
 package kth.se.exjobb.integration.entities;
 
 import javax.persistence.*;
@@ -20,18 +24,24 @@ public class Configuration implements Serializable {
     private BigInteger id;
     private String policy;
     private Severity severity;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date configDate;
     private String history;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date historyDate;
 
+    /**
+     * Default Class constructor
+     */
     public Configuration() {
     }
 
+    /**
+     * Class constructor
+     * 
+     * @param policy saving-policy for alarms
+     * @param severity severity-policy for alarms
+     * @param history saving-policy for history
+     */
     public Configuration(String policy, Severity severity, String history) {
-        setPolicy(policy);
-        setHistory(history);
+        this.policy = policy;
+        this.history = history;
         this.severity = severity;        
     }
 
@@ -44,38 +54,76 @@ public class Configuration implements Serializable {
         return id;
     }
 
+    /**
+     * getPolicy.
+     * 
+     * @return saving-policy for alarms
+     */
     public String getPolicy() {
         return policy;
     }
 
+    /**
+     * getSeverity
+     * 
+     * @return severity-policy for alarms
+     */
     public Severity getSeverity() {
         return severity;
     }
 
+    /**
+     * updates the saving-policy for alarms.
+     * 
+     * @param policy new saving-policy
+     */
     public void setPolicy(String policy) {
-        this.policy = policy;
-        this.configDate = SavingPolicies.getInstance().getDate(policy);
+        this.policy = policy;        
     }
 
+    /**
+     * Updates the sevetiy-policy for alarms.
+     * 
+     * @param severity new severity-policy
+     */
     public void setSeverity(Severity severity) {
         this.severity = severity;
     }
 
+    /**
+     * getConfigDate
+     * 
+     * @return date from where alarms should be saved in the database
+     */
     public Date getConfigDate() {
-        return configDate;
+        return SavingPolicies.getInstance().getDate(policy);
     }
     
+    /**
+     * getHistory
+     * 
+     * @return history-policy
+     */
     public String getHistory() {
         return history;
     }
 
+    /**
+     * Updates the history-policy
+     * 
+     * @param history new history-policy
+     */
     public void setHistory(String history) {
-        this.history = history;
-        this.historyDate = SavingPolicies.getInstance().getDate(history);
+        this.history = history;        
     }
 
+    /**
+     * getHistoryDate. 
+     * 
+     * @return date from where history should be saved in the database
+     */
     public Date getHistoryDate() {
-        return historyDate;
+        return SavingPolicies.getInstance().getDate(history);
     }
 
     

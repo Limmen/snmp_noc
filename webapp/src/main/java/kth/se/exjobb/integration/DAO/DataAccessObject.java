@@ -1,3 +1,7 @@
+/*
+* Royal Institute of Technology
+* 2016 (c) Kim Hammar Marcus Blom
+*/
 package kth.se.exjobb.integration.DAO;
 
 import kth.se.exjobb.integration.entities.SNMPMessage;
@@ -15,7 +19,7 @@ import kth.se.exjobb.model.snmp.Severity;
 /**
  * Class that encapsulates database interactions.
  *
- * @author kim
+ * @author Kim Hammar
  */
 @Stateless
 public class DataAccessObject {
@@ -67,7 +71,9 @@ public class DataAccessObject {
      * @param message alarm to remove
      */
     public void removeAlarm(SNMPMessage message){        
-        em.remove(em.getReference(SNMPMessage.class, message.getMessageId()));        
+        em.remove(em.getReference(SNMPMessage.class, message.getMessageId()));
+        LogManager.log("Alarm removed: "+ message.getSysName() + " " + message.getSeverity() + 
+                " " + message.getRecievedDate(), Level.INFO);
     }
     
     /**
@@ -76,7 +82,9 @@ public class DataAccessObject {
      * @param history entry to remove
      */
     public void removeHistory(History history){        
-        em.remove(em.getReference(History.class, history.getId()));        
+        em.remove(em.getReference(History.class, history.getId()));    
+        LogManager.log("History removed: " + history.getSystemName() + " " + history.getSeverity() 
+                + " " + history.getRemovedDate() , Level.INFO);
     }
     
     /**
@@ -86,7 +94,9 @@ public class DataAccessObject {
      */
     public void saveHistory(History history){
         em.persist(history);
-        LogManager.log("History updated", Level.INFO);
+        LogManager.log("History updated. History with system name: " + history.getSystemName() + 
+                " severity: " + history.getSeverity() + " date:" + history.getRemovedDate() + 
+                " persisted successfully",  Level.INFO);
     }
     
    /**
@@ -99,6 +109,12 @@ public class DataAccessObject {
         return (List<History>) query.getResultList();
     }
     
+    /**
+     * getConfiguration. Queries the database for the current configuration. If no configuration
+     * exists a default configuration is set.
+     * 
+     * @return The current configuration.
+     */
     public Configuration getConfiguration(){
         Query query = em.createQuery("SELECT e from Configuration e");
         try{
@@ -112,8 +128,17 @@ public class DataAccessObject {
             return config;
         }   
     }
+
+    /**
+     * Method that creates as persist a new configuration.
+     * 
+     * @param config configuration to persist
+     */
     public void newConfiguration(Configuration config){
         em.persist(config);
+        LogManager.log("Configuration with alarm-saving-policy: " + config.getPolicy() + 
+                " , Severity-policy: " + config.getSeverity() + " and History-policy: " + 
+                config.getHistory() + " persisted successfully", Level.INFO);
     }
 
 }

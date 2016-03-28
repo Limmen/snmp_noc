@@ -10,7 +10,7 @@ import org.junit.Test;
 
 /**
  * Test suite for SNMPParser
- * @author kim
+ * @author Kim Hammar
  */
 public class SNMPParserTest {
     

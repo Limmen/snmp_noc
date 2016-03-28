@@ -1,8 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* Royal Institute of Technology
+* 2016 (c) Kim Hammar Marcus Blom
+*/
 package kth.se.exjobb.model.util;
 
 import java.util.ArrayList;
@@ -10,7 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Singleton Read-Only class that represents the ordering of different severities.
+ * Singleton Read-Only class that represents saving policies.
  *
  * @author Kim Hammar
  */
@@ -32,10 +31,22 @@ public class SavingPolicies {
         private static final SavingPolicies instance = new SavingPolicies();
     }
    
+    /**
+     * Returns the sole instance of this singleton class.
+     * 
+     * @return instance
+     */
     public static SavingPolicies getInstance(){
         return instanceHolder.instance;
     }
     
+    /**
+     * Method that calculates the date from when alarms/history should be saved in the database
+     * according to the specified saving policy.
+     * 
+     * @param policy saving policy
+     * @return Date from when alarms/history should be saved in the database
+     */
     public Date getDate(String policy){
         if(policy.equals("Forever")){
             Calendar cal = Calendar.getInstance();
@@ -80,6 +91,11 @@ public class SavingPolicies {
         return null;
     }
     
+    /**
+     * getSavingPolicies
+     * 
+     * @return list of options for saving policies.
+     */
     public ArrayList<String> getSavingPolicies(){
         return savingPolicies;
     }

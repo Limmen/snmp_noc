@@ -16,7 +16,8 @@ import kth.se.exjobb.util.LogManager;
 /**
  * SNMP-Manager that listens on port 9888 for incoming UDP-messages (SNMP-messages).
  * When a message is received it is parsed and then the application controller is notified.
- * @author kim
+ * 
+ * @author Kim Hammar
  */
 public class SNMPManager implements Runnable {
     private final Controller contr;

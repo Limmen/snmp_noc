@@ -1,3 +1,7 @@
+/*
+* Royal Institute of Technology
+* 2016 (c) Kim Hammar Marcus Blom
+*/
 package kth.se.exjobb.model.snmp;
 
 import kth.se.exjobb.integration.entities.SNMPMessage;
@@ -17,11 +21,20 @@ public class SNMPSender implements Runnable {
     private byte[] data;
     private InetAddress address;
 
+    /**
+     *
+     * @param data
+     * @param ip
+     * @throws UnknownHostException
+     */
     public SNMPSender(byte[] data, String ip) throws UnknownHostException {
         this.data = data;
         address = InetAddress.getByName(ip);
     }
 
+    /**
+     *
+     */
     @Override
     public void run() {
         try {
