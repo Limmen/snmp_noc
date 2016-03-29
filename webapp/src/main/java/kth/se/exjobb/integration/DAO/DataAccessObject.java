@@ -123,7 +123,8 @@ public class DataAccessObject {
        }
         catch(NoResultException e){
             Configuration config = 
-                    new Configuration("Forever", new Severity("Indeterminate"), "Forever");
+                    new Configuration("Forever", new Severity("Indeterminate"), "Forever", 
+                            new Severity("Indeterminate"), new Severity("Indeterminate"));
             newConfiguration(config);
             return config;
         }   

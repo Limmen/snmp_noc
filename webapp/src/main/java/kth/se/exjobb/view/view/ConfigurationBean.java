@@ -34,7 +34,8 @@ public class ConfigurationBean implements Serializable {
     private String severity;
     private String save;
     private String history;
-    
+    private String notification;
+    private String statistics;
     /**
      * This method is called after all dependency injections and initialization are done
      * but before the class is put to service.
@@ -47,6 +48,8 @@ public class ConfigurationBean implements Serializable {
         save = configuration.getPolicy();
         severity = configuration.getSeverity().getSeverity();   
         history = configuration.getHistory();
+        notification = configuration.getNotification().getSeverity();
+        statistics = configuration.getStatistics().getSeverity();
         savingPolicies = SavingPolicies.getInstance().getSavingPolicies();
         severityPolicies = new ArrayList<String>(SeverityOrdering.severityOrdering.keySet());
         
@@ -57,7 +60,7 @@ public class ConfigurationBean implements Serializable {
      * Updates the current configuration with the new values.
      */
     public void updateConfiguration(){
-        configuration = contr.updateConfiguration(save, severity, history);
+        configuration = contr.updateConfiguration(save, severity, history, notification, statistics);
     }
     
     /**
@@ -70,10 +73,12 @@ public class ConfigurationBean implements Serializable {
         if(SeverityOrdering.severityOrdering.get(severity) > 
                 SeverityOrdering.severityOrdering.get(configuration.getSeverity().getSeverity()))
             return true;
-        if(SavingPolicies.getInstance().getDate(save).compareTo(configuration.getConfigDate()) > 0)
+        if((SavingPolicies.getInstance().getDate(save).compareTo(configuration.getConfigDate()) > 0))
             return true;
-        
-        return false;
+        if(SavingPolicies.getInstance().getDate(history).compareTo(configuration.getHistoryDate()) > 0)
+            return true;
+        else
+            return false;
     }
     
     /**
@@ -153,6 +158,42 @@ public class ConfigurationBean implements Serializable {
      */
     public void setHistory(String history) {
         this.history = history;
+    }
+
+    /**
+     * getNotification
+     * 
+     * @return the new notification policy
+     */
+    public String getNotification() {
+        return notification;
+    }
+
+    /**
+     * Updates the new notification policy 
+     * 
+     * @param notification new value
+     */
+    public void setNotification(String notification) {
+        this.notification = notification;
+    }
+
+    /**
+     * getStatistics
+     * 
+     * @return the new statistics policy
+     */
+    public String getStatistics() {
+        return statistics;
+    }
+
+    /**
+     * Updates the new statistics policy
+     * 
+     * @param statistics new value
+     */
+    public void setStatistics(String statistics) {
+        this.statistics = statistics;
     }
     
     

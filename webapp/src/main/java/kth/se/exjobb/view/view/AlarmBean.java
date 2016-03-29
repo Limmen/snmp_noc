@@ -63,6 +63,7 @@ public class AlarmBean implements Serializable {
     @GenericLogger
     public void removeSelectedAlarm(){
         contr.removeSelectedAlarm(selectedAlarm);
+        fetchAlarms();
     }
 
     /**

@@ -13,9 +13,18 @@
                     <b:navLink value="Statistics" href="statistics.xhtml"></b:navLink>
                     <b:navLink value="Configuration" href="configuration.xhtml"></b:navLink>
                     <b:navLink id="numAlarms" value="#{notificationBean.alarmsLabel}" href="#" onclick="PF('bar').show()"></b:navLink>
-                    <b:navLink styleClass="logoutLink"><h:commandLink action="#{loginBean.logout()}"><h:graphicImage styleClass="logout" value="/resources/images/logout.png"/></h:commandLink></b:navLink>
+                    <b:navLink styleClass="logoutLink">
+                        <p:commandLink action="#{loginBean.logout()}">
+                            <h:graphicImage styleClass="logout" value="/resources/images/logout.png"/>
+                            <p:confirm header="Confirmation" message="Are you sure you want to logout?" icon="ui-icon-alert" />
+                        </p:commandLink>                        
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+                    </b:navLink>
                 </b:navbarLinks>
-            </b:navBar>
+            </b:navBar>            
             <b:jumbotron class="jumbo">                
                 <p:notificationBar position="top" effect="slide" styleClass="topBar" widgetVar="bar">                           
                     <div class="notificationBar">

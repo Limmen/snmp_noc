@@ -90,7 +90,13 @@
                                 </p:dataList>
                             </h:panelGrid>
                             <h:panelGrid columns="1" cellpadding="5">
-                                <p:commandButton value="Remove" actionListener="#{alarmBean.removeSelectedAlarm()}" styleClass="ui-priority-primary" />
+                                <p:commandButton value="Remove" update="alarmData" oncomplete="PF('alarmDialog').hide()" actionListener="#{alarmBean.removeSelectedAlarm()}" styleClass="ui-priority-primary">
+                                    <p:confirm header="Confirmation" message="Are you sure you want to remove this alarm?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </p:confirmDialog>
                             </h:panelGrid>
                         </p:outputPanel>
                     </p:dialog>

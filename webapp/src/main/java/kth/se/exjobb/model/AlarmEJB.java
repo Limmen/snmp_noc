@@ -15,6 +15,7 @@ import java.util.Collection;
 import java.util.List;
 import kth.se.exjobb.integration.entities.Configuration;
 import kth.se.exjobb.integration.entities.History;
+import kth.se.exjobb.model.util.SeverityOrdering;
 
 /**
  * This class handles incoming SNMP alarms.
@@ -45,10 +46,11 @@ public class AlarmEJB {
      * Method to add new alarm
      * @param alarm snmp message received
      */
-    public void newAlarm(SNMPMessage alarm){        
-        if(shouldSave(dao.getConfiguration(), alarm)){
-            dao.saveSNMPMessage(alarm);
+    public void newAlarm(SNMPMessage alarm){
+        if(SeverityOrdering.severityOrdering.get(alarm.getSeverity().getSeverity()) >= 1)
             recentCritical = alarm;
+        if(shouldSave(dao.getConfiguration(), alarm)){
+            dao.saveSNMPMessage(alarm);            
         }
         else{
             if(alarms.size() >= 30)
@@ -70,15 +72,45 @@ public class AlarmEJB {
     }
     
     /**
-     *
-     * @return
+     * getSavedAlarms
+     * 
+     * @return list of all alarms that are persisted in the database.
      */
-    public Collection <SNMPMessage> getCriticalAlarms(){            
+    public Collection <SNMPMessage> getSavedAlarms(){            
         return dao.getAllMessages();
     }
     
     /**
+     * getNotificationAlarms
+     * 
+     * @return list of all alarms that should be a notification.
+     */
+    public Collection <SNMPMessage> getNotificationAlarms(){
+        List<SNMPMessage> notificationAlarmsList = new ArrayList();
+        for(SNMPMessage alarm : getAllAlarms()){
+            if(alarm.getSeverity().compareTo(dao.getConfiguration().getNotification()) >= 0)
+                notificationAlarmsList.add(alarm);
+        }
+        return notificationAlarmsList;
+    }
+    
+    /**
+     * getStatisticsAlarms
+     * 
+     * @return list of all alarms for statistical data.
+     */
+    public Collection <SNMPMessage> getStatisticsAlarms(){
+        List<SNMPMessage> statisticsAlarmsList = new ArrayList();
+        for(SNMPMessage alarm : getAllAlarms()){
+            if(alarm.getSeverity().compareTo(dao.getConfiguration().getNotification()) >= 0)
+                statisticsAlarmsList.add(alarm);
+        }
+        return statisticsAlarmsList;
+    }
+    
+    /**
      * Removes a certain alarm
+     * 
      * @param alarm SNMPMessage to remove
      */
     public void removeSelectedAlarm(SNMPMessage alarm){
@@ -98,6 +130,10 @@ public class AlarmEJB {
      * @return the most recent critical alarm.
      */
     public SNMPMessage getRecentCritical() {
+        if(recentCritical != null)
+            System.out.println("RECENT CRITICAL IS: " + recentCritical.getSysName());
+        else
+            System.out.println("Recent CRITICAL is null");
         return recentCritical;
     }
 

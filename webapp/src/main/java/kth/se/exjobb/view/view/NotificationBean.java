@@ -11,7 +11,6 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,15 +18,17 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import javax.enterprise.context.SessionScoped;
 
 /**
  * Managed bean managing the notification updates from the serer to the client.
- * ViewScope means that the bean will be active as long as the user is interacting with the same
- * JSF view.
+ * SessionScoped means that the bean will be active as long as the http session is active.
+ * SessionScoped is neccessary to avoid duplicate notifications.
+ * 
  * @author Kim Hammar
  */
+@SessionScoped
 @Named(value = "notificationBean")
-@ViewScoped
 public class NotificationBean implements Serializable {
     @EJB
     Controller contr;
@@ -44,7 +45,7 @@ public class NotificationBean implements Serializable {
      */
     @PostConstruct
     public void init(){
-        criticalAlarms = (List) contr.getCriticalAlarms();
+        criticalAlarms = (List) contr.getNotificationAlarms();
         if(criticalAlarms == null)
             criticalAlarms = new ArrayList();
         numberOfCriticalAlarms = criticalAlarms.size();
@@ -68,14 +69,14 @@ public class NotificationBean implements Serializable {
                                 "Severity: " + critical.getSeverity().getSeverity()));
             }
         }
-        criticalAlarms = (List<SNMPMessage>) contr.getCriticalAlarms();
+        criticalAlarms = (List<SNMPMessage>) contr.getNotificationAlarms();
         Collections.sort(criticalAlarms);
         numberOfCriticalAlarms = criticalAlarms.size();
         alarmsLabel = "Critical Alarms (" + numberOfCriticalAlarms + ")";
     }
 
     /**
-     * getCriticalAlarms
+     * getCNotificationAlarms
      *
      * @return list of critical alarms.
      */

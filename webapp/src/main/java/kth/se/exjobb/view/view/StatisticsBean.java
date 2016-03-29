@@ -5,7 +5,6 @@
 package kth.se.exjobb.view.view;
 
 import kth.se.exjobb.controller.Controller;
-import kth.se.exjobb.integration.DAO.DataAccessObject;
 import kth.se.exjobb.integration.entities.SNMPMessage;
 import kth.se.exjobb.model.snmp.SNMPVariableBinding;
 import org.primefaces.model.chart.*;
@@ -17,6 +16,7 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import kth.se.exjobb.model.AlarmEJB;
 
 /**
  * Managed bean representing the interface between the statistics page and the server.
@@ -32,7 +32,7 @@ public class StatisticsBean implements Serializable {
     @EJB
     Controller contr;
     @EJB
-    DataAccessObject dao;
+    AlarmEJB alarmManager;
     private List<SNMPMessage> alarms;
     private ArrayList<String> dates = new ArrayList();
     private BarChartModel alarmsByLocationModel = new BarChartModel();
@@ -76,7 +76,7 @@ public class StatisticsBean implements Serializable {
     }
 
     private void updateAlarms() {
-        alarms = (List) dao.getAllMessages();
+        alarms = (List) alarmManager.getStatisticsAlarms();
         if (alarms == null)
             alarms = new ArrayList();
     }

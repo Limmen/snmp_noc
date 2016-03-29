@@ -29,13 +29,18 @@ public class ConfigurationEJB {
      * @param policy new saving-policy for alarms
      * @param severity new severity-policy
      * @param history new history-policy
+     * @param notification
+     * @param statistics
      * @return The new configuration
      */
-    public Configuration updateConfiguration(String policy, String severity, String history){
+    public Configuration updateConfiguration(String policy, String severity, String history,
+            String notification, String statistics){
         Configuration config = dao.getConfiguration();
         config.setPolicy(policy);
         config.setSeverity(new Severity(severity));
         config.setHistory(history);
+        config.setNotification(new Severity(notification));
+        config.setStatistics(new Severity(statistics));
         return config;
     }
     

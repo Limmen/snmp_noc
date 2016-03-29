@@ -110,12 +110,21 @@ public class Controller {
     }
 
     /**
-     * Method to get all critical alarms.
+     * Method to get all saved alarms.
      *
-     * @return list of critical alarms
+     * @return list of saved alarms
      */
-    public Collection<SNMPMessage> getCriticalAlarms() {
-        return alarmManager.getCriticalAlarms();
+    public Collection<SNMPMessage> getSavedAlarms() {
+        return alarmManager.getSavedAlarms();
+    }
+
+    /**
+     * Method to get all alarms that fulfill the severity to do a notification.
+     *
+     * @return list of alarms
+     */
+    public Collection<SNMPMessage> getNotificationAlarms() {
+        return alarmManager.getNotificationAlarms();
     }
 
     /**
@@ -156,10 +165,14 @@ public class Controller {
      * @param save new savingpolicy for alarms
      * @param severity new severitypolicy
      * @param history new savingpolicy for history
+     * @param notification
+     * @param statistics
      * @return The newly set configuration
      */
-    public Configuration updateConfiguration(String save, String severity, String history){
-        Configuration configuration = config.updateConfiguration(save, severity, history);
+    public Configuration updateConfiguration(String save, String severity, String history,
+            String notification, String statistics){
+        Configuration configuration = config.updateConfiguration(save, severity, history,
+                notification, statistics);
         config.updateDatabaseWithNewConfig();
         return configuration;
     }

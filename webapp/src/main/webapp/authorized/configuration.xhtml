@@ -14,37 +14,75 @@
             <b:panel id="current_settings">
                 <h4>Alarm settings:</h4>
                 <p class="settingsLabel">Saving policy: <span class="settingsValue">#{configurationBean.configuration.policy}</span></p>
-                <p class="settingsLabel">Severity policy: <span class="settingsValue">#{configurationBean.configuration.severity}</span></p>
+                <p class="settingsLabel">Minimum severity level to save: <span class="settingsValue">#{configurationBean.configuration.severity}</span></p>
             </b:panel>
             <b:panel id="history_settings">
                 <h4>History settings:</h4>
                 <p class="settingsLabel">Saving policy: <span class="settingsValue">#{configurationBean.configuration.policy}</span></p>
             </b:panel>
+            <b:panel id="notification_settings">
+                <h4>Notification settings:</h4>
+                <p class="settingsLabel">Severity level for notifications: <span class="settingsValue">#{configurationBean.configuration.notification}</span></p>
+            </b:panel>
+            <b:panel id="statistics_settings">
+                <h4>Statistics settings:</h4>
+                <p class="settingsLabel">Severity level for statistics: <span class="settingsValue">#{configurationBean.configuration.statistics}</span></p>
+            </b:panel>
             <h3 class="resultTitle">Configuration</h3>
             <h:form>   
                 <div class="form-group">
                     <h:outputLabel for="savingPolicy_1" value="Save unhandled alarms for:" />
-                    <b:selectOneMenu id="savingPolicy_1" value="#{configurationBean.save}" style="width:500px">                        
+                    <b:selectOneMenu id="savingPolicy_1" value="#{configurationBean.save}" style="width:500px" onchange="submit()">                        
                         <f:selectItem itemValue="" noSelectionOption="true" />
                         <f:selectItems value="#{configurationBean.savingPolicies}" />
+                        <f:ajax execute="savingPolicy_1" render="output_panel1 output_panel2"/>
                     </b:selectOneMenu>        
                 </div>
                 <div class="form-group">
                     <h:outputLabel for="savingPolicy_2" value="Minimum Severity Level to save:" />
-                    <b:selectOneMenu id="savingPolicy_2" value="#{configurationBean.severity}" style="width:500px">                        
+                    <b:selectOneMenu id="savingPolicy_2" value="#{configurationBean.severity}" style="width:500px" onchange="submit()">                        
                         <f:selectItem itemValue="" noSelectionOption="true" />
                         <f:selectItems value="#{configurationBean.severityPolicies}" />
+                        <f:ajax execute="savingPolicy_2" render="output_panel1 output_panel2"/>
                     </b:selectOneMenu>        
                 </div>
                 <div class="form-group">
                     <h:outputLabel for="savingPolicy_3" value="Save alarm history for:" />
-                    <b:selectOneMenu id="savingPolicy_3" value="#{configurationBean.history}" style="width:500px">                        
+                    <b:selectOneMenu id="savingPolicy_3" value="#{configurationBean.history}" style="width:500px" onchange="submit()">                        
                         <f:selectItem itemValue="" noSelectionOption="true" />
                         <f:selectItems value="#{configurationBean.savingPolicies}" />
+                        <f:ajax execute="savingPolicy_3" render="output_panel1 output_panel2"/>
                     </b:selectOneMenu>        
                 </div>
-                <b:alert rendered="#{configurationBean.deleteWarning()}" severity="warning"><strong>Warning: </strong>This might cause existing alarms to be deleted</b:alert>
-                <p:commandButton value="Save" id="ajax" update="current_settings history_settings" actionListener="#{configurationBean.updateConfiguration()}" styleClass="ui-priority-primary" />
+                <div class="form-group">
+                    <h:outputLabel for="savingPolicy_4" value="Send me notifications for alarms with this severity or higher:" />
+                    <b:selectOneMenu id="savingPolicy_4" value="#{configurationBean.history}" style="width:500px" onchange="submit()">                        
+                        <f:selectItem itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{configurationBean.severityPolicies}" />
+                        <f:ajax execute="savingPolicy_4" render="output_panel1 output_panel2"/>
+                    </b:selectOneMenu>        
+                </div>
+                <div class="form-group">
+                    <h:outputLabel for="savingPolicy_5" value="Produce statitics for alarms with this severity or higher:" />
+                    <b:selectOneMenu id="savingPolicy_5" value="#{configurationBean.history}" style="width:500px" onchange="submit()">                        
+                        <f:selectItem itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{configurationBean.severityPolicies}" />
+                        <f:ajax execute="savingPolicy_5" render="output_panel1 output_panel2"/>
+                    </b:selectOneMenu>        
+                </div>
+                <p:outputPanel id="output_panel1" rendered="#{configurationBean.deleteWarning()}" >
+                    <b:alert severity="warning"> <strong>Warning: </strong>This might cause existing alarms or history to be deleted</b:alert>
+                <p:commandButton value="Save" id="ajax" update="current_settings history_settings output_panel1" actionListener="#{configurationBean.updateConfiguration()}" styleClass="ui-priority-primary">
+                    <p:confirm header="Confirmation" message="This changes might cause existing alarms or history to be deleted" icon="ui-icon-alert" />
+                </p:commandButton>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Continue" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="Cancel" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+                </p:outputPanel>
+                <p:outputPanel id="output_panel2" rendered="#{!configurationBean.deleteWarning()}" >
+                <p:commandButton value="Save" id="ajax2" update="current_settings history_settings output_panel1" actionListener="#{configurationBean.updateConfiguration()}" styleClass="ui-priority-primary"/>                  
+                </p:outputPanel>
             </h:form>    
         </ui:define>
     </ui:composition>             

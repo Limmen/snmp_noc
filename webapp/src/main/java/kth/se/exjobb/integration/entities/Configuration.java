@@ -25,6 +25,8 @@ public class Configuration implements Serializable {
     private String policy;
     private Severity severity;
     private String history;
+    private Severity notification;
+    private Severity statistics;
 
     /**
      * Default Class constructor
@@ -38,11 +40,15 @@ public class Configuration implements Serializable {
      * @param policy saving-policy for alarms
      * @param severity severity-policy for alarms
      * @param history saving-policy for history
+     * @param notification
+     * @param statistics
      */
-    public Configuration(String policy, Severity severity, String history) {
+    public Configuration(String policy, Severity severity, String history, Severity notification, Severity statistics) {
         this.policy = policy;
         this.history = history;
-        this.severity = severity;        
+        this.severity = severity;
+        this.notification = notification;
+        this.statistics = statistics;
     }
 
     /**
@@ -124,6 +130,42 @@ public class Configuration implements Serializable {
      */
     public Date getHistoryDate() {
         return SavingPolicies.getInstance().getDate(history);
+    }
+
+    /**
+     * getNotification
+     * 
+     * @return severity-policy for notifications
+     */
+    public Severity getNotification() {
+        return notification;
+    }
+
+    /**
+     * Updates the severity-policy for notifications.
+     * 
+     * @param notification updated policy
+     */
+    public void setNotification(Severity notification) {
+        this.notification = notification;
+    }
+
+    /** 
+     * getStatistics
+     * 
+     * @return severity-policy for statistics
+     */
+    public Severity getStatistics() {
+        return statistics;
+    }
+
+    /**
+     * Updates the severity-policy for statistics
+     * 
+     * @param statistics updated policy
+     */
+    public void setStatistics(Severity statistics) {
+        this.statistics = statistics;
     }
 
     
