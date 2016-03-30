@@ -26,13 +26,18 @@ public class DataAccessObject {
     @PersistenceContext(unitName = "kth.se.exjobb_noc_prototype_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
+    void setEm(EntityManager em) 
+    {
+        this.em = em;
+    }
+    
     /**
      * Method to persist a SNMPMessage in the database.
      *
      * @param message message to persist.
      */
     public void saveSNMPMessage(SNMPMessage message) {
-        Configuration config = em.find(Configuration.class, 1);
+        Configuration config = getConfiguration();
         em.persist(message);
         LogManager.log("SNMPMessage from " + message.getSysName() + " with severity "
                 + message.getSeverity() + " persisted successfully", Level.INFO);
@@ -86,6 +91,7 @@ public class DataAccessObject {
         LogManager.log("History removed: " + history.getSystemName() + " " + history.getSeverity() 
                 + " " + history.getRemovedDate() , Level.INFO);
     }
+    
     
     /**
      * Method to persist a history instance in the database

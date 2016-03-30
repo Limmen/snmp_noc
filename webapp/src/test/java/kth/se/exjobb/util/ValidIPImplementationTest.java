@@ -12,7 +12,8 @@ import org.junit.Test;
 import static org.mockito.Mockito.mock;
 
 /**
- *
+ * Unit-test suite for ValidIPImplementation.java
+ * 
  * @author Kim Hammar
  */
 public class ValidIPImplementationTest {

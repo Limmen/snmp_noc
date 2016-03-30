@@ -49,7 +49,7 @@ public class ConfigurationBean implements Serializable {
         severity = configuration.getSeverity().getSeverity();   
         history = configuration.getHistory();
         notification = configuration.getNotification().getSeverity();
-        statistics = configuration.getStatistics().getSeverity();
+        statistics = configuration.getStatistics().getSeverity();        
         savingPolicies = SavingPolicies.getInstance().getSavingPolicies();
         severityPolicies = new ArrayList<String>(SeverityOrdering.severityOrdering.keySet());
         

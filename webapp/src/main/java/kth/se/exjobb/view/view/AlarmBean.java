@@ -14,6 +14,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import javax.swing.tree.TreeNode;
 import kth.se.exjobb.controller.Controller;
 import kth.se.exjobb.integration.entities.SNMPMessage;
 import kth.se.exjobb.util.GenericLogger;
@@ -33,6 +34,7 @@ public class AlarmBean implements Serializable {
     private final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private Date updated = new Date();
     private SNMPMessage selectedAlarm;  
+    private TreeNode selectedAlarmTree;
         
     /**
      * This method is called after all dependency injections and initialization are done

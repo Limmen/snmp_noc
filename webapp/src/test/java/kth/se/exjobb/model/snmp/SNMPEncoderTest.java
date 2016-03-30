@@ -14,6 +14,8 @@ import java.util.List;
 import org.junit.Ignore;
 
 /**
+ * Unit-test suite for SNMPEncoder.java
+ * 
  * @author Kim Hammar on 2016-03-23.
  */
 public class SNMPEncoderTest {

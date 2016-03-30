@@ -28,6 +28,7 @@
                 <h4>Statistics settings:</h4>
                 <p class="settingsLabel">Severity level for statistics: <span class="settingsValue">#{configurationBean.configuration.statistics}</span></p>
             </b:panel>
+            <p:separator/>
             <h3 class="resultTitle">Configuration</h3>
             <h:form>   
                 <div class="form-group">
@@ -56,7 +57,7 @@
                 </div>
                 <div class="form-group">
                     <h:outputLabel for="savingPolicy_4" value="Send me notifications for alarms with this severity or higher:" />
-                    <b:selectOneMenu id="savingPolicy_4" value="#{configurationBean.history}" style="width:500px" onchange="submit()">                        
+                    <b:selectOneMenu id="savingPolicy_4" value="#{configurationBean.notification}" style="width:500px" onchange="submit()">                        
                         <f:selectItem itemValue="" noSelectionOption="true" />
                         <f:selectItems value="#{configurationBean.severityPolicies}" />
                         <f:ajax execute="savingPolicy_4" render="output_panel1 output_panel2"/>
@@ -64,7 +65,7 @@
                 </div>
                 <div class="form-group">
                     <h:outputLabel for="savingPolicy_5" value="Produce statitics for alarms with this severity or higher:" />
-                    <b:selectOneMenu id="savingPolicy_5" value="#{configurationBean.history}" style="width:500px" onchange="submit()">                        
+                    <b:selectOneMenu id="savingPolicy_5" value="#{configurationBean.statistics}" style="width:500px" onchange="submit()">                        
                         <f:selectItem itemValue="" noSelectionOption="true" />
                         <f:selectItems value="#{configurationBean.severityPolicies}" />
                         <f:ajax execute="savingPolicy_5" render="output_panel1 output_panel2"/>

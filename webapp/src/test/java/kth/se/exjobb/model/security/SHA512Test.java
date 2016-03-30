@@ -10,6 +10,8 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 
 /**
+ * Unit-test suite for SHA512.java
+ * 
  * @author Kim Hammar on 2016-03-25.
  */
 public class SHA512Test {

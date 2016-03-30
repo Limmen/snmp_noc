@@ -44,9 +44,9 @@ public class Severity implements Serializable, Comparable {
         if(severityValue1 == severityValue2)
             return 0;        
         if(severityValue1 > severityValue2)
-            return -1;
+            return 1;
 
-        return 1;    
+        return -1;    
     }
 
     /**

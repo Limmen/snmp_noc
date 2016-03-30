@@ -90,6 +90,15 @@ public class Controller {
     public void removeSelectedAlarm(SNMPMessage alarm) {
         alarmManager.removeSelectedAlarm(alarm);
     }
+    
+    /**
+     * Method to remove a certain alarm from the list
+     *
+     * @param history entry to be removed
+     */
+    public void removeSelectedHistory(History history) {
+        dao.removeHistory(history);
+    }
 
     /**
      * Method to send a SNMP request to a specified ip adress.

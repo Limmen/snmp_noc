@@ -12,7 +12,8 @@ import org.junit.Test;
 import static org.mockito.Mockito.mock;
 
 /**
- * Test suite for SNMPManager class
+ * Unit-test suite for SNMPManager.java
+ * 
  * @author Kim Hammar
  */
 public class SNMPManagerTest {

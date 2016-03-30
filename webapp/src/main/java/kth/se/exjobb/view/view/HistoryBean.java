@@ -15,6 +15,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import kth.se.exjobb.controller.Controller;
 import kth.se.exjobb.integration.entities.History;
+import kth.se.exjobb.util.GenericLogger;
 
 /**
  * Managed bean representing the interface between the history page and the server.
@@ -26,11 +27,11 @@ import kth.se.exjobb.integration.entities.History;
 @ViewScoped
 public class HistoryBean implements Serializable {
     @EJB
-    Controller contr;
+            Controller contr;
     private List<History> history;
     private final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    private History selectedHistory;  
-        
+    private History selectedHistory;
+    
     /**
      * This method is called after all dependency injections and initialization are done
      * but before the class is put to service.
@@ -43,7 +44,22 @@ public class HistoryBean implements Serializable {
         if(history == null)
             history = new ArrayList();
     }
-
+    
+    /**
+     * Removes a selectedHistory from the list of histories
+     */
+    @GenericLogger
+    public void removeHistory(){
+        if(selectedHistory != null){
+            
+            
+            contr.removeSelectedHistory(selectedHistory);
+            history = (List) contr.getAllHistories();
+            if(history == null)
+                history = new ArrayList();
+        }
+    }
+    
     /**
      * getHistory
      * @return List of history
@@ -51,7 +67,7 @@ public class HistoryBean implements Serializable {
     public List<History> getHistory() {
         return history;
     }
-            
+    
     /**
      * getSelectedHistory
      * @return the history row that is selected in the view

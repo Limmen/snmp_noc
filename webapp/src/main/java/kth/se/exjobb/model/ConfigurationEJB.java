@@ -48,19 +48,14 @@ public class ConfigurationEJB {
      * Updates the database according to the new configuration.
      */
     public void updateDatabaseWithNewConfig(){
-        System.out.println("UPDATE DATABASE WITH NEW CONFIGURATION");
         Configuration config = dao.getConfiguration();
         for(SNMPMessage message : dao.getAllMessages()){
             if(shouldRemove(config, message))
                 dao.removeAlarm(message);
-            else
-                System.out.println("REMOVE ALARM RETURNED FALSE");
         }
         for(History history : dao.getAllHistories()){
             if(shouldRemove(config, history))
                 dao.removeHistory(history);
-            else
-                System.out.println("REMOVE HISTORYRETURNED FALSE");
         }
     }
     

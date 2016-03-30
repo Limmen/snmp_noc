@@ -47,9 +47,10 @@ public class AlarmEJB {
      * @param alarm snmp message received
      */
     public void newAlarm(SNMPMessage alarm){
-        if(SeverityOrdering.severityOrdering.get(alarm.getSeverity().getSeverity()) >= 1)
+        Configuration config = dao.getConfiguration();
+        if(alarm.getSeverity().compareTo(config.getNotification()) >= 0)
             recentCritical = alarm;
-        if(shouldSave(dao.getConfiguration(), alarm)){
+        if(shouldSave(config, alarm)){
             dao.saveSNMPMessage(alarm);            
         }
         else{
@@ -130,10 +131,6 @@ public class AlarmEJB {
      * @return the most recent critical alarm.
      */
     public SNMPMessage getRecentCritical() {
-        if(recentCritical != null)
-            System.out.println("RECENT CRITICAL IS: " + recentCritical.getSysName());
-        else
-            System.out.println("Recent CRITICAL is null");
         return recentCritical;
     }
 

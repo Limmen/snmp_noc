@@ -9,7 +9,8 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 /**
- * Test suite for SNMPParser
+ * Unit-test suite for SNMPParser.java
+ * 
  * @author Kim Hammar
  */
 public class SNMPParserTest {

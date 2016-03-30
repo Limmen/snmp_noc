@@ -24,13 +24,16 @@
                     <h:link value="Recent History" outcome="history" />
                 </li>
             </ul>
-            <h3 class="resultTitle">Recent History</h3>
+            <h3 class="resultTitle">Recent History</h3>          
             <h:form id="form">                      
                 <p:dataTable var="historyRow" value="#{historyBean.history}" rows="10"
                              paginator="true"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15"
-                             id="historyData">
+                             id="historyData"
+                             rowKey="#{historyRow.id}"
+                             selection="#{historyBean.selectedHistory}" 
+                             selectionMode="single">
                     <p:column headerText="System name" sortBy="#{historyRow.systemName}">
                         <h:outputText value="#{historyRow.systemName}" style="font-weight: bold"/>
                     </p:column>
@@ -46,7 +49,14 @@
                     <p:column headerText="Request Id" sortBy="#{historyRow.requestId}">
                         <h:outputText value="#{historyRow.requestId}" style="font-weight: bold"/> 
                     </p:column>
-                </p:dataTable>                      
+                </p:dataTable> 
+                <p:commandButton value="Remove Selected Row" update="historyData" oncomplete="PF('alarmDialog').hide()" actionListener="#{historyBean.removeHistory()}" styleClass="ui-priority-primary">
+                    <p:confirm header="Confirmation" message="Are you sure you want to remove this row?" icon="ui-icon-alert" />
+                </p:commandButton>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
             </h:form>                      
         </ui:define>
     </ui:composition>
