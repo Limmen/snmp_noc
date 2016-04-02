@@ -30,7 +30,6 @@ public class SNMPParser
     {
         RelativeByteBuffer data = new RelativeByteBuffer(message);
         
-        //todo(Marcus): contain these in a SNMP message class.
         int messageSequenceLength = 0;
         int versionNumber = 0;
         String community = null;
@@ -112,27 +111,32 @@ public class SNMPParser
                         
                         //Read the value
                         Object value = null;
+                        SNMPVariableBinding.DataTypes dataType = null;
                         
                         byte objectClass = data.getNext();
                         
                         if(objectClass == 0x02) //Integer
                         {
                             value = readASN1Integer(data);
+                            dataType = SNMPVariableBinding.DataTypes.integer;
                         }
                         else if(objectClass == 0x04) //Octet string
                         {
                             value = readASN1String(data);
+                            dataType = SNMPVariableBinding.DataTypes.string;
                         }
                         else if((objectClass & 0b01000000) == 0x40) //Application
                         {
                             value = readASN1Integer(data);
+                            dataType = SNMPVariableBinding.DataTypes.application;
                         }
                         else if(objectClass == 0x06) //oid
                         {
                             value = readOID(data);
+                            dataType = SNMPVariableBinding.DataTypes.oid;
                         }
                         
-                        SNMPVariableBinding variableBinding = new SNMPVariableBinding(new String(oid),value);
+                        SNMPVariableBinding variableBinding = new SNMPVariableBinding(new String(oid),value,dataType);
                         variableBindings.add(variableBinding);
                     }
                     

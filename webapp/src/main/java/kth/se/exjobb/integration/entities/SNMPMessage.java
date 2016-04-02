@@ -176,7 +176,7 @@ public class SNMPMessage implements Serializable, Comparable
         for(SNMPVariableBinding binding : variableBindings){
             if(binding.getOid() != null){
                 if(binding.getOid().equals("calSeverity"))
-                    return binding.getValue();
+                    return binding.getValue().toString();
             }     
         }
         return "Cleared";
@@ -186,7 +186,7 @@ public class SNMPMessage implements Serializable, Comparable
         for(SNMPVariableBinding binding : variableBindings){
             if(binding.getOid() != null){
                 if(binding.getOid().equals("sysName.0"))
-                    return binding.getValue();
+                    return binding.getValue().toString();
             }
         }
         return "Not found";

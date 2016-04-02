@@ -26,19 +26,18 @@ public class SNMPEncoderTest {
     }
     
     @Test
-    @Ignore
     public void testEncode() throws Exception {
         int version = 1;
         String community = "public";
         int requestId = 814753557;
         int error = 0;
         int errorIndex = 0;
-        int pduType = 160;
+        int pduType = SNMPConstants.GET;
         List<SNMPVariableBinding> variableBindings = new ArrayList();
-        variableBindings.add(new SNMPVariableBinding("1.3.6.1.2.1.1.5.0.", 5));
-        variableBindings.add(new SNMPVariableBinding("1.3.6.1.2.1.1.1.0.", 5));
-        variableBindings.add(new SNMPVariableBinding("1.3.6.1.2.1.1.4.0.", 5));
-        variableBindings.add(new SNMPVariableBinding("1.3.6.1.2.1.1.6.0.", 5));
+        variableBindings.add(new SNMPVariableBinding("1.3.6.1.2.1.1.5.0", null,SNMPVariableBinding.DataTypes.nullValue));
+        variableBindings.add(new SNMPVariableBinding("1.3.6.1.2.1.1.1.0", null,SNMPVariableBinding.DataTypes.nullValue));
+        variableBindings.add(new SNMPVariableBinding("1.3.6.1.2.1.1.4.0", null,SNMPVariableBinding.DataTypes.nullValue));
+        variableBindings.add(new SNMPVariableBinding("1.3.6.1.2.1.1.6.0", null,SNMPVariableBinding.DataTypes.nullValue));
         SNMPMessage testMessage = new SNMPMessage(version, community, requestId, error, errorIndex, pduType, variableBindings);
         byte[] result = SNMPEncoder.encode(testMessage);
         System.out.println(bytesToHex(result));

@@ -52,6 +52,18 @@ public class RelativeByteBuffer
      */
     public byte[] getByteArray()
    {
+       byte[] result = new byte[index];
+       System.arraycopy(data, 0, result, 0, result.length);      
+       return result;
+   }
+   
+    /**
+     * Returns the full array within the buffer with no consideration to the
+     * amount of bytes that have been set.
+     * @return 
+     */
+   public byte[] getUntrimmedByteArray()
+   {
        return data;
    }
    
@@ -108,7 +120,7 @@ public class RelativeByteBuffer
      */
     public int size()
    {
-       return index+1;
+       return index;
    }
    
     /**
@@ -119,5 +131,10 @@ public class RelativeByteBuffer
    {
        return index;
    }
+
+    public void setNext(RelativeByteBuffer otherByteBuffer)
+    {
+        setNext(otherByteBuffer.getUntrimmedByteArray(),otherByteBuffer.size());
+    }
    
 }
