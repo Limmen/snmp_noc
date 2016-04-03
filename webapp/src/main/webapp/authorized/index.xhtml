@@ -77,8 +77,8 @@
                         <h5>Variable Bindings:</h5>                        
                         <ui:repeat value="#{alarmBean.selectedAlarm.variableBindings}" var="binding">
                             <p:panelGrid columns="2">
-                                <h:outputText value="#{binding.oid}"/>
-                                <h:outputText value="#{binding.value}" style="font-weight: bold"/>
+                                <h:outputText value="#{binding.oidDescr}"/>
+                                <h:outputText value="#{binding.stringValue}" style="font-weight: bold"/>
                             </p:panelGrid>
                         </ui:repeat>                                                          
                     </p:outputPanel>

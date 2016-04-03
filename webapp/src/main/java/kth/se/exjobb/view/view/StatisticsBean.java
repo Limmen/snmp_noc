@@ -98,9 +98,9 @@ public class StatisticsBean implements Serializable {
         ArrayList<String> names = new ArrayList();
         for (SNMPMessage message : alarms) {
             for (SNMPVariableBinding binding : message.getVariableBindings()) {
-                if (binding.getOid().equals("sysName.0")) {
-                    if (!names.contains(binding.getValue()))
-                        names.add(binding.getValue());
+                if (binding.getOidDescr().equals("sysName.0")) {
+                    if (!names.contains(binding.getStringValue()))
+                        names.add(binding.getStringValue());
                 }
             }
         }
@@ -113,8 +113,8 @@ public class StatisticsBean implements Serializable {
                 for (SNMPMessage message : alarms) {
                     boolean match = false;
                     for (SNMPVariableBinding binding : message.getVariableBindings()) {
-                        if (binding.getOid().equals("sysName.0")) {
-                            match = binding.getValue().equals(name);
+                        if (binding.getOidDescr().equals("sysName.0")) {
+                            match = binding.getStringValue().equals(name);
                         }
                     }
                     if (dateFormat.format(message.getRawDate()).equals(date) && match)
@@ -146,9 +146,9 @@ public class StatisticsBean implements Serializable {
         ArrayList<String> names = new ArrayList();
         for (SNMPMessage message : alarms) {
             for (SNMPVariableBinding binding : message.getVariableBindings()) {
-                if (binding.getOid().equals("calSeverity")) {
-                    if (!names.contains(binding.getValue()))
-                        names.add(binding.getValue());
+                if (binding.getOidDescr().equals("calSeverity")) {
+                    if (!names.contains(binding.getStringValue()))
+                        names.add(binding.getStringValue());
                 }
             }
         }
@@ -161,8 +161,8 @@ public class StatisticsBean implements Serializable {
                 for (SNMPMessage message : alarms) {
                     boolean match = false;
                     for (SNMPVariableBinding binding : message.getVariableBindings()) {
-                        if (binding.getOid().equals("calSeverity")) {
-                            match = binding.getValue().equals(name);
+                        if (binding.getOidDescr().equals("calSeverity")) {
+                            match = binding.getStringValue().equals(name);
                         }
                     }
                     if (dateFormat.format(message.getRawDate()).equals(date) && match)
