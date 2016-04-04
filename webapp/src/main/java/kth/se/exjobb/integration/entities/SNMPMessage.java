@@ -172,6 +172,9 @@ public class SNMPMessage implements Serializable, Comparable
         return messageId;
     }
     
+    public void setMessageId(BigInteger id){
+        this.messageId = id;
+    }
     private String findSeverity(){
         for(SNMPVariableBinding binding : variableBindings){
             if(binding.getOidDescr() != null){

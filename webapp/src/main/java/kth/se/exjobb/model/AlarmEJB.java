@@ -4,6 +4,7 @@
 */
 package kth.se.exjobb.model;
 
+import java.math.BigInteger;
 import kth.se.exjobb.integration.DAO.DataAccessObject;
 import kth.se.exjobb.integration.entities.SNMPMessage;
 
@@ -15,7 +16,6 @@ import java.util.Collection;
 import java.util.List;
 import kth.se.exjobb.integration.entities.Configuration;
 import kth.se.exjobb.integration.entities.History;
-import kth.se.exjobb.model.util.SeverityOrdering;
 
 /**
  * This class handles incoming SNMP alarms.
@@ -29,6 +29,7 @@ public class AlarmEJB {
     DataAccessObject dao;
     ArrayList<SNMPMessage> alarms;
     SNMPMessage recentCritical = null;
+    long cacheId = 999999;
     
     /**
      * This method is called after all dependency injections and initialization are done
@@ -47,6 +48,7 @@ public class AlarmEJB {
      * @param alarm snmp message received
      */
     public void newAlarm(SNMPMessage alarm){
+        System.out.println("alarm ID: " + alarm.getMessageId());
         Configuration config = dao.getConfiguration();
         if(alarm.getSeverity().compareTo(config.getNotification()) >= 0)
             recentCritical = alarm;
@@ -54,9 +56,13 @@ public class AlarmEJB {
             dao.saveSNMPMessage(alarm);            
         }
         else{
+            if(cacheId < 9000000)
+                cacheId = 9999999;
+            alarm.setMessageId(BigInteger.valueOf(cacheId));
+            cacheId--;
             if(alarms.size() >= 30)
                 alarms.remove(0);
-            alarms.add(alarm);
+            alarms.add(alarm);            
         }
     }
     

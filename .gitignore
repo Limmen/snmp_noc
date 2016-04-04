@@ -1,3 +1,6 @@
 /clients/snmp_agents/target/
 /webapp/target/
 /webapp/.idea
+gobal-groovy.log
+soapui-errors.log
+soapui.log
