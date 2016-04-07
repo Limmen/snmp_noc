@@ -78,19 +78,19 @@ public class AlarmBean implements Serializable {
         criticalAlarms = (List) contr.getCriticalAlarms(alarms);
         if(criticalAlarms == null)
             criticalAlarms = new ArrayList();
-        majorAlarms = (List) contr.getCriticalAlarms(alarms);
+        majorAlarms = (List) contr.getMajorAlarms(alarms);
         if(majorAlarms == null)
             majorAlarms = new ArrayList();
-        minorAlarms = (List) contr.getCriticalAlarms(alarms);
+        minorAlarms = (List) contr.getMinorAlarms(alarms);
         if(minorAlarms == null)
             minorAlarms = new ArrayList();
-        warningAlarms = (List) contr.getCriticalAlarms(alarms);
+        warningAlarms = (List) contr.getWarningAlarms(alarms);
         if(warningAlarms == null)
             warningAlarms = new ArrayList();
-        indeterminateAlarms = (List) contr.getCriticalAlarms(alarms);
+        indeterminateAlarms = (List) contr.getIndeterminateAlarms(alarms);
         if(indeterminateAlarms == null)
             indeterminateAlarms = new ArrayList();
-        clearedAlarms = (List) contr.getCriticalAlarms(alarms);
+        clearedAlarms = (List) contr.getClearedAlarms(alarms);
         if(clearedAlarms == null)
             clearedAlarms = new ArrayList();
         updated = new Date();
