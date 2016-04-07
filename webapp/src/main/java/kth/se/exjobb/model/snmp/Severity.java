@@ -66,4 +66,11 @@ public class Severity implements Serializable, Comparable {
         return severity;
     }        
     
+    /**
+     * getSeveritycss
+     * @return severity css string
+     */
+    public String getSeveritycss(){
+        return severity + "text";
+    }
 }

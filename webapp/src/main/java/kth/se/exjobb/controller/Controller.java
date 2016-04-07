@@ -18,6 +18,7 @@ import javax.ejb.Stateless;
 import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
+import java.util.List;
 import kth.se.exjobb.integration.entities.Configuration;
 import kth.se.exjobb.integration.entities.History;
 import kth.se.exjobb.model.ConfigurationEJB;
@@ -73,7 +74,64 @@ public class Controller {
     public Collection<SNMPMessage> getAllAlarms() {
         return alarmManager.getAllAlarms();
     }
+    
+    /**
+     * getCriticalAlarmsAlarms
+     * 
+     * @param alarms list of all alarms
+     * @return list of all critical alarms
+     */
+    public Collection<SNMPMessage> getCriticalAlarms(List<SNMPMessage> alarms) {
+        return alarmManager.getCriticalAlarms(alarms);
+    }
 
+    /**
+     * getMajorAlarms
+     *
+     * @param alarms list of all alarms
+     * @return list of all major alarms
+     */
+    public Collection<SNMPMessage> getMajorAlarms(List<SNMPMessage> alarms) {
+        return alarmManager.getMajorAlarms(alarms);
+    }
+    
+    /**
+     * getMinorAlarms
+     *
+     * @param alarms list of all alarms
+     * @return list of minor alarms
+     */
+    public Collection<SNMPMessage> getMinorAlarms(List<SNMPMessage> alarms) {
+        return alarmManager.getMinorAlarms(alarms);
+    }
+    
+    /**
+     * getWarningAlarms
+     *
+     * @param alarms list of all alarms
+     * @return list of all warning alarms
+     */
+    public Collection<SNMPMessage> getWarningAlarms(List<SNMPMessage> alarms) {
+        return alarmManager.getWarningAlarms(alarms);
+    }
+    /**
+     * getIndeterminateAlarms
+     *
+     * @param alarms list of all alarms
+     * @return list of all indeterminate alarms
+     */
+    public Collection<SNMPMessage> getIndeterminateAlarms(List<SNMPMessage> alarms) {
+        return alarmManager.getIndeterminateAlarms(alarms);
+    }
+    /**
+     * getClearedAlarms
+     *
+     * @param alarms list of all alarms
+     * @return list of all cleared alarms
+     */
+    public Collection<SNMPMessage> getClearedAlarms(List<SNMPMessage> alarms) {
+        return alarmManager.getClearedAlarms(alarms);
+    }
    /**
      * getAllHistories
      *

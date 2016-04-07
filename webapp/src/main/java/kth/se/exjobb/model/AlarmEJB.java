@@ -79,6 +79,89 @@ public class AlarmEJB {
     }
     
     /**
+     * getCriticalAlarms
+     * @param alarms list of all alarms
+     * @return a list of all critical alarms
+     */
+    public Collection <SNMPMessage> getCriticalAlarms(List<SNMPMessage> alarms){        
+       List<SNMPMessage> criticalAlarms = new ArrayList();
+        for(SNMPMessage message : alarms){
+            if(message.getSeverity().getSeverity().equals("Critical"))
+                criticalAlarms.add(message);
+        }
+        return criticalAlarms;
+    }
+    
+    /**
+     * getMajorAlarms
+     * @param alarms list of all alarms
+     * @return a list of all major alarms
+     */
+    public Collection <SNMPMessage> getMajorAlarms(List<SNMPMessage> alarms){        
+       List<SNMPMessage> majorAlarms = new ArrayList();
+        for(SNMPMessage message : alarms){
+            if(message.getSeverity().getSeverity().equals("Major"))
+                majorAlarms.add(message);
+        }
+        return majorAlarms;
+    }
+    
+    /**
+     * getMinorAlarms
+     * @param alarms list of all alarms
+     * @return a list of all minor alarms
+     */
+    public Collection <SNMPMessage> getMinorAlarms(List<SNMPMessage> alarms){      
+       List<SNMPMessage> minorAlarms = new ArrayList();
+        for(SNMPMessage message : alarms){
+            if(message.getSeverity().getSeverity().equals("Minor"))
+                minorAlarms.add(message);
+        }
+        return minorAlarms;
+    }
+    
+    /**
+     * getWarningAlarms
+     * @param alarms list of all alarms
+     * @return a list of all warning alarms
+     */
+    public Collection <SNMPMessage> getWarningAlarms(List<SNMPMessage> alarms){
+        List<SNMPMessage> warningAlarms = new ArrayList();
+        for(SNMPMessage message : alarms){
+            if(message.getSeverity().getSeverity().equals("Warning"))
+                warningAlarms.add(message);
+        }
+        return warningAlarms;
+    }
+    
+    /**
+     * getIndeterminateAlarms
+     * @param alarms list of all alarms
+     * @return a list of all indeterminate alarms
+     */
+    public Collection <SNMPMessage> getIndeterminateAlarms(List<SNMPMessage> alarms){        
+        List<SNMPMessage> indeterminateAlarms = new ArrayList();
+        for(SNMPMessage message : alarms){
+            if(message.getSeverity().getSeverity().equals("Indeterminate"))
+                indeterminateAlarms.add(message);
+        }
+        return indeterminateAlarms;
+    }
+    
+    /**
+     * getClearedAlarms
+     * @param alarms list of all alarms
+     * @return a list of all cleared alarms
+     */
+    public Collection <SNMPMessage> getClearedAlarms(List<SNMPMessage> alarms){        
+        List<SNMPMessage> clearedAlarms = new ArrayList();
+        for(SNMPMessage message : alarms){
+            if(message.getSeverity().getSeverity().equals("Cleared"))
+                clearedAlarms.add(message);
+        }
+        return clearedAlarms;
+    }
+    /**
      * getSavedAlarms
      * 
      * @return list of all alarms that are persisted in the database.

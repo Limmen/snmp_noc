@@ -1,0 +1,21 @@
+         <p:carousel id="criticalData" value="#{alarmBean.criticalAlarms}" headerText="Critical Alarms" var="alarm" itemStyle="width:100%;text-align:center" responsive="true" style="width:100%">
+                    <h:panelGrid columns="2" cellpadding="5" cellspacing="2" rowClasses="panelrow">                
+                        <h:outputText value="System name:" />
+                        <h:outputText value="#{alarm.sysName}" style="font-weight: bold"/>
+                        
+                        <h:outputText value="Severity:" />
+                        <h:outputText value="#{alarm.severity}" styleClass="#{alarm.severity.severitycss}"/>
+                        
+                        <h:outputText value="Date:" />
+                        <h:outputText value="#{alarm.recievedDate}" style="font-weight: bold"/> 
+                        
+                        <h:outputText value="Detailed Information:"/>
+                        <p:commandLink update=":form:alarmDetail" oncomplete="PF('alarmDialog').show()" title="View Detail">
+                            <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
+                            <f:setPropertyActionListener value="#{alarm}" target="#{alarmBean.selectedAlarm}" />
+                        </p:commandLink>
+                    </h:panelGrid>
+                    <f:facet name="footer">
+                        There are critical alarms in total
+                    </f:facet>
+                </p:carousel>

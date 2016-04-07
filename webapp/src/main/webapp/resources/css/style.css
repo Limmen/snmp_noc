@@ -59,6 +59,30 @@ html
 {
     background-color: green;
 }
+.Criticaltext
+{
+    color: red;
+}
+.Majortext
+{
+    color: pink;
+}
+.Minortext
+{
+    color: orange;
+}
+.Warningtext
+{
+    color: yellow;
+}
+.Indeterminatetext
+{
+    color: greenyellow;
+}
+.Clearedtext
+{
+    color: green;
+}
 .requestResult
 {
     margin-top: 15px;
@@ -135,4 +159,12 @@ html
 .logoutLink
 {
     text-align: center;
+}
+.panelrow td
+{
+    padding: 7px 1px;   
+}
+.alarmsBootRow
+{
+    margin-top: 50px;
 }
