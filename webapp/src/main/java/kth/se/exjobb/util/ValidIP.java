@@ -29,7 +29,7 @@ public @interface ValidIP
      * Message shown when user enters invalid data.
      * @return the error-message when the validation contract is broken
      */
-    String message() default "The IP-address you entered is not valid";
+    String message() default "The IP-address you entered is not a valid IPv4 or IPv6 address";
     
     /**
      * Allows specification of validation groups to which this constraint belongs.
