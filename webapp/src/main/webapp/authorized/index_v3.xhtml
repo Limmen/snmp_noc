@@ -14,10 +14,10 @@
                 <li>
                     <h:link value="Alarms" outcome="index" />
                 </li>
-                <li class="active">
+                <li>
                     <h:link value="Alarms_V2" outcome="index_v2" />
                 </li>
-                <li>
+                <li class="active">
                     <h:link value="Alarms_V3" outcome="index_v3" />
                 </li>
                 <li>
@@ -77,14 +77,17 @@
                 </p:dialog>
                 <b:row styleClass="alarmsBootRow">
                     <b:column span="4">
-                        <h4 class="Criticaltext">Critical</h4>
-                        <p:dataTable var="alarm" value="#{alarmBean.criticalAlarms}"
-                                     id="criticalData2"
+                        <h5>SIMULATED SNMP AGENT - NUMBER ONE</h5>
+                        <p:dataTable var="alarm" value="#{alarmBean.agent1Alarms}"
+                                     id="agent1Data"
                                      scrollable="true"
                                      scrollHeight="300"
                                      rowKey="#{alarm.messageId}"
-                                     selection="#{alarmBean.selectedCriticalAlarm}" 
-                                     selectionMode="single">                                                                            
+                                     selection="#{alarmBean.selectedAgent1Alarm}" 
+                                     selectionMode="single">
+                            <p:column headerText="Severity" sortBy="#{alarm.severity}" styleClass="#{alarm.severity} column">
+                                <h:outputText value="#{alarm.severity}" styleClass="bold"/>
+                            </p:column> 
                             <p:column headerText="Date" sortBy="#{alarm.recievedDate}">
                                 <h:outputText value="#{alarm.recievedDate}" style="font-weight: bold"/> 
                             </p:column>                   
@@ -95,7 +98,7 @@
                                 </p:commandLink>
                             </p:column>
                         </p:dataTable>
-                        <p:commandButton value="Remove Selected Row" update="criticalData2 criticalData1" oncomplete="PF('alarmDialog').hide()" actionListener="#{alarmBean.removeSelectedCriticalAlarm()}" styleClass="ui-priority-primary">
+                        <p:commandButton value="Remove Selected Row" update="agent1Data criticalData1" oncomplete="PF('alarmDialog').hide()" actionListener="#{alarmBean.removeSelectedAgent1Alarm()}" styleClass="ui-priority-primary">
                             <p:confirm header="Confirmation" message="Are you sure you want to remove this alarm?" icon="ui-icon-alert" />
                         </p:commandButton>
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
@@ -119,14 +122,17 @@
                         </h:commandLink>                       
                     </b:column>
                     <b:column span="4">
-                        <h4 class="Majortext">Major</h4>
-                        <p:dataTable var="alarm" value="#{alarmBean.majorAlarms}"
-                                     id="majorData"
+                        <h5>SIMULATED SNMP AGENT - NUMBER TWO</h5>
+                        <p:dataTable var="alarm" value="#{alarmBean.agent2Alarms}"
+                                     id="agent2Data"
                                      scrollHeight="300"
                                      scrollable="true"
                                      rowKey="#{alarm.messageId}"
-                                     selection="#{alarmBean.selectedMajorAlarm}" 
-                                     selectionMode="single">                                                                            
+                                     selection="#{alarmBean.selectedAgent2Alarm}" 
+                                     selectionMode="single"> 
+                            <p:column headerText="Severity" sortBy="#{alarm.severity}" styleClass="#{alarm.severity} column">
+                                <h:outputText value="#{alarm.severity}" styleClass="bold"/>
+                            </p:column> 
                             <p:column headerText="Date" sortBy="#{alarm.recievedDate}">
                                 <h:outputText value="#{alarm.recievedDate}" style="font-weight: bold"/> 
                             </p:column>                    
@@ -137,7 +143,7 @@
                                 </p:commandLink>
                             </p:column>
                         </p:dataTable>
-                        <p:commandButton value="Remove Selected Row" update="majorData" oncomplete="PF('alarmDialog').hide()" actionListener="#{alarmBean.removeSelectedMajorAlarm()}" styleClass="ui-priority-primary">
+                        <p:commandButton value="Remove Selected Row" update="agent2Data" oncomplete="PF('alarmDialog').hide()" actionListener="#{alarmBean.removeSelectedAgent2Alarm()}" styleClass="ui-priority-primary">
                             <p:confirm header="Confirmation" message="Are you sure you want to remove this alarm?" icon="ui-icon-alert" />
                         </p:commandButton>
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
@@ -161,14 +167,17 @@
                         </h:commandLink>        
                     </b:column>
                     <b:column span="4">
-                        <h4 class="Minortext">Minor</h4>
-                        <p:dataTable var="alarm" value="#{alarmBean.minorAlarms}"
-                                     id="minorData"
+                        <h5>SIMULATED SNMP AGENT - NUMBER THREE</h5>
+                        <p:dataTable var="alarm" value="#{alarmBean.agent3Alarms}"
+                                     id="agent3Data"
                                      scrollHeight="300"
                                      scrollable="true"
                                      rowKey="#{alarm.messageId}"
-                                     selection="#{alarmBean.selectedMinorAlarm}" 
-                                     selectionMode="single">                                                                            
+                                     selection="#{alarmBean.selectedAgent3Alarm}" 
+                                     selectionMode="single">   
+                            <p:column headerText="Severity" sortBy="#{alarm.severity}" styleClass="#{alarm.severity} column">
+                                <h:outputText value="#{alarm.severity}" styleClass="bold"/>
+                            </p:column> 
                             <p:column headerText="Date" sortBy="#{alarm.recievedDate}">
                                 <h:outputText value="#{alarm.recievedDate}" style="font-weight: bold"/> 
                             </p:column>                    
@@ -179,7 +188,7 @@
                                 </p:commandLink>
                             </p:column>
                         </p:dataTable>
-                        <p:commandButton value="Remove Selected Row" update="minorData" oncomplete="PF('alarmDialog').hide()" actionListener="#{alarmBean.removeSelectedMinorAlarm()}" styleClass="ui-priority-primary">
+                        <p:commandButton value="Remove Selected Row" update="agent3Data" oncomplete="PF('alarmDialog').hide()" actionListener="#{alarmBean.removeSelectedAgent3Alarm()}" styleClass="ui-priority-primary">
                             <p:confirm header="Confirmation" message="Are you sure you want to remove this alarm?" icon="ui-icon-alert" />
                         </p:commandButton>
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
@@ -205,14 +214,17 @@
                 </b:row>
                 <b:row styleClass="alarmsBootRow">
                     <b:column span="4">
-                        <h4 class="Warningtext">Warning</h4>
-                        <p:dataTable var="alarm" value="#{alarmBean.warningAlarms}"
-                                     id="warningData"
+                        <h5>SIMULATED SNMP AGENT - NUMBER FOUR</h5>
+                        <p:dataTable var="alarm" value="#{alarmBean.agent4Alarms}"
+                                     id="agent4Data"
                                      scrollHeight="300"
                                      scrollable="true"
                                      rowKey="#{alarm.messageId}"
-                                     selection="#{alarmBean.selectedWarningAlarm}" 
-                                     selectionMode="single">                                                                            
+                                     selection="#{alarmBean.selectedAgent4Alarm}" 
+                                     selectionMode="single"> 
+                            <p:column headerText="Severity" sortBy="#{alarm.severity}" styleClass="#{alarm.severity} column">
+                                <h:outputText value="#{alarm.severity}" styleClass="bold"/>
+                            </p:column> 
                             <p:column headerText="Date" sortBy="#{alarm.recievedDate}">
                                 <h:outputText value="#{alarm.recievedDate}" style="font-weight: bold"/> 
                             </p:column>                    
@@ -223,7 +235,7 @@
                                 </p:commandLink>
                             </p:column>
                         </p:dataTable>
-                        <p:commandButton value="Remove Selected Row" update="warningData" oncomplete="PF('alarmDialog').hide()" actionListener="#{alarmBean.removeSelectedWarningAlarm()}" styleClass="ui-priority-primary">
+                        <p:commandButton value="Remove Selected Row" update="agent4Data" oncomplete="PF('alarmDialog').hide()" actionListener="#{alarmBean.removeSelectedAgent4Alarm()}" styleClass="ui-priority-primary">
                             <p:confirm header="Confirmation" message="Are you sure you want to remove this alarm?" icon="ui-icon-alert" />
                         </p:commandButton>
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
@@ -247,14 +259,17 @@
                         </h:commandLink>        
                     </b:column>
                     <b:column span="4">
-                        <h4 class="Indeterminatetext">Indeterminate</h4>
-                        <p:dataTable var="alarm" value="#{alarmBean.indeterminateAlarms}"
-                                     id="indeterminateData"
+                        <h5>SIMULATED SNMP AGENT - NUMBER FIVE</h5>
+                        <p:dataTable var="alarm" value="#{alarmBean.agent5Alarms}"
+                                     id="agent5Data"
                                      scrollHeight="300"
                                      scrollable="true"
                                      rowKey="#{alarm.messageId}"
-                                     selection="#{alarmBean.selectedIndeterminateAlarm}" 
-                                     selectionMode="single">                                                                            
+                                     selection="#{alarmBean.selectedAgent5Alarm}" 
+                                     selectionMode="single">    
+                            <p:column headerText="Severity" sortBy="#{alarm.severity}" styleClass="#{alarm.severity} column">
+                                <h:outputText value="#{alarm.severity}" styleClass="bold"/>
+                            </p:column> 
                             <p:column headerText="Date" sortBy="#{alarm.recievedDate}">
                                 <h:outputText value="#{alarm.recievedDate}" style="font-weight: bold"/> 
                             </p:column>                    
@@ -265,7 +280,7 @@
                                 </p:commandLink>
                             </p:column>
                         </p:dataTable>
-                        <p:commandButton value="Remove Selected Row" update="indeterminateData" oncomplete="PF('alarmDialog').hide()" actionListener="#{alarmBean.removeSelectedIndeterminateAlarm()}" styleClass="ui-priority-primary">
+                        <p:commandButton value="Remove Selected Row" update="agent5Data" oncomplete="PF('alarmDialog').hide()" actionListener="#{alarmBean.removeSelectedAgent5Alarm()}" styleClass="ui-priority-primary">
                             <p:confirm header="Confirmation" message="Are you sure you want to remove this alarm?" icon="ui-icon-alert" />
                         </p:commandButton>
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
@@ -289,14 +304,17 @@
                         </h:commandLink>        
                     </b:column>
                     <b:column span="4">
-                        <h4 class="Clearedtext">Cleared</h4>
-                        <p:dataTable var="alarm" value="#{alarmBean.clearedAlarms}"
-                                     id="clearedData"
+                        <h5>SIMULATED SNMP AGENT - NUMBER SIX</h5>
+                        <p:dataTable var="alarm" value="#{alarmBean.agent6Alarms}"
+                                     id="agent6Data"
                                      scrollHeight="300"
                                      scrollable="true"
                                      rowKey="#{alarm.messageId}"
-                                     selection="#{alarmBean.selectedClearedAlarm}" 
-                                     selectionMode="single">                                                                            
+                                     selection="#{alarmBean.selectedAgent6Alarm}" 
+                                     selectionMode="single">  
+                            <p:column headerText="Severity" sortBy="#{alarm.severity}" styleClass="#{alarm.severity} column">
+                                <h:outputText value="#{alarm.severity}" styleClass="bold"/>
+                            </p:column> 
                             <p:column headerText="Date" sortBy="#{alarm.recievedDate}">
                                 <h:outputText value="#{alarm.recievedDate}" style="font-weight: bold"/> 
                             </p:column>                    
@@ -307,7 +325,7 @@
                                 </p:commandLink>
                             </p:column>
                         </p:dataTable>
-                        <p:commandButton value="Remove Selected Row" update="clearedData" oncomplete="PF('alarmDialog').hide()" actionListener="#{alarmBean.removeSelectedClearedAlarm()}" styleClass="ui-priority-primary">
+                        <p:commandButton value="Remove Selected Row" update="agent6Data" oncomplete="PF('alarmDialog').hide()" actionListener="#{alarmBean.removeSelectedAgent6Alarm()}" styleClass="ui-priority-primary">
                             <p:confirm header="Confirmation" message="Are you sure you want to remove this alarm?" icon="ui-icon-alert" />
                         </p:commandButton>
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
@@ -331,7 +349,7 @@
                         </h:commandLink>        
                     </b:column>                    
                 </b:row>
-                <p:poll interval="5" listener="#{alarmBean.fetchAndSortAlarmsSeverity()}" update="updated criticalData1 criticalData2 majorData minorData warningData indeterminateData clearedData" />
+                <p:poll interval="5" listener="#{alarmBean.fetchAndSortAlarmsAgents()}" update="updated criticalData1 agent1Data agent2Data agent3Data agent4Data agent5Data agent6Data" />
             </h:form>                                        
         </ui:define>
     </ui:composition>  

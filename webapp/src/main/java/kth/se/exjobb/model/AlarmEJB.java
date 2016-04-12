@@ -161,6 +161,89 @@ public class AlarmEJB {
         }
         return clearedAlarms;
     }
+   /**
+     * getAgent1Alarms
+     * @param alarms list of all alarms
+     * @return a list of all alarms from agent 1
+     */
+    public Collection <SNMPMessage> getAgent1Alarms(List<SNMPMessage> alarms){        
+       List<SNMPMessage> agent1Alarms = new ArrayList();
+        for(SNMPMessage message : alarms){
+            if(message.getSysName().equals("SIMULATED SNMP AGENT - NUMBER ONE"))
+                agent1Alarms.add(message);
+        }
+        return agent1Alarms;
+    }
+    
+    /**
+     * getAgent2Alarms
+     * @param alarms list of all alarms
+     * @return a list of all alarms from agent 2
+     */
+    public Collection <SNMPMessage> getAgent2Alarms(List<SNMPMessage> alarms){        
+       List<SNMPMessage> agent2Alarms = new ArrayList();
+        for(SNMPMessage message : alarms){
+            if(message.getSysName().equals("SIMULATED SNMP AGENT - NUMBER TWO"))
+                agent2Alarms.add(message);
+        }
+        return agent2Alarms;
+    }
+    
+    /**
+     * getAgent3Alarms
+     * @param alarms list of all alarms
+     * @return a list of all alarms from agent 3
+     */
+    public Collection <SNMPMessage> getAgent3Alarms(List<SNMPMessage> alarms){      
+       List<SNMPMessage> agent3Alarms = new ArrayList();
+        for(SNMPMessage message : alarms){
+            if(message.getSysName().equals("SIMULATED SNMP AGENT - NUMBER THREE"))
+                agent3Alarms.add(message);
+        }
+        return agent3Alarms;
+    }
+    
+    /**
+     * getAgent4Alarms
+     * @param alarms list of all alarms
+     * @return a list of all alarms from agent 4
+     */
+    public Collection <SNMPMessage> getAgent4Alarms(List<SNMPMessage> alarms){
+        List<SNMPMessage> agent4Alarms = new ArrayList();
+        for(SNMPMessage message : alarms){
+            if(message.getSysName().equals("SIMULATED SNMP AGENT - NUMBER FOUR"))
+                agent4Alarms.add(message);
+        }
+        return agent4Alarms;
+    }
+    
+    /**
+     * getAgent5Alarms
+     * @param alarms list of all alarms
+     * @return a list of all alarms from agent 5
+     */
+    public Collection <SNMPMessage> getAgent5Alarms(List<SNMPMessage> alarms){        
+        List<SNMPMessage> agent5alarms = new ArrayList();
+        for(SNMPMessage message : alarms){
+            if(message.getSysName().equals("SIMULATED SNMP AGENT - NUMBER FIVE"))
+                agent5alarms.add(message);
+        }
+        return agent5alarms;
+    }
+    
+    /**
+     * getAgent6Alarms
+     * @param alarms list of all alarms
+     * @return a list of all alarms  from agent 6
+     */
+    public Collection <SNMPMessage> getAgent6Alarms(List<SNMPMessage> alarms){        
+        List<SNMPMessage> agent6Alarms = new ArrayList();
+        for(SNMPMessage message : alarms){
+            if(message.getSysName().equals("SIMULATED SNMP AGENT - NUMBER SIX"))
+                agent6Alarms.add(message);
+        }
+        return agent6Alarms;
+    }
     /**
      * getSavedAlarms
      * 

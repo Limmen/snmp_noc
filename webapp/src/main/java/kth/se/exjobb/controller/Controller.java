@@ -132,6 +132,63 @@ public class Controller {
     public Collection<SNMPMessage> getClearedAlarms(List<SNMPMessage> alarms) {
         return alarmManager.getClearedAlarms(alarms);
     }
+        /**
+     * getCriticalAlarmsAlarms
+     * 
+     * @param alarms list of all alarms
+     * @return list of all alarms from agent1
+     */
+    public Collection<SNMPMessage> getAgent1Alarms(List<SNMPMessage> alarms) {
+        return alarmManager.getAgent1Alarms(alarms);
+    }
+
+    /**
+     * getAgent2Alarms
+     *
+     * @param alarms list of all alarms
+     * @return list of all alarms from agent 2
+     */
+    public Collection<SNMPMessage> getAgent2Alarms(List<SNMPMessage> alarms) {
+        return alarmManager.getAgent2Alarms(alarms);
+    }
+    
+    /**
+     * getAgent3Alarms
+     *
+     * @param alarms list of all alarms
+     * @return list of alarms from agent 3
+     */
+    public Collection<SNMPMessage> getAgent3Alarms(List<SNMPMessage> alarms) {
+        return alarmManager.getAgent3Alarms(alarms);
+    }
+    
+    /**
+     * getAgent4Alarms
+     *
+     * @param alarms list of all alarms
+     * @return list of all alarms from agent 4
+     */
+    public Collection<SNMPMessage> getAgent4Alarms(List<SNMPMessage> alarms) {
+        return alarmManager.getAgent4Alarms(alarms);
+    }
+    /**
+     * getAgent5Alarms
+     *
+     * @param alarms list of all alarms
+     * @return list of all alarms from agent 5
+     */
+    public Collection<SNMPMessage> getAgent5Alarms(List<SNMPMessage> alarms) {
+        return alarmManager.getAgent5Alarms(alarms);
+    }
+    /**
+     * getAgent6Alarms
+     *
+     * @param alarms list of all alarms
+     * @return list of all alarms from agent6
+     */
+    public Collection<SNMPMessage> getAgent6Alarms(List<SNMPMessage> alarms) {
+        return alarmManager.getAgent6Alarms(alarms);
+    }
    /**
      * getAllHistories
      *

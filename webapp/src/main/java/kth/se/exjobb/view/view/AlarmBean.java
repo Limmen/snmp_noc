@@ -37,6 +37,12 @@ public class AlarmBean implements Serializable {
     private List<SNMPMessage> warningAlarms;
     private List<SNMPMessage> indeterminateAlarms;
     private List<SNMPMessage> clearedAlarms;
+    private List<SNMPMessage> agent1Alarms;
+    private List<SNMPMessage> agent2Alarms;
+    private List<SNMPMessage> agent3Alarms;
+    private List<SNMPMessage> agent4Alarms;
+    private List<SNMPMessage> agent5Alarms;
+    private List<SNMPMessage> agent6Alarms;
     private final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private Date updated = new Date();
     private SNMPMessage selectedAlarm;
@@ -46,6 +52,12 @@ public class AlarmBean implements Serializable {
     private SNMPMessage selectedWarningAlarm;
     private SNMPMessage selectedIndeterminateAlarm;
     private SNMPMessage selectedClearedAlarm;
+    private SNMPMessage selectedAgent1Alarm;
+    private SNMPMessage selectedAgent2Alarm;
+    private SNMPMessage selectedAgent3Alarm;
+    private SNMPMessage selectedAgent4Alarm;
+    private SNMPMessage selectedAgent5Alarm;
+    private SNMPMessage selectedAgent6Alarm;
         
     /**
      * This method is called after all dependency injections and initialization are done
@@ -55,7 +67,8 @@ public class AlarmBean implements Serializable {
      */
     @PostConstruct
     public void init(){
-        fetchAndSortAlarms();
+        fetchAndSortAlarmsSeverity();
+        fetchAndSortAlarmsAgents();
     }
     
     /**
@@ -71,7 +84,7 @@ public class AlarmBean implements Serializable {
     /**
      * A method that is called on time-periods to partially update the view with new alarms.
      */
-    public void fetchAndSortAlarms(){
+    public void fetchAndSortAlarmsSeverity(){
          alarms = (List) contr.getAllAlarms();
         if(alarms == null)
             alarms = new ArrayList();
@@ -96,6 +109,33 @@ public class AlarmBean implements Serializable {
         updated = new Date();
     }
     /**
+     * A method that is called on time-periods to partially update the view with new alarms.
+     */
+    public void fetchAndSortAlarmsAgents(){
+         alarms = (List) contr.getAllAlarms();
+        if(alarms == null)
+            alarms = new ArrayList();
+        agent1Alarms = (List) contr.getAgent1Alarms(alarms);
+        if(agent1Alarms == null)
+            agent1Alarms = new ArrayList();
+        agent2Alarms = (List) contr.getAgent2Alarms(alarms);
+        if(agent2Alarms == null)
+            agent2Alarms = new ArrayList();
+        agent3Alarms = (List) contr.getAgent3Alarms(alarms);
+        if(agent3Alarms == null)
+            agent3Alarms = new ArrayList();
+        agent4Alarms = (List) contr.getAgent4Alarms(alarms);
+        if(agent4Alarms == null)
+            agent4Alarms = new ArrayList();
+        agent5Alarms = (List) contr.getAgent5Alarms(alarms);
+        if(agent5Alarms == null)
+            agent5Alarms = new ArrayList();
+        agent6Alarms = (List) contr.getAgent6Alarms(alarms);
+        if(agent6Alarms == null)
+            agent6Alarms = new ArrayList();
+        updated = new Date();
+    }
+    /**
      * Removes a selectedAlarm from the list of alarms
      */
     @GenericLogger
@@ -110,7 +150,7 @@ public class AlarmBean implements Serializable {
     @GenericLogger
     public void removeSelectedCriticalAlarm(){
         contr.removeSelectedAlarm(selectedCriticalAlarm);
-        fetchAlarms();
+        fetchAndSortAlarmsSeverity();
     }
     
     /**
@@ -119,7 +159,7 @@ public class AlarmBean implements Serializable {
     @GenericLogger
     public void removeSelectedMajorAlarm(){
         contr.removeSelectedAlarm(selectedMajorAlarm);
-        fetchAlarms();
+        fetchAndSortAlarmsSeverity();
     }
 
     /**
@@ -128,7 +168,7 @@ public class AlarmBean implements Serializable {
     @GenericLogger
     public void removeSelectedMinorAlarm(){
         contr.removeSelectedAlarm(selectedMinorAlarm);
-        fetchAlarms();
+        fetchAndSortAlarmsSeverity();
     }
     
     /**
@@ -137,7 +177,7 @@ public class AlarmBean implements Serializable {
     @GenericLogger
     public void removeSelectedWarningAlarm(){
         contr.removeSelectedAlarm(selectedWarningAlarm);
-        fetchAlarms();
+        fetchAndSortAlarmsSeverity();
     }
     
     /**
@@ -146,7 +186,7 @@ public class AlarmBean implements Serializable {
     @GenericLogger
     public void removeSelectedIndeterminateAlarm(){
         contr.removeSelectedAlarm(selectedIndeterminateAlarm);
-        fetchAlarms();
+        fetchAndSortAlarmsSeverity();
     }
     
     /**
@@ -155,7 +195,61 @@ public class AlarmBean implements Serializable {
     @GenericLogger
     public void removeSelectedClearedAlarm(){
         contr.removeSelectedAlarm(selectedClearedAlarm);
-        fetchAlarms();
+        fetchAndSortAlarmsSeverity();
+    }
+    
+        /**
+     * Removes a selectedAgent1Alarm from the list of agent1 alarms
+     */
+    @GenericLogger
+    public void removeSelectedAgent1Alarm(){
+        contr.removeSelectedAlarm(selectedAgent1Alarm);
+        fetchAndSortAlarmsAgents();
+    }
+    
+    /**
+     * Removes a selectedAgent2Alarm from the list of agent2 alarms
+     */
+    @GenericLogger
+    public void removeSelectedAgent2Alarm(){
+        contr.removeSelectedAlarm(selectedAgent2Alarm);
+        fetchAndSortAlarmsAgents();
+    }
+
+    /**
+     * Removes a selectedAgent3Alarm from the list of agent3 alarms
+     */
+    @GenericLogger
+    public void removeSelectedAgent3Alarm(){
+        contr.removeSelectedAlarm(selectedAgent3Alarm);
+        fetchAndSortAlarmsAgents();
+    }
+    
+    /**
+     * Removes a selectedAgent4Alarm from the list of agent4 alarms
+     */
+    @GenericLogger
+    public void removeSelectedAgent4Alarm(){
+        contr.removeSelectedAlarm(selectedAgent4Alarm);
+        fetchAndSortAlarmsAgents();
+    }
+    
+    /**
+     * Removes a selectedAgent5Alarm from the list of agent5 alarms
+     */
+    @GenericLogger
+    public void removeSelectedAgent5Alarm(){
+        contr.removeSelectedAlarm(selectedAgent5Alarm);
+        fetchAndSortAlarmsAgents();
+    }
+    
+    /**
+     * Removes a selectedAgent6Alarm from the list of agent6 alarms
+     */
+    @GenericLogger
+    public void removeSelectedAgent6Alarm(){
+        contr.removeSelectedAlarm(selectedAgent6Alarm);
+        fetchAndSortAlarmsAgents();
     }
     
     /**
@@ -350,6 +444,77 @@ public class AlarmBean implements Serializable {
     public void setSelectedClearedAlarm(SNMPMessage selectedClearedAlarm) {
         this.selectedClearedAlarm = selectedClearedAlarm;
     }
-    
+
+    public List<SNMPMessage> getAgent1Alarms() {
+        return agent1Alarms;
+    }
+
+    public List<SNMPMessage> getAgent2Alarms() {
+        return agent2Alarms;
+    }
+
+    public List<SNMPMessage> getAgent3Alarms() {
+        return agent3Alarms;
+    }
+
+    public List<SNMPMessage> getAgent4Alarms() {
+        return agent4Alarms;
+    }
+
+    public List<SNMPMessage> getAgent5Alarms() {
+        return agent5Alarms;
+    }
+
+    public List<SNMPMessage> getAgent6Alarms() {
+        return agent6Alarms;
+    }
+
+    public SNMPMessage getSelectedAgent1Alarm() {
+        return selectedAgent1Alarm;
+    }
+
+    public void setSelectedAgent1Alarm(SNMPMessage selectedAgent1Alarm) {
+        this.selectedAgent1Alarm = selectedAgent1Alarm;
+    }
+
+    public SNMPMessage getSelectedAgent2Alarm() {
+        return selectedAgent2Alarm;
+    }
+
+    public void setSelectedAgent2Alarm(SNMPMessage selectedAgent2Alarm) {
+        this.selectedAgent2Alarm = selectedAgent2Alarm;
+    }
+
+    public SNMPMessage getSelectedAgent3Alarm() {
+        return selectedAgent3Alarm;
+    }
+
+    public void setSelectedAgent3Alarm(SNMPMessage selectedAgent3Alarm) {
+        this.selectedAgent3Alarm = selectedAgent3Alarm;
+    }
+
+    public SNMPMessage getSelectedAgent4Alarm() {
+        return selectedAgent4Alarm;
+    }
+
+    public void setSelectedAgent4Alarm(SNMPMessage selectedAgent4Alarm) {
+        this.selectedAgent4Alarm = selectedAgent4Alarm;
+    }
+
+    public SNMPMessage getSelectedAgent5Alarm() {
+        return selectedAgent5Alarm;
+    }
+
+    public void setSelectedAgent5Alarm(SNMPMessage selectedAgent5Alarm) {
+        this.selectedAgent5Alarm = selectedAgent5Alarm;
+    }
+
+    public SNMPMessage getSelectedAgent6Alarm() {
+        return selectedAgent6Alarm;
+    }
+
+    public void setSelectedAgent6Alarm(SNMPMessage selectedAgent6Alarm) {
+        this.selectedAgent6Alarm = selectedAgent6Alarm;
+    }
     
 }
