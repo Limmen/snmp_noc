@@ -445,74 +445,146 @@ public class AlarmBean implements Serializable {
         this.selectedClearedAlarm = selectedClearedAlarm;
     }
 
+    /**
+     * getAgent1Alarms
+     * @return list of alarms from agent1
+     */
     public List<SNMPMessage> getAgent1Alarms() {
         return agent1Alarms;
     }
 
+    /**
+     * getAgent2Alarms
+     * @return list of alarms from agent2
+     */
     public List<SNMPMessage> getAgent2Alarms() {
         return agent2Alarms;
     }
 
+    /**
+     * getAgent3Alarms
+     * @return list of alarms from agent3
+     */
     public List<SNMPMessage> getAgent3Alarms() {
         return agent3Alarms;
     }
 
+    /**
+     * getAgent4Alarms
+     * @return list of alarms from agent4
+     */
     public List<SNMPMessage> getAgent4Alarms() {
         return agent4Alarms;
     }
 
+    /**
+     *  getAgent5 alarms 
+     * @return list of alarms from agent5
+     */
     public List<SNMPMessage> getAgent5Alarms() {
         return agent5Alarms;
     }
 
+    /**
+     * getAgent6Alarms
+     * @return list of alarms from agent6
+     */
     public List<SNMPMessage> getAgent6Alarms() {
         return agent6Alarms;
     }
 
+    /**
+     * getSelectedAgent1Alarm
+     * @return alarm selected from the list of alarms from agent1
+     */
     public SNMPMessage getSelectedAgent1Alarm() {
         return selectedAgent1Alarm;
     }
 
+    /**
+     * Updates the selected alarm in the list of agent1 alarms
+     * @param selectedAgent1Alarm
+     */
     public void setSelectedAgent1Alarm(SNMPMessage selectedAgent1Alarm) {
         this.selectedAgent1Alarm = selectedAgent1Alarm;
     }
 
+    /**
+     * getSelectedAgent2Alarm
+     * @return alarm selected from the list of alarms from agent2
+     */
     public SNMPMessage getSelectedAgent2Alarm() {
         return selectedAgent2Alarm;
     }
 
+    /**
+     * Updates the selected alarm in the list of agent2 alarms
+     * @param selectedAgent2Alarm
+     */
     public void setSelectedAgent2Alarm(SNMPMessage selectedAgent2Alarm) {
         this.selectedAgent2Alarm = selectedAgent2Alarm;
     }
 
+    /**
+     * getSelectedAgent3Alarm
+     * @return alarm selected from the list of alarms from agent3
+     */
     public SNMPMessage getSelectedAgent3Alarm() {
         return selectedAgent3Alarm;
     }
 
+    /**
+     * Updates the selected alarm from the list of alarms from agent3
+     * @param selectedAgent3Alarm
+     */
     public void setSelectedAgent3Alarm(SNMPMessage selectedAgent3Alarm) {
         this.selectedAgent3Alarm = selectedAgent3Alarm;
     }
 
+    /**
+     * getSelectedAgent4Alarm
+     * @return alarm selected from the list of alarms from agent4
+     */
     public SNMPMessage getSelectedAgent4Alarm() {
         return selectedAgent4Alarm;
     }
 
+    /**
+     * Updates the selected alarm from the list of alarms from agent4
+     * @param selectedAgent4Alarm
+     */
     public void setSelectedAgent4Alarm(SNMPMessage selectedAgent4Alarm) {
         this.selectedAgent4Alarm = selectedAgent4Alarm;
     }
 
+    /**
+     * getSelectedAgent5Alarm
+     * @return alarm selected from the list of alarms from agent5
+     */
     public SNMPMessage getSelectedAgent5Alarm() {
         return selectedAgent5Alarm;
     }
 
+    /**
+     * Updates the selected alarm from the list of agent5 alarms
+     * @param selectedAgent5Alarm
+     */
     public void setSelectedAgent5Alarm(SNMPMessage selectedAgent5Alarm) {
         this.selectedAgent5Alarm = selectedAgent5Alarm;
     }
 
+    /**
+     * getSelectedAgent6Alarm
+     * @return alarm selected from the list of alarms from agent6
+     */
     public SNMPMessage getSelectedAgent6Alarm() {
         return selectedAgent6Alarm;
     }
 
+    /**
+     * Updates the selected alarm from the list of alarms from agent6
+     * @param selectedAgent6Alarm
+     */
     public void setSelectedAgent6Alarm(SNMPMessage selectedAgent6Alarm) {
         this.selectedAgent6Alarm = selectedAgent6Alarm;
     }
