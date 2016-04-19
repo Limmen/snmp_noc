@@ -39,7 +39,9 @@
                              id="alarmData"
                              rowKey="#{alarm.messageId}"
                              selection="#{alarmBean.selectedAlarm}" 
-                             selectionMode="single">                    
+                             selectionMode="single"
+                             widgetVar="alarmsTable"
+                             filteredValue="#{alarmBean.filteredAlarms}">
                     <f:facet name="{Exporters}">
                         <h:commandLink>
                             <h:graphicImage value="/resources/images/xls_export.png" height="20px" width="20px"/>
@@ -56,13 +58,19 @@
                             <p:dataExporter type="csv" target="alarmData" fileName="alarms" />
                         </h:commandLink>
                     </f:facet>
-                    <p:column headerText="System name" sortBy="#{alarm.sysName}">
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <h:outputText value="Search all fields:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('alarmsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                        </p:outputPanel>
+                    </f:facet>
+                    <p:column headerText="System name" sortBy="#{alarm.sysName}" filterBy="#{alarm.sysName}">
                         <h:outputText value="#{alarm.sysName}" style="font-weight: bold"/>
                     </p:column>                    
-                    <p:column headerText="Severity" sortBy="#{alarm.severity}" styleClass="#{alarm.severity} column">
+                    <p:column headerText="Severity" sortBy="#{alarm.severity}" styleClass="#{alarm.severity} column" filterBy="#{alarm.severity}">
                         <h:outputText value="#{alarm.severity}" styleClass="bold"/>
                     </p:column>                    
-                    <p:column headerText="Date" sortBy="#{alarm.recievedDate}">
+                    <p:column headerText="Date" sortBy="#{alarm.recievedDate}" filterBy="#{alarm.recievedDate}">
                         <h:outputText value="#{alarm.recievedDate}" style="font-weight: bold"/> 
                     </p:column>                    
                     <p:column headerText="Detailed Information">

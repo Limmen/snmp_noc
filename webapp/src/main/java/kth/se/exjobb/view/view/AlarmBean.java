@@ -31,6 +31,7 @@ public class AlarmBean implements Serializable {
     @EJB
     Controller contr;
     private List<SNMPMessage> alarms;
+    private List<SNMPMessage> filteredAlarms;
     private List<SNMPMessage> criticalAlarms;
     private List<SNMPMessage> majorAlarms;
     private List<SNMPMessage> minorAlarms;
@@ -587,6 +588,20 @@ public class AlarmBean implements Serializable {
      */
     public void setSelectedAgent6Alarm(SNMPMessage selectedAgent6Alarm) {
         this.selectedAgent6Alarm = selectedAgent6Alarm;
+    }
+    /**
+     * getFilteredAlarms
+     * @return list of filtered alarms
+     */
+    public List<SNMPMessage> getFilteredAlarms() {
+        return filteredAlarms;
+    }
+    /**
+     * Updates the list of filtered alarms
+     * @param filteredAlarms
+     */
+    public void setFilteredAlarms(List<SNMPMessage> filteredAlarms) {
+        this.filteredAlarms = filteredAlarms;
     }
     
 }
